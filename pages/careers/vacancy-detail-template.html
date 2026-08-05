@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="" id="meta-desc">
+<title>Open Role | SparkOptimus Careers</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+<link rel="stylesheet" href="site/styles/site.css">
+<!--
+  STORYBLOK TEMPLATE NOTE
+  ────────────────────────
+  This page is designed as a template shell driven by URL ?id= for now.
+  When connected to Storyblok, replace the vacancy data array and the
+  populatePage() function with a Storyblok fetch call using the slug from
+  the URL. All element IDs are preserved for easy wiring.
+-->
+<style>
+  /* ── Hero ── */
+  .vd-hero {
+    position: relative;
+    background: var(--bg-inverse);
+    color: #fff;
+    overflow: hidden;
+    padding-top: clamp(140px, 14vw, 200px);
+    padding-bottom: clamp(72px, 9vw, 120px);
+  }
+  .vd-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(70% 120% at 85% 0%, rgba(0,217,244,0.12), transparent 55%),
+      radial-gradient(80% 100% at 10% 100%, rgba(0,217,244,0.06), transparent 65%);
+    pointer-events: none;
+  }
+  .vd-hero__inner { position: relative; z-index: 1; }
+
+  .vd-hero__eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--so-cyan-400);
+    margin-bottom: 20px;
+  }
+  .vd-hero__eyebrow a { color: inherit; text-decoration: none; }
+  .vd-hero__eyebrow a:hover { color: #fff; }
+  .vd-hero__eyebrow span { opacity: 0.5; }
+
+  .vd-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.2rem + 4vw, 4.4rem);
+    font-weight: 900;
+    margin: 0 0 18px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+    max-width: 20ch;
+  }
+  .vd-hero__desc {
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+    color: var(--so-ink-200);
+    max-width: 58ch;
+    margin: 0 0 32px;
+    line-height: 1.65;
+  }
+  .vd-hero__meta {
+    display: flex; flex-wrap: wrap; gap: 10px 32px;
+    margin-bottom: 36px;
+  }
+  .vd-meta-item {
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .vd-meta-item__label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--so-ink-400);
+  }
+  .vd-meta-item__value {
+    font-size: 16px; font-weight: 700; color: #fff;
+  }
+  .vd-apply-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 44px;
+    background: var(--so-cyan-500); color: var(--so-ink-900);
+    font-family: var(--font-sans); font-weight: 700; font-size: 16px;
+    border-radius: var(--radius-pill); text-decoration: none;
+    border: 2px solid transparent;
+    transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+  }
+  .vd-apply-btn:hover {
+    background: var(--so-cyan-400);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,217,244,0.28);
+  }
+
+  /* ── Content grid ── */
+  .vd-content {
+    padding: clamp(64px, 7vw, 112px) 0;
+    background: var(--bg-canvas);
+  }
+  .vd-grid {
+    display: grid;
+    grid-template-columns: 2.4fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+
+  /* ── Body ── */
+  .vd-body { display: flex; flex-direction: column; gap: 44px; }
+
+  .vd-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 0.9rem + 1vw, 1.5rem);
+    font-weight: 700; color: var(--fg-1);
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--so-cyan-500);
+    display: inline-block;
+  }
+  .vd-section p {
+    font-size: 15.5px; line-height: 1.8;
+    color: var(--fg-2); margin: 0 0 14px;
+  }
+  .vd-section p:last-child { margin-bottom: 0; }
+  .vd-section ul {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .vd-section li {
+    font-size: 15.5px; color: var(--fg-2);
+    line-height: 1.7; padding-left: 24px; position: relative;
+  }
+  .vd-section li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--so-cyan-500); font-weight: 700; font-size: 14px;
+  }
+
+  /* DEI banner */
+  .vd-dei {
+    padding: 24px 28px;
+    background: rgba(0,217,244,0.06);
+    border: 1px solid rgba(0,217,244,0.15);
+    border-radius: var(--radius-lg);
+  }
+  .vd-dei p { font-size: 14px; color: var(--fg-2); line-height: 1.7; margin: 0; }
+  .vd-dei strong { color: var(--fg-1); }
+  .vd-dei a { color: var(--so-cyan-600); text-decoration: none; font-weight: 600; }
+  .vd-dei a:hover { color: var(--so-cyan-700); }
+
+  /* ── Sidebar ── */
+  .vd-sidebar { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 104px; }
+
+  .vd-box {
+    padding: 28px 30px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl);
+  }
+  .vd-box h3 {
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 700;
+    color: var(--fg-1); margin: 0 0 16px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .vd-box ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .vd-box li { font-size: 14px; color: var(--fg-2); line-height: 1.6; }
+  .vd-box li strong { color: var(--fg-1); font-weight: 600; display: block; margin-bottom: 1px; }
+  .vd-box .vd-apply-btn { width: 100%; justify-content: center; padding: 13px 24px; font-size: 15px; }
+
+  /* ── Bottom CTA ── */
+  .vd-cta {
+    padding: clamp(72px, 8vw, 120px) 0;
+    background: var(--bg-inverse);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .vd-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(60% 80% at 50% 0%, rgba(0,217,244,0.10), transparent 60%);
+    pointer-events: none;
+  }
+  .vd-cta__inner { position: relative; z-index: 1; }
+  .vd-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.1rem + 2.2vw, 3rem);
+    font-weight: 900; margin: 0 0 16px; color: #fff;
+    line-height: 1.15;
+  }
+  .vd-cta p { font-size: 17px; color: rgba(255,255,255,0.75); margin: 0 auto 36px; max-width: 52ch; line-height: 1.7; }
+  .vd-cta__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .vd-ghost-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 40px;
+    background: transparent; color: #fff;
+    font-family: var(--font-sans); font-weight: 700; font-size: 16px;
+    border-radius: var(--radius-pill); text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: border-color var(--duration-fast), background var(--duration-fast);
+  }
+  .vd-ghost-btn:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* ── Not found state ── */
+  .vd-notfound {
+    text-align: center;
+    padding: clamp(80px, 12vw, 160px) 40px;
+    color: var(--fg-2);
+  }
+  .vd-notfound h2 { font-size: 2rem; color: var(--fg-1); margin: 0 0 16px; }
+  .vd-notfound p { margin: 0 0 32px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .vd-grid { grid-template-columns: 1fr; }
+    .vd-sidebar { position: static; }
+  }
+  @media (max-width: 600px) {
+    .vd-hero__meta { gap: 10px 20px; }
+  }
+</style>
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- HERO -->
+  <header class="vd-hero" data-screen-label="Vacancy detail hero">
+    <div class="container container--full vd-hero__inner">
+      <div class="reveal">
+        <div class="vd-hero__eyebrow">
+          <a href="vacancies.html">Open positions</a>
+          <span>›</span>
+          <span id="hero-service-label">Role</span>
+        </div>
+        <h1 id="hero-title">Loading…</h1>
+        <p class="vd-hero__desc" id="hero-desc"></p>
+        <div class="vd-hero__meta" id="hero-meta"></div>
+        <a href="#apply" class="vd-apply-btn">Apply now
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <section class="vd-content">
+    <div class="container container--full">
+      <div class="vd-grid reveal">
+
+        <!-- Body -->
+        <div class="vd-body" id="vd-body">
+
+          <div class="vd-dei">
+            <p><strong>DEI commitment:</strong> SparkOptimus is committed to building an inclusive workplace where every person can thrive. <a href="dei-commitment.html">Learn about our DEI approach →</a></p>
+          </div>
+
+          <div class="vd-section" id="section-about">
+            <h2>About the role</h2>
+            <p id="about-text"></p>
+          </div>
+
+          <div class="vd-section" id="section-responsibilities">
+            <h2>Key responsibilities</h2>
+            <ul id="responsibilities-list"></ul>
+          </div>
+
+          <div class="vd-section" id="section-requirements">
+            <h2>What we're looking for</h2>
+            <ul id="requirements-list"></ul>
+          </div>
+
+          <div class="vd-section" id="section-nice-to-have">
+            <h2>Nice to have</h2>
+            <ul id="nice-to-have-list"></ul>
+          </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="vd-sidebar">
+          <div class="vd-box" id="apply" style="text-align:center;">
+            <h3>Apply for this role</h3>
+            <p style="font-size:13.5px;color:var(--fg-2);margin:0 0 20px;line-height:1.6;">Send your CV and a short motivation. We'll be in touch within 5 business days.</p>
+            <a href="#" class="vd-apply-btn">Apply now</a>
+          </div>
+          <div class="vd-box" id="sidebar-details">
+            <h3>Role details</h3>
+            <ul id="sidebar-meta-list"></ul>
+          </div>
+          <div class="vd-box">
+            <h3>About SparkOptimus</h3>
+            <ul>
+              <li><strong>300+ consultants</strong> across European offices</li>
+              <li><strong>25+ countries</strong> of client engagements</li>
+              <li><strong>Certified B Corp</strong> — people, planet, profit</li>
+              <li><strong>Amsterdam HQ</strong> — hybrid working model</li>
+            </ul>
+          </div>
+          <div class="vd-box">
+            <h3>Application steps</h3>
+            <ul>
+              <li><strong>1. Apply</strong> — CV + motivation letter</li>
+              <li><strong>2. Screening</strong> — intro conversation</li>
+              <li><strong>3. Case rounds</strong> — strategic interview</li>
+              <li><strong>4. Offer</strong> — welcome to the team</li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="vd-cta section">
+    <div class="container">
+      <div class="vd-cta__inner reveal">
+        <h2>Ready to make an impact?</h2>
+        <p>Join our team and help drive digital transformation across Europe's most ambitious organizations.</p>
+        <div class="vd-cta__actions">
+          <a href="#apply" class="vd-apply-btn">Apply now</a>
+          <a href="welcome.html" class="vd-ghost-btn">About life at SparkOptimus</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+/*
+  ─────────────────────────────────────────────────────────────────
+  VACANCY DATA
+  ─────────────────────────────────────────────────────────────────
+  TODO (Storyblok): Replace this static array with a fetch() call to
+  the Storyblok Content Delivery API using the vacancy slug from the URL.
+  Example:
+    const slug = new URLSearchParams(location.search).get('slug');
+    const res  = await fetch(`https://api.storyblok.com/v2/cdn/stories/${slug}?token=...`);
+    const { story } = await res.json();
+    populatePage(story.content);
+  ─────────────────────────────────────────────────────────────────
+*/
+var VACANCIES = [
+  {
+    title: "Senior Digital Strategist",
+    service: "Digital Strategy",
+    level: "Senior",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "10+ years",
+    description: "Lead digital transformation initiatives for Fortune 500 clients. Mentor junior consultants and shape the future of digital strategy at SparkOptimus.",
+    about: "We're looking for an experienced Senior Digital Strategist to join our Amsterdam office and lead transformative projects for Europe's most ambitious organisations. You'll work directly with C-suite leaders, mentor junior strategists, and shape the strategic direction of digital transformation initiatives across multiple industries.",
+    responsibilities: [
+      "Lead end-to-end digital transformation strategies for Fortune 500 clients",
+      "Develop comprehensive digital strategy recommendations spanning technology, organisation, and business model",
+      "Mentor and develop junior consultants on your team",
+      "Manage client relationships at C-suite level and build lasting partnerships",
+      "Contribute to thought leadership and shape the firm's strategic practice",
+      "Work across multiple geographies and sectors, building expertise across industries"
+    ],
+    requirements: [
+      "10+ years of experience in digital strategy, management consulting, or related field",
+      "Proven track record of leading complex transformations and delivering tangible business results",
+      "Strong strategic thinking combined with pragmatic problem-solving ability",
+      "Excellent client management and communication skills at all levels",
+      "Passion for mentoring and developing others",
+      "Intellectual curiosity and commitment to continuous learning"
+    ],
+    niceToHave: [
+      "Background in emerging technologies (AI, data, cloud)",
+      "Track record of building or scaling practices",
+      "Multilingual abilities (Dutch, German, or French)"
+    ]
+  },
+  {
+    title: "AI & Data Consultant",
+    service: "AI & Data",
+    level: "Consultant",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "5+ years",
+    description: "Help clients unlock value from data and AI. Work across healthcare, financial services, and tech sectors.",
+    about: "As an AI & Data Consultant at SparkOptimus, you'll work at the intersection of cutting-edge technology and business strategy. You'll help leading organisations across Europe unlock the true value of their data — from building data strategies to implementing AI-driven solutions that deliver measurable impact.",
+    responsibilities: [
+      "Design and execute AI and data strategies for clients across sectors",
+      "Translate complex technical concepts into actionable business recommendations",
+      "Lead data discovery workshops and capability assessments",
+      "Collaborate with client engineering teams to deliver data solutions",
+      "Build internal knowledge and contribute to SparkOptimus AI practice"
+    ],
+    requirements: [
+      "5+ years in data/AI strategy or data consulting",
+      "Strong analytical and quantitative skills",
+      "Client-facing experience and confident communication",
+      "Hands-on experience with data tools and platforms",
+      "Problem-solving mindset and commercial awareness"
+    ],
+    niceToHave: [
+      "Technical background in data science or engineering",
+      "Experience with cloud data platforms (AWS, GCP, Azure)",
+      "Sector expertise in healthcare, finance, or retail"
+    ]
+  },
+  {
+    title: "Sustainability Transformation Lead",
+    service: "Sustainability",
+    level: "Senior",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "8+ years",
+    description: "Drive ESG transformation for leading brands. Combine impact strategy with business acumen to create sustainable value.",
+    about: "SparkOptimus is expanding its Sustainability practice and looking for an experienced leader to help clients navigate the growing complexity of ESG strategy and reporting. You'll work directly with boards and C-suite leaders to build credible sustainability roadmaps that create both impact and competitive advantage.",
+    responsibilities: [
+      "Lead end-to-end ESG and sustainability transformation projects",
+      "Develop sustainability strategies that are commercially grounded and measurable",
+      "Advise boards and C-suite leaders on regulatory requirements and market expectations",
+      "Build and grow SparkOptimus's sustainability practice and market positioning",
+      "Support clients in developing science-based targets and decarbonisation roadmaps"
+    ],
+    requirements: [
+      "8+ years in sustainability strategy, ESG consulting, or related field",
+      "Deep understanding of ESG frameworks (GRI, TCFD, CSRD)",
+      "Experience advising at board and C-suite level",
+      "Strong stakeholder management and communication skills",
+      "Commercial acumen and ability to connect sustainability to business value"
+    ],
+    niceToHave: [
+      "Experience in a specific sector (FMCG, energy, finance)",
+      "Existing network in the sustainability ecosystem",
+      "Published thought leadership or public speaking experience"
+    ]
+  },
+  {
+    title: "Change Management Consultant",
+    service: "Digital Transformation",
+    level: "Consultant",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "5+ years",
+    description: "Help organizations navigate digital transformation. Build cultures of innovation and manage large-scale change initiatives.",
+    about: "Digital transformation fails not because of technology — but because of people. As a Change Management Consultant at SparkOptimus, you'll be at the heart of our most complex transformation programmes, ensuring that organisational change lands and sticks.",
+    responsibilities: [
+      "Design and deliver change management strategies for large digital transformation programmes",
+      "Build stakeholder engagement plans and communication strategies",
+      "Facilitate workshops and leadership alignment sessions",
+      "Assess organisational readiness and design interventions to accelerate adoption",
+      "Coach client leaders through transformation challenges"
+    ],
+    requirements: [
+      "5+ years in change management, organisational development, or transformation consulting",
+      "Experience managing change in large, complex organisations",
+      "Strong facilitation and communication skills",
+      "Ability to operate at both strategic and operational levels",
+      "Structured thinking and the ability to simplify complexity"
+    ],
+    niceToHave: [
+      "PROSCI or equivalent change management certification",
+      "Experience in a specific sector (retail, financial services, logistics)",
+      "Understanding of agile and lean methodologies"
+    ]
+  },
+  {
+    title: "Data Scientist",
+    service: "AI & Data",
+    level: "Senior",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "7+ years",
+    description: "Apply cutting-edge ML and analytics to real business challenges. Build solutions that drive competitive advantage.",
+    about: "As a Senior Data Scientist at SparkOptimus, you'll combine deep technical expertise with strategic business thinking. You'll design and build data science solutions that directly drive business outcomes — from recommendation engines to predictive analytics to LLM-powered tools.",
+    responsibilities: [
+      "Design and develop ML models and analytical solutions for client challenges",
+      "Translate business problems into data science problem statements",
+      "Work end-to-end from data acquisition and processing to deployment",
+      "Communicate technical findings clearly to non-technical stakeholders",
+      "Contribute to SparkOptimus's internal AI tooling and methodology"
+    ],
+    requirements: [
+      "7+ years in data science, machine learning, or quantitative analytics",
+      "Strong programming skills in Python (and/or R)",
+      "Deep understanding of ML algorithms and statistical modelling",
+      "Experience deploying models to production environments",
+      "Commercial awareness and ability to link technical work to business value"
+    ],
+    niceToHave: [
+      "Experience with LLMs and generative AI tooling",
+      "Cloud ML platform experience (SageMaker, Vertex AI, Azure ML)",
+      "Publications or open-source contributions"
+    ]
+  },
+  {
+    title: "Strategy Consultant",
+    service: "Digital Strategy",
+    level: "Consultant",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "3–5 years",
+    description: "Work on complex strategic challenges across industries. Develop frameworks and recommendations that drive real impact.",
+    about: "As a Strategy Consultant at SparkOptimus, you'll tackle some of the most complex strategic challenges facing European businesses today. From day one, you'll take ownership of meaningful workstreams, working directly alongside senior leaders at our clients and within our firm.",
+    responsibilities: [
+      "Lead analytical workstreams and develop strategic recommendations",
+      "Build financial models, market analyses, and business cases",
+      "Prepare and deliver client presentations at senior level",
+      "Work collaboratively with cross-functional teams",
+      "Contribute to proposal development and business development efforts"
+    ],
+    requirements: [
+      "3–5 years in strategy consulting or a high-growth scale-up",
+      "MBA or top-tier university degree preferred",
+      "Strong analytical and quantitative skills",
+      "Excellent written and verbal communication",
+      "Structured, hypothesis-driven problem-solving approach"
+    ],
+    niceToHave: [
+      "Sector experience in FMCG, retail, or financial services",
+      "International work experience",
+      "Entrepreneurial track record or experience"
+    ]
+  },
+  {
+    title: "M&A Analyst",
+    service: "Mergers & Acquisitions",
+    level: "Analyst",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "2–4 years",
+    description: "Support M&A due diligence and integration planning. Work on high-value transactions across multiple sectors.",
+    about: "Our Mergers & Acquisitions practice helps clients identify, evaluate, and integrate acquisition targets — with a specific focus on digital and data capabilities. As an M&A Analyst, you'll work on live transactions, building the financial and strategic analysis that underpins multi-million euro decisions.",
+    responsibilities: [
+      "Support due diligence processes for digital and data M&A targets",
+      "Build and maintain complex financial models and valuation analyses",
+      "Prepare investment memos, board materials, and deal summaries",
+      "Research target markets, competitive landscapes, and comparable transactions",
+      "Coordinate with legal, financial, and technical workstreams"
+    ],
+    requirements: [
+      "2–4 years in investment banking, corporate finance, or M&A advisory",
+      "Strong financial modelling and Excel skills",
+      "High attention to detail and ability to work under pressure",
+      "Clear and concise communication skills",
+      "Eagerness to learn and grow in a fast-paced environment"
+    ],
+    niceToHave: [
+      "CFA candidate or qualified",
+      "Experience with digital or tech-focused transactions",
+      "Second European language"
+    ]
+  },
+  {
+    title: "Digital Operations Manager",
+    service: "Digital Transformation",
+    level: "Manager",
+    type: "Full-time",
+    location: "Amsterdam",
+    experience: "6+ years",
+    description: "Optimize operations through digital innovation. Lead transformation programs that improve efficiency and customer experience.",
+    about: "As a Digital Operations Manager at SparkOptimus, you'll help clients redesign and digitise their core operations — delivering programmes that improve speed, cost, and customer experience simultaneously. You'll blend strategic thinking with hands-on delivery, owning programme outcomes end-to-end.",
+    responsibilities: [
+      "Lead digital operations transformation programmes from design to delivery",
+      "Map and re-engineer core business processes using digital tools",
+      "Manage client stakeholders and internal project teams",
+      "Track programme performance, risks, and benefits realisation",
+      "Build capability within client organisations for sustained operational improvement"
+    ],
+    requirements: [
+      "6+ years in operations management, digital transformation, or programme management",
+      "Experience redesigning and digitising operational processes",
+      "Strong project management skills and structured working style",
+      "Proven team leadership and stakeholder management",
+      "Commercial awareness and focus on delivering measurable outcomes"
+    ],
+    niceToHave: [
+      "Experience with process automation tools (RPA, low-code platforms)",
+      "Lean Six Sigma or equivalent certification",
+      "Sector expertise in logistics, retail, or financial services"
+    ]
+  }
+];
+
+/* ─────────────────────────────────────────────────────────────────
+   POPULATE PAGE
+   Replace this function body with Storyblok fetch when ready.
+───────────────────────────────────────────────────────────────── */
+function populatePage(v) {
+  /* <head> */
+  document.title = v.title + ' | SparkOptimus Careers';
+  document.getElementById('meta-desc').setAttribute('content', v.description);
+
+  /* Hero */
+  document.getElementById('hero-service-label').textContent = v.service;
+  document.getElementById('hero-title').textContent = v.title;
+  document.getElementById('hero-desc').textContent = v.description;
+
+  document.getElementById('hero-meta').innerHTML =
+    metaItem('Location', v.location) +
+    metaItem('Level', v.level) +
+    metaItem('Type', v.type) +
+    metaItem('Experience', v.experience);
+
+  /* Body sections */
+  document.getElementById('about-text').textContent = v.about;
+  document.getElementById('responsibilities-list').innerHTML = listItems(v.responsibilities);
+  document.getElementById('requirements-list').innerHTML = listItems(v.requirements);
+  document.getElementById('nice-to-have-list').innerHTML = listItems(v.niceToHave);
+
+  /* Sidebar details */
+  document.getElementById('sidebar-meta-list').innerHTML =
+    '<li><strong>Location</strong>' + v.location + '</li>' +
+    '<li><strong>Level</strong>' + v.level + '</li>' +
+    '<li><strong>Contract</strong>' + v.type + '</li>' +
+    '<li><strong>Experience</strong>' + v.experience + '</li>' +
+    '<li><strong>Start date</strong>Flexible — earliest Aug 2026</li>';
+}
+
+function notFound() {
+  document.querySelector('.vd-hero').style.display = 'none';
+  document.querySelector('.vd-content').innerHTML =
+    '<div class="container"><div class="vd-notfound">' +
+    '<h2>Role not found</h2>' +
+    '<p>This vacancy may no longer be available. Browse all open positions below.</p>' +
+    '<a href="vacancies.html" class="vd-apply-btn">View all open roles</a>' +
+    '</div></div>';
+  document.querySelector('.vd-cta').style.display = 'none';
+}
+
+function metaItem(label, value) {
+  return '<div class="vd-meta-item">' +
+    '<span class="vd-meta-item__label">' + label + '</span>' +
+    '<span class="vd-meta-item__value">' + value + '</span>' +
+    '</div>';
+}
+
+function listItems(arr) {
+  return (arr || []).map(function(item) {
+    return '<li>' + item + '</li>';
+  }).join('');
+}
+
+/* ── Boot ── */
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var id = parseInt(params.get('id'), 10);
+  var vacancy = (!isNaN(id) && id >= 0 && id < VACANCIES.length) ? VACANCIES[id] : null;
+
+  if (vacancy) {
+    populatePage(vacancy);
+  } else {
+    notFound();
+  }
+
+  window.SO && window.SO.reveal && window.SO.reveal();
+})();
+</script>
+</body>
+</html>

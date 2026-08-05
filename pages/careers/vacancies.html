@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="Explore open positions at SparkOptimus. Join our team of digital transformation consultants across Europe.">
+<title>Open Positions | SparkOptimus Careers</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* .btn, .btn-primary, .btn-secondary removed — page uses site.css .btn--* variants */
+
+  /* Hero */
+  .vacancies-hero { padding: clamp(120px, 12vw, 160px) 0; background: var(--so-ink-900); position: relative; overflow: hidden; }
+  .vacancies-hero__bg { position: absolute; inset: 0; z-index: 0; background: url('site/assets/vacancies-hero-bg.jpg') center center / cover no-repeat; opacity: 0.35; }
+  .vacancies-hero::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(6,11,26,0.55) 0%, rgba(6,11,26,0.75) 100%); pointer-events: none; }
+  .vacancies-hero .container { position: relative; z-index: 2; }
+  .vacancies-hero h1 { font-size: clamp(2.4rem, 1.2rem + 3.5vw, 3.8rem); font-family: var(--font-display); font-weight: 900; margin: 0 0 24px 0; line-height: 1.1; letter-spacing: -0.03em; color: #fff; }
+  .vacancies-hero p { font-size: clamp(1rem, 0.95rem + 0.5vw, 1.2rem); color: #cbd5e1; max-width: 60ch; margin: 0; line-height: 1.8; }
+  .vacancies-hero__split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 5vw, 80px); align-items: end; }
+  @media (max-width: 1024px) { .vacancies-hero__split { grid-template-columns: 1fr; align-items: start; } }
+  .vacancies-hero h1 em { font-style: normal; color: var(--so-cyan-400); }
+
+  /* Vacancies grid */
+  .vacancies-section { padding: clamp(48px, 5vw, 80px) 0 clamp(80px, 10vw, 120px); background: #fff; }
+  .vacancies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 32px; margin-bottom: 80px; }
+  
+  .vacancy-card { padding: 32px; background: #fff; border: 1px solid var(--so-gray-200); border-radius: 16px; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .vacancy-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--so-cyan-500); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease-out); }
+  .vacancy-card:hover { border-color: var(--so-cyan-500); box-shadow: 0 12px 40px rgba(0, 217, 244, 0.12); transform: translateY(-6px); }
+  .vacancy-card:hover::before { transform: scaleX(1); }
+
+  .vacancy-badge { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: rgba(0, 217, 244, 0.12); border-radius: 8px; font-size: 11px; font-weight: 700; color: var(--so-cyan-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; width: fit-content; }
+
+  .vacancy-card h3 { font-size: 22px; font-weight: 700; color: var(--so-ink-900); margin: 0 0 12px 0; line-height: 1.3; }
+  
+  .vacancy-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 24px 0; padding: 20px 0; border-top: 1px solid var(--so-gray-100); border-bottom: 1px solid var(--so-gray-100); }
+  .meta-item { font-size: 13px; color: var(--so-ink-600); display: flex; align-items: center; gap: 8px; }
+  .meta-item strong { color: var(--so-ink-900); font-weight: 600; }
+
+  .vacancy-description { font-size: 15px; color: var(--so-ink-600); line-height: 1.8; margin: 0 0 24px 0; flex: 1; }
+
+  .vacancy-requirements { margin: 24px 0; }
+  .vacancy-requirements h4 { font-size: 13px; font-weight: 700; color: var(--so-ink-900); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px 0; }
+  .vacancy-requirements ul { list-style: none; margin: 0; padding: 0; }
+  .vacancy-requirements li { font-size: 14px; color: var(--so-ink-600); line-height: 1.7; padding-left: 20px; position: relative; margin-bottom: 8px; }
+  .vacancy-requirements li::before { content: '•'; position: absolute; left: 6px; color: var(--so-cyan-500); font-weight: 700; }
+
+  .vacancy-footer { display: flex; gap: 12px; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--so-gray-100); }
+  .vacancy-cta { color: var(--so-cyan-500); text-decoration: none; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+  .vacancy-cta:hover { color: var(--so-cyan-700); gap: 12px; }
+
+  .no-results { text-align: center; padding: 80px 40px; }
+  .no-results h3 { font-size: 24px; font-weight: 700; color: var(--so-ink-900); margin: 0 0 12px 0; }
+  .no-results p { font-size: 16px; color: var(--so-ink-600); margin: 0 0 40px 0; }
+
+  /* Sidebar */
+
+  /* ---------- RECRUITER CONTACT ---------- */
+  .recruiter-contact {
+    background: #fff;
+    padding: clamp(72px, 8vw, 112px) 0;
+  }
+
+  .recruiter-contact__inner {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: clamp(48px, 6vw, 96px);
+    align-items: center;
+  }
+
+  .recruiter-contact__photo {
+    position: relative;
+  }
+
+  .recruiter-contact__photo img {
+    width: 100%;
+    border-radius: 0;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 3 / 4;
+    background: var(--so-gray-100);
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .recruiter-contact__photo::before {
+    content: '';
+    position: absolute;
+    inset: -16px -16px 16px 16px;
+    border-radius: var(--radius-2xl);
+    background: var(--so-cyan-500);
+    opacity: 0.15;
+    z-index: -1;
+  }
+
+  .recruiter-contact__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--so-cyan-700);
+    margin: 0 0 14px;
+  }
+
+  .recruiter-contact__heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--so-ink-900);
+    margin: 0 0 20px;
+  }
+
+  .recruiter-contact__body {
+    font-size: 16px;
+    color: var(--so-ink-600);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 0 32px;
+    text-wrap: pretty;
+  }
+
+  .recruiter-contact__meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--so-gray-200);
+  }
+
+  .recruiter-contact__name-block {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .recruiter-contact__name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--so-ink-900);
+  }
+
+  .recruiter-contact__title {
+    font-size: 14px;
+    color: var(--so-ink-500);
+  }
+
+  .recruiter-contact__actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .vacancies-grid { grid-template-columns: 1fr; }
+    .vacancy-meta { grid-template-columns: 1fr; }
+    .filters { flex-direction: column; align-items: flex-start; }
+    .vacancies-container { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .recruiter-contact__inner { grid-template-columns: 1fr; }
+    .recruiter-contact__photo { max-width: 260px; }
+  }
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/vacancies">
+    <meta property="og:url" content="https://www.sparkoptimus.com/vacancies">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Open Vacancies — SparkOptimus",
+    "description": "Browse open positions at SparkOptimus. We are looking for digital strategists, data experts, and transformation consultants.",
+    "url": "https://www.sparkoptimus.com/vacancies",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Careers",
+      "item": "https://www.sparkoptimus.com/careers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Vacancies",
+      "item": "https://www.sparkoptimus.com/vacancies"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- Hero -->
+  <header class="vacancies-hero" data-screen-label="Vacancies Hero">
+    <div class="vacancies-hero__bg"></div>
+    <div class="container container--full">
+      <div class="vacancies-hero__split reveal">
+        <div>
+          <h1>We're hiring<em>.</em></h1>
+        </div>
+        <p>Join our team of digital transformation consultants. Explore open positions and find your next opportunity.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Vacancies -->
+  <section class="vacancies-section" style="padding: 80px 0px 5px">
+    <div class="container container--full">
+      <div class="reveal">
+        <div class="vacancies-container">
+          <!-- Main grid -->
+          <div>
+            <div class="vacancies-grid" id="vacancies-grid">
+              <!-- Vacancy cards will be inserted here -->
+            </div>
+          </div>
+
+
+        </div>
+
+        <div id="no-results" class="no-results" style="display: none;">
+          <h3>No positions match your filters</h3>
+          <p>Try adjusting your filters or <a href="welcome.html">explore our career opportunities</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECRUITER CONTACT -->
+  <section class="recruiter-contact" data-screen-label="Recruiter contact" style="padding: 40px 0px 0px; background: var(--so-cyan-50);">  
+    <div class="container container--full">
+      <div class="recruiter-contact__inner reveal">
+        <div class="recruiter-contact__photo">
+          <img loading="lazy" decoding="async" src="site/assets/recruiter-portrait.png" alt="Recruiter at SparkOptimus" />
+        </div>
+        <div class="recruiter-contact__content">
+          <h2 class="recruiter-contact__heading">Questions about joining <em style="font-style: normal; color: var(--so-cyan-600);">SparkOptimus?</em></h2>
+          <p class="recruiter-contact__body">Whether you want to know more about our open roles, our culture, or what working at SparkOptimus actually looks like day-to-day &mdash; our team shares the latest on LinkedIn.</p>
+          <div class="recruiter-contact__actions">
+            <a class="btn btn--ghost" href="https://www.linkedin.com/company/sparkoptimus" target="_blank" rel="noopener">Connect on LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="section surface-teal ctaband" data-screen-label="CTA" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 24px;max-width:18ch;">Don't see your role? <em>We'd still love to meet you.</em></h2>
+        <a class="btn btn--primary" href="welcome.html#contact">Send an open application</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+  const vacancies = [
+    {
+      title: "Senior Digital Strategist",
+      service: "strategy",
+      level: "Senior",
+      type: "Full-time",
+      description: "Lead digital transformation initiatives for Fortune 500 clients. Mentor junior consultants and shape the future of digital strategy.",
+      requirements: ["10+ years consulting experience", "Proven track record in digital transformation", "Leadership experience", "European market knowledge"]
+    },
+    {
+      title: "AI & Data Consultant",
+      service: "ai-data",
+      level: "Consultant",
+      type: "Full-time",
+      description: "Help clients unlock value from data and AI. Work across healthcare, financial services, and tech sectors.",
+      requirements: ["5+ years in data/AI strategy", "Technical background preferred", "Client-facing experience", "Problem-solving mindset"]
+    },
+    {
+      title: "Sustainability Transformation Lead",
+      service: "sustainability",
+      level: "Senior",
+      type: "Full-time",
+      description: "Drive ESG transformation for leading brands. Combine impact strategy with business acumen to create sustainable value.",
+      requirements: ["8+ years in sustainability/strategy", "Corporate leadership experience", "ESG expertise", "Board-level communication skills"]
+    },
+    {
+      title: "Change Management Consultant",
+      service: "transformation",
+      level: "Consultant",
+      type: "Full-time",
+      description: "Help organizations navigate digital transformation. Build cultures of innovation and manage large-scale change initiatives.",
+      requirements: ["5+ years in change management", "Organizational development background", "Large program experience", "Communication excellence"]
+    },
+    {
+      title: "Data Scientist",
+      service: "ai-data",
+      level: "Senior",
+      type: "Full-time",
+      description: "Apply cutting-edge ML and analytics to real business challenges. Build solutions that drive competitive advantage.",
+      requirements: ["7+ years in data science/ML", "Advanced statistical knowledge", "Python/R expertise", "Business acumen"]
+    },
+    {
+      title: "Strategy Consultant",
+      service: "strategy",
+      level: "Consultant",
+      type: "Full-time",
+      description: "Work on complex strategic challenges across industries. Develop frameworks and recommendations that drive real impact.",
+      requirements: ["3-5 years consulting experience", "MBA or equivalent preferred", "Analytical mindset", "Client presentation skills"]
+    },
+    {
+      title: "M&A Analyst",
+      service: "strategy",
+      level: "Analyst",
+      type: "Full-time",
+      description: "Support M&A due diligence and integration planning. Work on high-value transactions across multiple sectors.",
+      requirements: ["2-4 years investment banking/M&A", "Financial modeling expertise", "Attention to detail", "Eagerness to learn"]
+    },
+    {
+      title: "Digital Operations Manager",
+      service: "transformation",
+      level: "Manager",
+      type: "Full-time",
+      description: "Optimize operations through digital innovation. Lead transformation programs that improve efficiency and customer experience.",
+      requirements: ["6+ years in operations", "Digital transformation experience", "Process optimization expertise", "Team leadership"]
+    }
+  ];
+
+  function renderVacancies(filter = 'all') {
+    const grid = document.getElementById('vacancies-grid');
+    const noResults = document.getElementById('no-results');
+    
+    const filtered = vacancies.filter(v => 
+      filter === 'all' || v.service === filter
+    );
+
+    if (filtered.length === 0) {
+      grid.style.display = 'none';
+      noResults.style.display = 'block';
+      return;
+    }
+
+    grid.style.display = 'grid';
+    noResults.style.display = 'none';
+    grid.innerHTML = filtered.map((v, idx) => `
+      <a href="vacancy-detail-template.html?id=${idx}" class="vacancy-card" style="text-decoration: none; color: inherit;">
+        <span class="vacancy-badge">${v.service.replace('-', ' & ')}</span>
+        <h3>${v.title}</h3>
+        <div class="vacancy-meta">
+          <div class="meta-item"><strong>${v.level}</strong></div>
+          <div class="meta-item"><strong>${v.type}</strong></div>
+          <div class="meta-item">📍 Amsterdam</div>
+        </div>
+        <p class="vacancy-description">${v.description}</p>
+        <div class="vacancy-requirements">
+          <h4>What we're looking for</h4>
+          <ul>${v.requirements.map(r => `<li>${r}</li>`).join('')}</ul>
+        </div>
+        <div class="vacancy-footer">
+          <span class="vacancy-cta">Apply now →</span>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  // Filter event listeners
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const filter = this.dataset.filter;
+      renderVacancies(filter);
+    });
+  });
+
+  // Initial render
+  renderVacancies();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

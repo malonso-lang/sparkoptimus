@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="Associate role at SparkOptimus. Join our team and grow rapidly in digital transformation.">
+<title>Associate | SparkOptimus Careers</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* * { box-sizing } and body {} removed — site.css handles globally */
+  /* Hero section */
+  .job-hero {
+    padding: clamp(100px, 10vw, 160px) clamp(20px, 5vw, 60px);
+    background: linear-gradient(90deg, #f5f0f8 0%, #f0eef5 15%, #f5f3f0 35%, #f8f6f4 50%, #f5f8f6 70%, #f0f6f8 85%, #ede8f4 100%);
+    color: var(--so-ink-900);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .job-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .job-hero-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--so-gray-500);
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .job-hero-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--so-cyan-500);
+    display: block;
+  }
+
+  .job-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 1.3rem + 4.5vw, 5rem);
+    font-weight: 900;
+    margin: 0 0 24px 0;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--so-ink-900);
+  }
+
+  .job-hero-subtitle {
+    font-size: clamp(1rem, 0.95rem + 0.5vw, 1.2rem);
+    color: var(--so-ink-600);
+    max-width: 60ch;
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  .job-hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 4px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--so-gray-500);
+  }
+
+  .meta-value {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--so-ink-900);
+  }
+
+  /* Header bar with tabs */
+  .job-header {
+    border-bottom: 1px solid var(--so-gray-200);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+
+  .job-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 60px);
+    display: flex;
+    align-items: center;
+  }
+
+  .job-tabs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+  }
+
+  .job-tab {
+    margin: 0;
+    padding: 0;
+  }
+
+  .job-tab-link {
+    display: block;
+    padding: 10px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--so-gray-500);
+    text-decoration: none;
+    border: none;
+    background: var(--so-gray-100);
+    outline: none;
+    border-radius: 999px;
+    transition: all 0.2s var(--ease-out);
+    cursor: pointer;
+    margin: 12px 0;
+  }
+
+  .job-tab-link:hover {
+    color: var(--so-ink-700);
+    background: var(--so-gray-200);
+  }
+
+  .job-tab-link.active {
+    color: var(--so-ink-900);
+    background: var(--so-cyan-500);
+    color: var(--so-ink-900);
+  }
+
+  /* Main content area */
+  .job-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 60px);
+  }
+
+  .job-section {
+    margin-bottom: clamp(60px, 8vw, 100px);
+  }
+
+  .job-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .job-section h2 {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--so-ink-900);
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+  }
+
+  .job-section h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--so-ink-900);
+    margin: 28px 0 16px 0;
+    line-height: 1.3;
+  }
+
+  .job-section h3:first-child {
+    margin-top: 0;
+  }
+
+  .job-section p {
+    font-size: 16px;
+    color: var(--so-ink-700);
+    line-height: 1.8;
+    margin: 0 0 20px 0;
+  }
+
+  .job-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Lists */
+  .job-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .job-list li {
+    font-size: 16px;
+    color: var(--so-ink-700);
+    line-height: 1.7;
+    padding-left: 28px;
+    position: relative;
+  }
+
+  .job-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--so-cyan-500);
+    font-weight: 700;
+  }
+
+  /* Note block */
+  .job-note {
+    padding: 24px;
+    background: var(--so-gray-50);
+    border-left: 3px solid var(--so-cyan-500);
+    border-radius: 8px;
+    margin-top: 28px;
+  }
+
+  .job-note p {
+    font-size: 15px;
+    color: var(--so-ink-600);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Benefits subsection */
+  .benefits-intro {
+    font-size: 16px;
+    color: var(--so-ink-700);
+    line-height: 1.8;
+    margin: 0 0 16px 0;
+  }
+
+  /* CTA footer */
+  .job-footer {
+    display: flex;
+    gap: 16px;
+    margin-top: clamp(60px, 8vw, 100px);
+    padding-top: clamp(60px, 8vw, 100px);
+    border-top: 1px solid var(--so-gray-200);
+  }
+
+  /* ---------- button variants — scoped so they don't override site.css .btn ---------- */
+  .job-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s var(--ease-out);
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .job-btn--primary {
+    background: var(--so-cyan-500);
+    color: var(--so-ink-900);
+  }
+  .job-btn--primary:hover {
+    background: var(--so-cyan-600);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 212, 232, 0.3);
+  }
+  .job-btn--secondary {
+    background: #fff;
+    color: var(--so-cyan-500);
+    border: 2px solid var(--so-cyan-500);
+  }
+  .job-btn--secondary:hover {
+    background: var(--so-cyan-50);
+    border-color: var(--so-cyan-600);
+  }
+
+  /* Content areas (for tab switching) */
+  .job-content {
+    display: none;
+  }
+
+  .job-content.active {
+    display: block;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .job-hero-content {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .job-hero-meta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 28px 48px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .job-hero {
+      padding: clamp(80px, 8vw, 100px) clamp(16px, 4vw, 20px);
+    }
+
+    .job-hero-title {
+      font-size: clamp(2rem, 1rem + 3vw, 2.8rem);
+    }
+
+    .job-header-content {
+      padding: 0 clamp(16px, 4vw, 20px);
+    }
+
+    .job-tabs {
+      gap: 24px;
+    }
+
+    .job-tab-link {
+      padding: 16px 0;
+      font-size: 14px;
+    }
+
+    .job-container {
+      padding: clamp(40px, 6vw, 60px) clamp(16px, 4vw, 20px);
+    }
+
+    .job-section {
+      margin-bottom: clamp(40px, 6vw, 60px);
+    }
+
+    .job-section h2 {
+      font-size: 26px;
+    }
+
+    .job-section h3 {
+      font-size: 18px;
+    }
+
+    .job-section p,
+    .job-list li {
+      font-size: 15px;
+    }
+
+    .job-footer {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px 24px;
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .job-hero-eyebrow {
+      font-size: 11px;
+    }
+
+    .job-hero-title {
+      font-size: clamp(1.8rem, 0.8rem + 2.5vw, 2.4rem);
+    }
+
+    .job-section h2 {
+      font-size: 22px;
+    }
+
+    .job-section h3 {
+      font-size: 17px;
+    }
+  }
+
+  /* ---------- link styles — scoped to job content areas ---------- */
+  .job-container a, .job-hero a {
+    color: var(--so-cyan-500);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.3s var(--ease-out);
+  }
+
+  .job-container a:hover, .job-hero a:hover {
+    color: var(--so-cyan-600);
+    text-decoration: underline;
+  }
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/vacancies/detail">
+    <meta property="og:url" content="https://www.sparkoptimus.com/vacancies/detail">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Job Opening — SparkOptimus",
+    "description": "Apply for a position at SparkOptimus — a leading digital strategy and transformation consultancy in Amsterdam.",
+    "url": "https://www.sparkoptimus.com/vacancies/detail",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Vacancies",
+      "item": "https://www.sparkoptimus.com/vacancies"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Job posting",
+      "item": "https://www.sparkoptimus.com/vacancies/detail"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- BACK BUTTON -->
+  <section class="job-hero" data-screen-label="Job Posting">
+    <div class="job-hero-content">
+      <div class="container container--full">
+        <a href="careers.html" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--link); text-decoration: none; margin-bottom: 24px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Back to careers</span>
+        </a>
+        <div>
+        <p class="job-hero-eyebrow">Associate role</p>
+        <h1 class="job-hero-title">Associate</h1>
+        <p class="job-hero-subtitle">Join our team and grow rapidly. Support real transformations for leading global organizations.</p>
+      </div>
+      <div class="job-hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">Location</span>
+          <span class="meta-value">Amsterdam</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Level</span>
+          <span class="meta-value">Entry-level</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Type</span>
+          <span class="meta-value">Full-time</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Posted</span>
+          <span class="meta-value">June 2024</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tab header -->
+  <div class="job-header">
+    <div class="job-header-content">
+      <ul class="job-tabs">
+        <li class="job-tab">
+          <button class="job-tab-link active" data-tab="details">Details</button>
+        </li>
+        <li class="job-tab">
+          <button class="job-tab-link" data-tab="apply">Apply</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Details content -->
+  <div class="job-content active" id="details-content">
+    <div class="job-container reveal">
+      
+      <!-- Description section -->
+      <section class="job-section">
+        <h2>Description</h2>
+        
+        <p>Are you looking for a role where you'll be supported and encouraged to grow at a rapid pace? Do you want to explore how AI, digital, and sustainability transform companies across all industries? Do you want to build skills in developing and implementing practical strategies that shape the future of how we do business? Then SparkOptimus could be the right place for you.</p>
+
+        <h3>What you'll do</h3>
+        <p>As an Associate, you'll have the opportunity to make an impact from day one, in a supportive, team-based environment where no two days are the same. You won't just learn every skill, not only supporting and performing analyses, but also collaborating closely on real-world transformation. You won't be expected to know everything upfront – we value curiosity, teamwork, and a willingness to learn. These experiences, combined with ongoing mentorship from Managers, Partners, and clients, offer a wide range of learning opportunities. SparkOptimus has a strong coaching and learning culture. We support your development through on-the-job coaching and structured training programs focused on challenges you may encounter as an Associate – including consulting skills, interpersonal development, and digital expertise. We recognise that growth is personal and non-linear, and we're committed to helping you thrive in your own way.</p>
+
+        <h3>Why SparkOptimus?</h3>
+        <p>SparkOptimus helps organizations unlock the power of disruption. We spark and scale transformational initiatives that improve the lives of consumers and environments in sustainable ways. We pride ourselves on our thought leadership and solutions that drive transformational change for organisations across the globe for organizations like Heineken, FrieslandCampina, Edens, ING, IKEA, and AlisoNikel. We work with leaders to clarify what needs to be done and how to do it. Together, we build and embed the capabilities and culture needed to make change happen at every level of the organization. At SparkOptimus, we believe that diversity and inclusion are essential to who we are and how we work. We offer equal opportunities and fair treatment for all current and future employees, and we strive to ensure everyone feels seen, valued, and supported. Moreover, SparkOptimus is a certified B Corp, meaning we meet high standards of social and environmental impact, transparency, and accountability. We are committed to using business as a force for good–driving positive change for our clients, employees, and society. Join us in making a meaningful impact while shaping the future of digital transformation.</p>
+
+        <h3>Benefits</h3>
+        <p class="benefits-intro">On top of that and our primary compensation package, we offer an attractive package of secondary benefits, such as:</p>
+        <ul class="job-list">
+          <li>Flexible time off: buy additional holidays, go on sabbatical or work remotely up to one month a year</li>
+          <li>Culture &amp; fun: regular company events and trips (including our annual SparkWeekend), Friday drinks, office messages, milestone gifts, and more!</li>
+        </ul>
+      </section>
+
+      <!-- Requirements section -->
+      <section class="job-section">
+        <h2>Requirements</h2>
+        <ul class="job-list">
+          <li>Recent graduates of a master's program</li>
+          <li>Strong academic track record. Dutch students must have completed their VWO</li>
+          <li>Experience and/or interest in business, operations, start-ups, e-commerce, innovation, IT, AI, or sustainability is a plus</li>
+          <li>Analytical thinking, strong interpersonal skills, and a collaborative mindset</li>
+          <li>A proactive mindset, willingness to learn, and a passion for making a difference / change</li>
+          <li>We welcome applicants from all backgrounds. If you're unsure whether you're a fit, we encourage you to apply</li>
+        </ul>
+
+        <div class="job-note">
+          <p><strong>Please note:</strong> We do not offer visa sponsorships, so if you now or in the future will need visa sponsorship, we unfortunately will not be able to move forward with your application. Thank you for understanding.</p>
+        </div>
+      </section>
+
+      <!-- CTA footer -->
+      <div class="job-footer">
+        <button class="job-btn job-btn--primary" onclick="document.querySelector('[data-tab=apply]').click()">Apply</button>
+        <button class="job-btn job-btn--secondary" onclick="shareJob()">Share job</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Apply content -->
+  <div class="job-content" id="apply-content">
+    <div class="job-container reveal">
+      <section class="job-section">
+        <h2>Apply for this role</h2>
+        <p>Ready to join SparkOptimus? Submit your application below.</p>
+        
+        <!-- Placeholder for external form -->
+        <div style="padding: 60px 40px; background: var(--so-gray-50); border-radius: 12px; text-align: center;">
+          <p style="color: var(--so-gray-500); margin: 0;">Application form will be embedded here</p>
+          <p style="color: var(--so-gray-500); font-size: 14px; margin: 12px 0 0;">Or redirect to external application portal</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+  // Tab switching functionality
+  document.querySelectorAll('[data-tab]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const tabName = this.dataset.tab;
+      
+      // Hide all content
+      document.querySelectorAll('.job-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.job-tab-link').forEach(el => el.classList.remove('active'));
+      
+      // Show selected content
+      document.getElementById(tabName + '-content').classList.add('active');
+      this.classList.add('active');
+    });
+  });
+
+  // Share job functionality
+  function shareJob() {
+    const url = window.location.href;
+    
+    // Try native share if available
+    if (navigator.share) {
+      navigator.share({
+        title: 'Associate role at SparkOptimus',
+        text: 'Check out this job opportunity at SparkOptimus',
+        url: url
+      }).catch(err => console.log('Share cancelled'));
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Job link copied to clipboard!');
+      });
+    }
+  }
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

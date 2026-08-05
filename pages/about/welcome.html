@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Join Europe's leading digital strategy consultancy. Apply to our open roles and help drive transformation.">
+<title>Careers — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ── Positioning + proof ── */
+  .position { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px,5vw,80px); align-items: center; }
+  .position h2 { font-size: clamp(2rem,1.3rem + 2.4vw,3.4rem); color: #fff; line-height: 1.12; margin: 0 0 28px; }
+  .position h2 em { font-style: normal; color: var(--so-cyan-400); }
+  .quote-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border-on-inverse); border-radius: var(--radius-xl); padding: 34px; }
+  .quote-card__q { font-family: var(--font-serif); font-style: italic; font-size: 19px; line-height: 1.55; color: #fff; margin: 0 0 24px; }
+  .quote-card__who { display: flex; align-items: center; gap: 14px; margin: 0; }
+  .quote-card__av { width: 44px; height: 44px; border-radius: 50%; background: var(--so-cyan-700); color: #fff; font-weight: 700; font-size: 13px; display: grid; place-items: center; flex-shrink: 0; }
+  .quote-card__who b { color: #fff; font-size: 15px; display: block; }
+  .quote-card__who small { color: var(--so-ink-300); font-size: 13px; }
+  .quotes { display: flex; flex-direction: column; gap: 22px; }
+  .quotes__viewport { overflow: hidden; border-radius: var(--radius-xl); }
+  .quotes__track { display: flex; align-items: stretch; transition: transform var(--duration-slow) var(--ease-out); will-change: transform; }
+  .quotes__slide { flex: 0 0 100%; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .quotes__slide.quote-card { margin: 0; }
+  .quotes__nav { display: flex; align-items: center; gap: 12px; padding-left: 4px; }
+  .quotes__btn { width: 46px; height: 46px; border-radius: var(--radius-pill); border: 1px solid var(--border-on-inverse); background: rgba(255,255,255,0.04); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background var(--duration-fast), border-color var(--duration-fast); }
+  .quotes__btn svg { width: 20px; height: 20px; }
+  .quotes__btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.55); }
+  .quotes__dots { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .quotes__dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: var(--radius-pill); background: rgba(255,255,255,0.22); cursor: pointer; transition: width var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-out); }
+  .quotes__dot.is-active { width: 24px; background: var(--so-cyan-400); }
+  .badges { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: clamp(48px,5vw,72px); background: var(--border-on-inverse); border: 1px solid var(--border-on-inverse); border-radius: var(--radius-lg); overflow: hidden; }
+  .badge { background: var(--so-ink-900); padding: 26px 24px; }
+  .badge b { display: block; color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .badge small { color: var(--so-ink-300); font-size: 12.5px; }
+  .badge--logo { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .badge--logo img { height: 46px; width: auto; margin-bottom: 14px; object-fit: contain; object-position: left center; }
+  .badge__emerce { border-radius: 4px; }
+  @media (max-width: 1024px) { .position { grid-template-columns: 1fr; } .badges { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 480px) { .badges { grid-template-columns: 1fr; } }
+
+  /* ── Hero layout ── */
+  .car-hero .page-hero__split { align-items: center; }
+  .car-hero h1 { margin: 0; }
+  .car-hero .page-hero__lead { margin-top: 20px; margin-left: 0; margin-right: 0; text-align: left; }
+  .car-hero .btn { margin-top: 28px; display: inline-flex; }
+
+  /* ── Working at cards ── */
+  .work-head { text-align: center; max-width: 620px; margin: 0 auto clamp(40px,5vw,64px); }
+  .work-head h2 { font-size: clamp(1.8rem,1.2rem + 2vw,2.8rem); margin: 0 0 14px; font-family: var(--font-display); font-weight: 800; }
+  .work-head p { font-size: var(--text-lg); color: var(--fg-2); margin: 0; line-height: 1.6; }
+  .work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .work-card { padding: 34px; border-radius: var(--radius-xl); background: var(--so-gray-0); box-shadow: var(--shadow-sm); border: 1px solid var(--border-1); transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base); }
+  .work-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .work-card h3 { color: var(--so-cyan-700); font-size: 18px; font-family: var(--font-display); font-weight: 700; margin: 0 0 12px; }
+  .work-card p { font-size: 14.5px; line-height: 1.65; color: var(--fg-2); margin: 0; }
+
+  /* ── Application process ── */
+  .proc-wrap { background: var(--so-gray-0); border-radius: var(--radius-2xl); box-shadow: var(--shadow-md); padding: clamp(40px,5vw,72px); }
+  .proc-head { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+  .proc-head h2 { font-size: clamp(1.7rem,1.2rem + 1.8vw,2.6rem); font-family: var(--font-display); font-weight: 800; margin: 0 0 14px; }
+  .proc-head p { color: var(--fg-2); margin: 0; line-height: 1.6; }
+  .proc { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; position: relative; }
+  .proc::before { content: ""; position: absolute; top: 26px; left: calc(100% / 6); right: calc(100% / 6); height: 2px; background: var(--border-2); z-index: 0; }
+  .proc-step { text-align: center; position: relative; z-index: 1; padding: 4px 14px 24px; border-radius: var(--radius-xl); transition: background 0.3s ease, box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-out); cursor: default; }
+  .proc-step:hover { background: var(--so-gray-0); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+  .proc-num { width: 52px; height: 52px; border-radius: 50%; background: var(--so-gray-0); border: 2px solid var(--so-cyan-500); color: var(--so-cyan-700); font-family: var(--font-display); font-weight: 800; font-size: 18px; display: grid; place-items: center; margin: 0 auto 18px; transition: background 0.3s ease, color 0.3s ease; }
+  .proc-step:hover .proc-num { background: var(--so-cyan-500); color: var(--so-ink-900); }
+  .proc-step h4 { font-size: 16px; font-weight: 700; margin: 0; color: var(--fg-1); line-height: 1.3; }
+  .proc-step ul { font-size: 14px; line-height: 1.7; color: var(--fg-2); margin: 0; padding: 0; list-style: none; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.32s ease 0.08s, margin-top 0.3s ease; }
+  .proc-step ul li { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 7px; text-align: left; }
+  .proc-step ul li::before { content: ""; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--so-cyan-500); margin-top: 7px; }
+  .proc-step:hover ul { max-height: 320px; opacity: 1; margin-top: 18px; }
+  @media (hover: none) { .proc-step ul { max-height: none; opacity: 1; margin-top: 14px; } }
+
+  /* ── Photobar ── */
+  .photobar { overflow: hidden; line-height: 0; }
+  .photobar-track { display: flex; animation: photoScroll 60s linear infinite; will-change: transform; }
+  .photobar-track:hover { animation-play-state: paused; }
+  @keyframes photoScroll { from { transform: translateX(0); } to { transform: translateX(calc(-100% / 2)); } }
+  .photobar-item { flex: 0 0 auto; width: 380px; height: 260px; overflow: hidden; }
+  .photobar-item canvas { width: 100%; height: 100%; display: block; }
+
+  /* ── Featured event ── */
+  .feat-event { display: grid; grid-template-columns: 1fr 1fr; border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-md); background: var(--so-gray-0); text-decoration: none; transition: box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out); cursor: pointer; }
+  .feat-event:hover { box-shadow: var(--shadow-xl); transform: translateY(-3px); }
+  .feat-event__body { padding: clamp(36px,4vw,64px); display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+  .feat-event__body h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem,1.1rem + 1.6vw,2.2rem); margin: 0; color: var(--fg-1); line-height: 1.2; }
+  .feat-event__body > p { font-size: 15px; color: var(--fg-2); margin: 0; line-height: 1.75; }
+  .feat-event__meta { display: flex; flex-direction: column; gap: 12px; }
+  .feat-event__mi { display: flex; flex-direction: column; gap: 3px; }
+  .feat-event__mi strong { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3); }
+  .feat-event__mi span { font-size: 15px; color: var(--fg-2); }
+  .feat-event__media { background: var(--so-ink-800); min-height: 360px; position: relative; display: flex; align-items: center; justify-content: center; }
+  .feat-event__media .ph { position: absolute; inset: 0; background: linear-gradient(135deg, var(--so-ink-700) 0%, var(--so-cyan-900) 100%); }
+  .feat-event__cta { display: flex; justify-content: center; margin-top: 32px; }
+
+  /* ── Testimonials ── */
+  .testi-section { background: var(--so-cyan-50); }
+  .testi-head h2 { color: var(--fg-1); }
+  .testi-head p { color: var(--fg-2); }
+  .testi-head { text-align: center; max-width: 520px; margin: 0 auto clamp(40px,5vw,60px); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .testi-card { background: var(--so-gray-0); border-radius: var(--radius-2xl); padding: clamp(28px,3vw,40px); box-shadow: var(--shadow-md); border: 1px solid var(--border-1); display: flex; flex-direction: column; gap: 24px; }
+  .testi-card__quote { font-family: var(--font-serif); font-style: italic; font-size: clamp(1rem,0.85rem + 0.6vw,1.15rem); line-height: 1.65; color: var(--fg-1); margin: 0; text-wrap: pretty; flex: 1; }
+  .testi-card__mark { color: var(--so-cyan-500); font-size: 64px; line-height: 0.6; font-family: var(--font-serif); display: block; margin-bottom: 8px; }
+  .testi-card__person { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid var(--border-1); }
+  .testi-card__av { width: 44px; height: 44px; border-radius: 50%; background: var(--so-cyan-500); flex-shrink: 0; display: grid; place-items: center; color: var(--so-ink-900); font-size: 13px; font-weight: 700; }
+  .testi-card__name { font-weight: 700; font-size: 14.5px; color: var(--fg-1); margin: 0 0 2px; }
+  .testi-card__role { font-size: 12.5px; color: var(--fg-3); margin: 0; }
+  @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr; } }
+
+  /* ── Culture ── */
+  .cult-header { max-width: 560px; margin-bottom: 40px; }
+  .cult-header h2 { font-size: clamp(1.8rem,1.2rem + 2vw,2.8rem); font-family: var(--font-display); font-weight: 800; margin: 12px 0 14px; color: var(--fg-1); }
+  .cult-header p { font-size: 15px; color: var(--fg-2); line-height: 1.7; margin: 0; }
+  .cult-tabs { display: grid; grid-template-columns: repeat(4,1fr); border-bottom: 1px solid var(--border-1); }
+  .cult-tab { padding: 24px 20px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: border-color var(--duration-base); }
+  .cult-tab:hover, .cult-tab.is-active { border-bottom-color: var(--so-cyan-500); }
+  .cult-tab.is-active .cult-icon { background: var(--so-cyan-500); color: var(--so-ink-900); }
+  .cult-icon { width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--so-cyan-50); color: var(--so-cyan-700); display: grid; place-items: center; margin-bottom: 12px; transition: background var(--duration-base), color var(--duration-base); }
+  .cult-icon svg { width: 18px; height: 18px; }
+  .cult-tab strong { display: block; font-size: 16px; font-weight: 700; color: var(--fg-1); margin-bottom: 6px; }
+  .cult-tab p { font-size: 13px; color: var(--fg-2); margin: 0; line-height: 1.5; }
+  .cult-mosaic { width: 100%; height: 400px; border-radius: 0 0 var(--radius-2xl) var(--radius-2xl); overflow: hidden; position: relative; }
+  .cult-strip { position: absolute; top: 0; bottom: 0; overflow: hidden; transition: all 0.55s cubic-bezier(0.22,1,0.36,1); }
+  .cult-strip:nth-child(1) { left: 0; width: 25%; }
+  .cult-strip:nth-child(2) { left: 25%; width: 25%; }
+  .cult-strip:nth-child(3) { left: 50%; width: 25%; }
+  .cult-strip:nth-child(4) { left: 75%; width: 25%; }
+  .cult-strip::after { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: rgba(255,255,255,0.4); }
+  .cult-strip:last-child::after { display: none; }
+  .cult-strip canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cult-strip__label { position: absolute; bottom: 20px; left: 20px; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-shadow: 0 1px 4px rgba(0,0,0,0.5); z-index: 3; opacity: 0; transition: opacity 0.3s ease; }
+  .cult-strip.is-expanded { left: 0 !important; width: 100% !important; z-index: 10; }
+  .cult-strip.is-expanded .cult-strip__label { opacity: 1; }
+  .cult-strip.is-collapsed { opacity: 0; width: 0 !important; }
+
+  @media (max-width: 900px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .proc { grid-template-columns: 1fr; gap: 16px; }
+    .proc::before { display: none; }
+    .feat-event { grid-template-columns: 1fr; }
+    .feat-event__media { min-height: 240px; }
+    .cult-tabs { grid-template-columns: 1fr 1fr; }
+    .cult-mosaic { height: 280px; }
+  }
+  @media (max-width: 560px) {
+    .cult-tabs { grid-template-columns: 1fr; }
+    .cult-mosaic { height: 220px; }
+    .photobar-item { width: 260px; height: 180px; }
+  }
+  @media (max-width: 480px) {
+    .proc { gap: 14px; }
+  }
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- HERO -->
+  <header class="page-hero page-hero--tall car-hero" data-screen-label="Careers hero" style="background: linear-gradient(180deg, rgba(6,11,26,0.95) 0%, rgba(6,11,26,0.85) 100%), url('site/assets/careers-welcome-hero.jpg') center/cover no-repeat; color: #fff;">
+    <div class="container page-hero__inner">
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1 style="color: #fff;">Developing the change leaders<br>of the future<em>.</em></h1>
+        </div>
+        <div class="reveal" data-delay="1" style="text-align:left;">
+          <p class="page-hero__lead" style="color: rgba(255,255,255,0.9);">Join Europe's leading digital strategy consultancy. We help global brands and fast-growing scale-ups build digital businesses, bridging the gap between strategy and execution.</p>
+          <a class="btn btn--primary" style="margin-top: 28px;" href="vacancies.html">Find your role</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORKING AT SPARKOPTIMUS -->
+  <section class="section">
+    <div class="container container--full">
+      <div class="work-head reveal">
+        <h2>Why join us?</h2>
+        <p>We are looking for entrepreneurial top talent with a passion for digital. In return, we offer a dynamic environment where you can make a real impact from day one.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card reveal">
+          <h3>Steep learning curve</h3>
+          <p>You will work on strategic C-level challenges and be responsible for your own workstreams immediately. We provide extensive on-the-job coaching, regular feedback sessions, and dedicated training weeks to accelerate your growth.</p>
+        </div>
+        <div class="work-card reveal" data-delay="1">
+          <h3>Impactful projects</h3>
+          <p>We don't write reports that end up in a drawer. You will be involved in the entire lifecycle of a project — from designing a disruptive digital strategy to actually building and scaling the digital venture alongside our clients.</p>
+        </div>
+        <div class="work-card reveal" data-delay="2">
+          <h3>Unique culture &amp; events</h3>
+          <p>We work hard, but we celebrate our successes. Enjoy our legendary Friday afternoon drinks, our famous annual ski trip, summer boat tours through the Amsterdam canals, and regular team sports events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION PROCESS -->
+  <section class="section surface-subtle">
+    <div class="container container--full">
+      <div class="proc-wrap reveal">
+        <div class="proc-head">
+          <h2>The application process</h2>
+          <p>Our process is rigorous but transparent. We want to get to know the real you, and give you the opportunity to see if our DNA matches yours.</p>
+        </div>
+        <div class="proc">
+          <div class="proc-step">
+            <div class="proc-num">1</div>
+            <h4>CV Screening &amp; Coffee Chat</h4>
+            <ul>
+              <li>Your CV is reviewed by our team</li>
+              <li>Coffee chat with a Sparkie to discuss the role</li>
+              <li>Learn what makes SparkOptimus different</li>
+              <li>Chance to ask your first questions</li>
+            </ul>
+          </div>
+          <div class="proc-step">
+            <div class="proc-num">2</div>
+            <h4>First round case interviews</h4>
+            <ul>
+              <li>Three case interviews with senior Sparkies</li>
+              <li>Tests your structuring and analytical skills</li>
+              <li>Conceptual problem-solving assessed</li>
+              <li>Get a feel for how we think and work</li>
+            </ul>
+          </div>
+          <div class="proc-step">
+            <div class="proc-num">3</div>
+            <h4>Second round case interviews</h4>
+            <ul>
+              <li>Two final interviews with Partners</li>
+              <li>Deep dive into strategy and execution</li>
+              <li>Offer made if it's a match</li>
+              <li>Join at one of our upcoming start dates</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTOBAR -->
+  <div class="photobar" id="photobar"></div>
+  <div style="text-align:center;padding:clamp(24px,3vw,36px) 0;background:var(--so-gray-0);">
+    <a class="btn btn--primary-light" href="life-at-sparkoptimus.html">Explore our culture</a>
+  </div>
+
+  <!-- FEATURED EVENT -->
+  <section class="section surface-subtle" data-screen-label="Featured event">
+    <div class="container container--full">
+      <div class="reveal">
+        <a class="feat-event" href="career-events.html">
+          <div class="feat-event__body">
+            <h2>Master Digital Transformation Cases</h2>
+            <p>Join us for an exclusive workshop where you'll tackle real consulting problems from our projects. Learn the frameworks we use to drive transformation at Europe's leading organisations.</p>
+            <div class="feat-event__meta">
+              <div class="feat-event__mi">
+                <strong>Date</strong>
+                <span>June 15, 2026<span class="metadot" aria-hidden="true"></span>2:00–5:00 PM CET</span>
+              </div>
+              <div class="feat-event__mi">
+                <strong>Format</strong>
+                <span>Live webinar + interactive workshop</span>
+              </div>
+              <div class="feat-event__mi">
+                <strong>Audience</strong>
+                <span>Students &amp; early-career professionals</span>
+              </div>
+            </div>
+            <div style="margin-top:4px;">
+              <span class="btn btn--primary-light" style="display:inline-flex;">Register now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;margin-left:8px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </div>
+          </div>
+          <div class="feat-event__media">
+            <div class="ph" style="position:absolute;inset:0;"></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- POSITIONING + PROOF -->
+  <section class="section surface-ink" data-screen-label="Positioning">
+    <div class="container container--full">
+      <div class="position">
+        <div class="reveal">
+          <h2>More strategic than a tech firm. <em>More hands-on</em> than a strategy firm.</h2>
+          <a class="btn btn--ghost-dark" href="our-approach.html">Our approach</a>
+        </div>
+        <div class="quotes reveal" data-delay="1">
+          <div class="quotes__viewport">
+            <div class="quotes__track" id="quotesTrack">
+              <figure class="quotes__slide quote-card">
+                <p class="quote-card__q">&ldquo;They didn't just deliver a strategy deck — they rolled up their sleeves and teamed up with us to build and scale the solution. Real impact, measurable results.&rdquo;</p>
+                <figcaption class="quote-card__who">
+                  <span class="quote-card__av">JS</span>
+                  <div><b>John Smith</b><small>CEO, Leading Consumer Company</small></div>
+                </figcaption>
+              </figure>
+              <figure class="quotes__slide quote-card">
+                <p class="quote-card__q">&ldquo;Pragmatic, fast and deeply hands-on. SparkOptimus helped us turn an ambitious AI agenda into a roadmap we could actually execute — and stayed with us to make it real.&rdquo;</p>
+                <figcaption class="quote-card__who">
+                  <span class="quote-card__av">MV</span>
+                  <div><b>Marieke Visser</b><small>CDO, Global Retail Group</small></div>
+                </figcaption>
+              </figure>
+              <figure class="quotes__slide quote-card">
+                <p class="quote-card__q">&ldquo;They challenge your thinking and then roll up their sleeves alongside your teams. The combination of strategic depth and getting-it-done is rare.&rdquo;</p>
+                <figcaption class="quote-card__who">
+                  <span class="quote-card__av">TB</span>
+                  <div><b>Thomas Bakker</b><small>Managing Director, Industrial Holding</small></div>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="quotes__nav">
+            <button class="quotes__btn" id="quotesPrev" type="button" aria-label="Previous quote"></button>
+            <button class="quotes__btn" id="quotesNext" type="button" aria-label="Next quote"></button>
+            <div class="quotes__dots" id="quotesDots"></div>
+          </div>
+        </div>
+      </div>
+      <div class="badges reveal">
+        <div class="badge badge--logo"><img class="badge__emerce" src="site/assets/Emerce_Logo.png" alt="Emerce"><b>#1 Digital Consultancy</b><small>Ranked #1 seven times — Emerce100</small></div>
+        <div class="badge badge--logo"><img src="site/assets/B-Corp-Logo-White-RGB.png" alt="Certified B Corporation" style="height:56px;"><b>Certified B Corporation</b><small>Certified since 2021</small></div>
+        <div class="badge badge--logo"><img src="site/assets/leading-employer-2025.png" alt="Leading Employer 2025" style="height:56px;"><b>Leading Employer 2025</b><small>Awarded to the country's top 1%</small></div>
+        <div class="badge badge--logo"><img src="site/assets/insead.png" alt="INSEAD" style="height:52px;"><b>Top-executive programmes</b><small>Contributor at INSEAD</small></div>
+        <div class="badge badge--logo"><img src="site/assets/imd-white.png" alt="IMD" style="height:40px;"><b>Top-executive programmes</b><small>Contributor at IMD</small></div>
+        <div class="badge badge--logo"><img src="site/assets/business-book-winner.png" alt="Business Book Awards" style="height:52px;"><b>Business Book Awards winner</b><small>Author of &ldquo;Disruption in Action&rdquo;</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CULTURE AT SPARKOPTIMUS -->
+  <section class="section" data-screen-label="Culture">
+    <div class="container container--full">
+      <div class="reveal">
+        <div class="cult-header">
+          <h2>Culture at SparkOptimus</h2>
+          <p>Our team is built on curiosity, collaboration, and a commitment to making real impact. We believe diverse perspectives drive better solutions.</p>
+        </div>
+        <div class="cult-tabs" id="cultTabs">
+          <div class="cult-tab is-active" data-idx="0">
+            <div class="cult-icon"><i data-lucide="users"></i></div>
+            <strong>Diverse &amp; inclusive</strong>
+            <p>We celebrate all backgrounds and create space for everyone to belong.</p>
+          </div>
+          <div class="cult-tab" data-idx="1">
+            <div class="cult-icon"><i data-lucide="share-2"></i></div>
+            <strong>Collaborative</strong>
+            <p>We work together across roles, geographies, and expertise.</p>
+          </div>
+          <div class="cult-tab" data-idx="2">
+            <div class="cult-icon"><i data-lucide="target"></i></div>
+            <strong>Impact-driven</strong>
+            <p>Every project matters. We measure success by real-world change.</p>
+          </div>
+          <div class="cult-tab" data-idx="3">
+            <div class="cult-icon"><i data-lucide="trending-up"></i></div>
+            <strong>Learning-focused</strong>
+            <p>We invest in your development through mentorship and training.</p>
+          </div>
+        </div>
+        <div class="cult-mosaic" id="cultMosaic">
+          <div class="cult-strip is-expanded" data-strip="0">
+            <canvas id="cc0" width="1400" height="400"></canvas>
+            <span class="cult-strip__label">Diverse &amp; inclusive</span>
+          </div>
+          <div class="cult-strip" data-strip="1">
+            <canvas id="cc1" width="1400" height="400"></canvas>
+            <span class="cult-strip__label">Collaborative</span>
+          </div>
+          <div class="cult-strip" data-strip="2">
+            <canvas id="cc2" width="1400" height="400"></canvas>
+            <span class="cult-strip__label">Impact-driven</span>
+          </div>
+          <div class="cult-strip" data-strip="3">
+            <canvas id="cc3" width="1400" height="400"></canvas>
+            <span class="cult-strip__label">Learning-focused</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPLOYEE TESTIMONIALS -->
+  <section class="section testi-section" data-screen-label="Testimonials" style="padding: 20px 0px 80px;">
+    <div class="container container--full">
+      <div class="testi-head reveal">
+        <h2>Hear from our team</h2>
+      </div>
+      <div class="testi-grid">
+        <a href="employee-testimonials.html" class="testi-card reveal" style="text-decoration:none;cursor:pointer;">
+          <div>
+            <span class="testi-card__mark">&ldquo;</span>
+            <p class="testi-card__quote">What surprised me most was the ownership I got from day one. By month three I was leading client workstreams at one of Europe's largest retailers. The learning curve is steep — and that's exactly what you want.</p>
+          </div>
+          <div class="testi-card__person">
+            <div class="testi-card__av">SV</div>
+            <div>
+              <p class="testi-card__name">Sarah van den Berg</p>
+              <p class="testi-card__role">Digital Strategy Consultant <span class="metadot" aria-hidden="true"></span> 2 years</p>
+            </div>
+          </div>
+        </a>
+        <a href="employee-testimonials.html" class="testi-card reveal" data-delay="1" style="text-decoration:none;cursor:pointer;">
+          <div>
+            <span class="testi-card__mark">&ldquo;</span>
+            <p class="testi-card__quote">SparkOptimus sits at a rare intersection: genuinely rigorous strategy work, combined with the ambition to actually build and implement. You don't just hand over a report — you stay until it works.</p>
+          </div>
+          <div class="testi-card__person">
+            <div class="testi-card__av">MG</div>
+            <div>
+              <p class="testi-card__name">Martijn de Groot</p>
+              <p class="testi-card__role">Manager Data &amp; AI <span class="metadot" aria-hidden="true"></span> 4 years</p>
+            </div>
+          </div>
+        </a>
+        <a href="employee-testimonials.html" class="testi-card reveal" data-delay="2" style="text-decoration:none;cursor:pointer;">
+          <div>
+            <span class="testi-card__mark">&ldquo;</span>
+            <p class="testi-card__quote">I joined straight from my Master's and the culture here is unlike anything I expected from a consultancy. People are direct, collaborative, and genuinely invested in each other's growth.</p>
+          </div>
+          <div class="testi-card__person">
+            <div class="testi-card__av">EK</div>
+            <div>
+              <p class="testi-card__name">Emma Konings</p>
+              <p class="testi-card__role">Associate <span class="metadot" aria-hidden="true"></span> 1 year</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="section surface-teal ctaband" data-screen-label="CTA" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 24px;max-width:18ch;">Don't see your role? <em>We'd still love to meet you.</em></h2>
+        <a class="btn btn--primary" href="#contact">Send an open application</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+  /* ── Quotes reel ── */
+  (function () {
+    var track = document.getElementById('quotesTrack');
+    if (!track) return;
+    var prevBtn = document.getElementById('quotesPrev');
+    var nextBtn = document.getElementById('quotesNext');
+    var dotsWrap = document.getElementById('quotesDots');
+    var chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+    var chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+    prevBtn.innerHTML = chevL;
+    nextBtn.innerHTML = chevR;
+    var count = track.children.length;
+    var idx = 0;
+    var timer = null;
+    var DELAY = 6500;
+    for (var d = 0; d < count; d++) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'quotes__dot' + (d === 0 ? ' is-active' : '');
+      dot.setAttribute('aria-label', 'Go to quote ' + (d + 1));
+      (function (j) { dot.addEventListener('click', function () { go(j); restart(); }); })(d);
+      dotsWrap.appendChild(dot);
+    }
+    var dots = dotsWrap.children;
+    function go(n) {
+      idx = (n + count) % count;
+      track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      for (var k = 0; k < dots.length; k++) dots[k].classList.toggle('is-active', k === idx);
+    }
+    function start() { if (count < 2) return; timer = setInterval(function () { go(idx + 1); }, DELAY); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+    nextBtn.addEventListener('click', function () { go(idx + 1); restart(); });
+    prevBtn.addEventListener('click', function () { go(idx - 1); restart(); });
+    var reel = track.closest('.quotes');
+    reel.addEventListener('mouseenter', stop);
+    reel.addEventListener('mouseleave', start);
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) start();
+  })();
+
+  /* ── Photobar ── */
+  (function () {
+    var colors = [
+      ['#0e2a3a','#0a3d4a'], ['#0d1f35','#1a4a5a'], ['#12324a','#0e4a5e'],
+      ['#0a2240','#143350'], ['#122838','#0e3848'], ['#0e1e30','#1a3248']
+    ];
+    var bar = document.getElementById('photobar');
+    var track = document.createElement('div');
+    track.className = 'photobar-track';
+    var count = 7;
+    for (var copy = 0; copy < 2; copy++) {
+      for (var i = 0; i < count; i++) {
+        var item = document.createElement('div');
+        item.className = 'photobar-item';
+        var cv = document.createElement('canvas');
+        cv.width = 760; cv.height = 520;
+        var ctx = cv.getContext('2d');
+        var c = colors[i % colors.length];
+        var g = ctx.createLinearGradient(0, 0, cv.width, cv.height);
+        g.addColorStop(0, c[0]); g.addColorStop(1, c[1]);
+        ctx.fillStyle = g; ctx.fillRect(0, 0, cv.width, cv.height);
+        ctx.fillStyle = 'rgba(0,217,244,0.06)';
+        ctx.beginPath(); ctx.arc(cv.width * 0.8, cv.height * 0.2, 200, 0, Math.PI * 2); ctx.fill();
+        item.appendChild(cv);
+        track.appendChild(item);
+      }
+    }
+    bar.appendChild(track);
+  })();
+
+  /* ── Culture mosaic ── */
+  (function () {
+    var palettes = [
+      ['#0d2233','#0a3a4a','Diverse & inclusive'],
+      ['#0e1a2e','#163a4a','Collaborative'],
+      ['#0a2840','#124252','Impact-driven'],
+      ['#0d1e32','#0e3448','Learning-focused']
+    ];
+    palettes.forEach(function (pal, i) {
+      var cv = document.getElementById('cc' + i);
+      if (!cv) return;
+      var ctx = cv.getContext('2d');
+      var g = ctx.createLinearGradient(0, 0, cv.width, cv.height);
+      g.addColorStop(0, pal[0]); g.addColorStop(1, pal[1]);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, cv.width, cv.height);
+      /* subtle cyan orb */
+      ctx.fillStyle = 'rgba(0,217,244,0.08)';
+      ctx.beginPath(); ctx.arc(cv.width * 0.75, cv.height * 0.3, 280, 0, Math.PI * 2); ctx.fill();
+    });
+
+    var tabs = document.querySelectorAll('.cult-tab');
+    var strips = document.querySelectorAll('.cult-strip');
+
+    function activate(idx) {
+      tabs.forEach(function (t) { t.classList.remove('is-active'); });
+      tabs[idx].classList.add('is-active');
+      strips.forEach(function (s, i) {
+        s.classList.remove('is-expanded', 'is-collapsed');
+        if (i === idx) { s.classList.add('is-expanded'); }
+        else { s.classList.add('is-collapsed'); }
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('mouseenter', function () {
+        activate(parseInt(tab.dataset.idx, 10));
+      });
+    });
+
+    document.getElementById('cultMosaic').closest('.reveal').addEventListener('mouseleave', function () {
+      activate(0);
+    });
+  })();
+</script>
+</body>
+</html>

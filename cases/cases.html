@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Cases — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ↑ moved to site.css */
+  .page-hero__bg-img {
+    position: absolute; inset: 0; z-index: 0;
+    background: url('site/assets/cases-hero-bg.jpg') center center / cover no-repeat;
+    opacity: 0.38;
+  }
+  .page-hero::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to bottom, rgba(6,11,26,0.55) 0%, rgba(6,11,26,0.72) 100%),
+                radial-gradient(70% 120% at 85% 0%, rgba(0,217,244,0.10), transparent 55%);
+    pointer-events: none;
+  }
+  .page-hero__inner { position: relative; z-index: 2; }
+  /* ↑ moved to site.css */
+
+  /* ---------- FEATURED CASE (full-bleed image with overlay text) ---------- */
+  .cases-featured {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    align-items: flex-end;
+    text-decoration: none;
+    color: #fff;
+    margin-bottom: 56px;
+    box-shadow: var(--shadow-md);
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out);
+  }
+  .cases-featured:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .cases-featured image-slot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    --img-radius: 0;
+    z-index: 0;
+    transition: transform 0.55s var(--ease-out);
+  }
+  .cases-featured:hover image-slot {
+    transform: scale(1.04);
+  }
+
+  .cases-featured__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(6,11,26,0.86) 0%, rgba(6,11,26,0.45) 55%, rgba(6,11,26,0.18) 100%), linear-gradient(180deg, rgba(6,11,26,0.35), rgba(6,11,26,0.88));
+    transition: background 240ms var(--ease-out);
+  }
+  .cases-featured:hover .cases-featured__scrim {
+    background: linear-gradient(90deg, rgba(6,11,26,0.9) 0%, rgba(6,11,26,0.5) 55%, rgba(6,11,26,0.22) 100%), linear-gradient(180deg, rgba(6,11,26,0.4), rgba(6,11,26,0.92));
+  }
+
+  .cases-featured__text {
+    position: relative;
+    z-index: 2;
+    padding: clamp(22px, 2.4vw, 34px);
+    transition: transform 240ms var(--ease-out);
+  }
+  .cases-featured:hover .cases-featured__text {
+    transform: translateY(-4px);
+  }
+
+  .cases-featured__tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.16);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 7px 13px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+  }
+
+  .cases-featured h2 {
+    color: #fff;
+    font-size: clamp(1.25rem, 1rem + 0.9vw, 1.7rem);
+    margin: 0 0 12px;
+    max-width: 22ch;
+  }
+
+  .cases-featured__description {
+    color: var(--so-ink-100);
+    font-size: 15px;
+    max-width: 48ch;
+    margin: 0 0 18px;
+  }
+
+  .cases-featured .linklabel {
+    color: var(--so-cyan-300);
+    transition: gap 140ms var(--ease-out), color 140ms var(--ease-out);
+  }
+  .cases-featured:hover .linklabel {
+    gap: 14px;
+    color: #fff;
+  }
+
+  /* ---------- CUSTOM DROPDOWN (ins-dd) — matches insights filter style ---------- */
+  .ins-filter {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 40px; flex-wrap: wrap;
+    position: relative; z-index: 50;
+  }
+  .ins-dd { position: relative; }
+  .ins-dd__btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0 18px; height: 46px;
+    background: var(--bg-canvas); border: 1.5px solid var(--border-2);
+    border-radius: var(--radius-pill); font-family: var(--font-sans);
+    cursor: pointer; white-space: nowrap;
+    transition: border-color var(--duration-fast), background var(--duration-fast), box-shadow var(--duration-fast);
+  }
+  .ins-dd__btn:hover { border-color: var(--so-ink-600); background: var(--bg-subtle); }
+  .ins-dd.is-open .ins-dd__btn { border-color: var(--so-ink-900); background: var(--bg-subtle); box-shadow: var(--shadow-xs); }
+  .ins-dd.has-active .ins-dd__btn { border-color: var(--so-cyan-400); background: rgba(0,217,244,0.06); }
+  .ins-dd__btn-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
+  .ins-dd__btn-hint { font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); line-height: 1; }
+  .ins-dd__btn-value { font-size: 13px; font-weight: 600; color: var(--fg-1); line-height: 1.2; }
+  .ins-dd.has-active .ins-dd__btn-value { color: var(--so-cyan-700); }
+  .ins-dd.has-active .ins-dd__btn-hint  { color: var(--so-cyan-600); }
+  .ins-dd__chevron { flex-shrink: 0; color: var(--fg-3); transition: transform 0.22s var(--ease-out); }
+  .ins-dd.is-open  .ins-dd__chevron { transform: rotate(180deg); }
+  .ins-dd.has-active .ins-dd__chevron { color: var(--so-cyan-500); }
+  .ins-dd__panel {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: var(--so-gray-0); border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);
+    padding: 6px; min-width: 210px; z-index: 300;
+    opacity: 0; pointer-events: none; transform: translateY(-6px);
+    transition: opacity 0.18s ease, transform 0.20s var(--ease-out);
+  }
+  .ins-dd.is-open .ins-dd__panel { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .ins-dd__opt {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 14px; border-radius: var(--radius-md);
+    font-family: var(--font-sans); font-size: 14px; font-weight: 500;
+    color: var(--fg-1); cursor: pointer;
+    transition: background 0.12s; background: none; border: none;
+    width: 100%; text-align: left; white-space: nowrap;
+  }
+  .ins-dd__opt:hover { background: var(--bg-subtle); }
+  .ins-dd__opt.is-active { background: rgba(0,217,244,0.08); color: var(--so-cyan-700); font-weight: 700; }
+  .ins-dd__check { width: 14px; height: 14px; stroke: var(--so-cyan-600); fill: none; flex-shrink: 0; opacity: 0; }
+  .ins-dd__opt.is-active .ins-dd__check { opacity: 1; }
+  .ins-count { font-size: 13px; color: var(--fg-3); background: var(--bg-subtle); border-radius: var(--radius-pill); padding: 5px 14px; font-weight: 600; margin-left: auto; }
+  @media (max-width: 560px) {
+    .ins-filter { gap: 6px; }
+    .ins-dd__btn { padding: 0 14px; height: 42px; }
+  }
+
+  .linklabel { font-size: 14px; font-weight: 600; color: var(--so-cyan-700); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .linklabel--on-ink { color: var(--so-cyan-300); }
+  .linklabel .arrowmini { width: 16px; height: 16px; }
+
+  /* ---------- CASE CARD HIGHLIGHT (subtle accent) ---------- */
+  .so-case {
+    position: relative;
+    transition: all 240ms var(--ease-out);
+  }
+
+  .so-case.is-featured::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--so-cyan-500);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .so-case.is-featured {
+    border-left: 1px solid var(--border-1);
+  }
+
+  .so-case__featured-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(0, 217, 244, 0.12);
+    color: var(--so-cyan-600);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(0, 217, 244, 0.25);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 240ms var(--ease-out);
+  }
+
+  .so-case.is-featured .so-case__featured-badge {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    .cases-featured { min-height: 260px; }
+  }
+
+  @media (max-width: 640px) {
+    /* More card height so the background image remains visible behind the text */
+    .cases-featured { min-height: 280px; }
+    .ins-filter { border-radius: var(--radius-xl); gap: 14px; }
+    .ins-filter__group { width: 100%; }
+    .ins-filter__label { min-width: 70px; }
+    .ins-filter__select { flex: 1; min-width: 0; }
+  }
+
+  @media (max-width: 480px) {
+    /* Hide editorial description — title + link carry the message at phone size */
+    .cases-featured__description { display: none; }
+  }
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <meta name="description" content="Client work that moves the needle. How we helped leading organisations navigate digital transformation.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Cases — SparkOptimus">
+  <meta property="og:description" content="Client work that moves the needle. How we helped leading organisations navigate digital transformation.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/cases">
+  <meta property="og:image" content="site/assets/cases-hero-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cases — SparkOptimus">
+  <meta name="twitter:description" content="Client work that moves the needle. How we helped leading organisations navigate digital transformation.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/cases">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Cases — SparkOptimus",
+    "description": "SparkOptimus client cases — how we helped leading organisations across Europe achieve digital transformation.",
+    "url": "https://www.sparkoptimus.com/cases",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cases",
+      "item": "https://www.sparkoptimus.com/cases"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="impact">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- ============ DARK HERO ============ -->
+  <header class="page-hero page-hero--tall" data-screen-label="Cases hero">
+    <div class="page-hero__bg-img"></div>
+    <div class="container container--full page-hero__inner">
+      <h1 class="reveal">Our work<em>.</em></h1>
+    </div>
+  </header>
+
+  <!-- ============ FEATURED CASE ============ -->
+  <section class="section" style="padding: 60px 0px 0px">
+    <div class="container" style="margin-bottom: 20px;">
+      <p style="margin: 0; color: var(--fg-3); font-size: var(--text-sm); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;">Featured case</p>
+    </div>
+    <div class="container">
+      <a class="cases-featured reveal" href="#" id="featuredCase">
+        <image-slot id="cases-featured-img" shape="rect" placeholder="Featured case image" src="site/assets/placeholder-case-logistics.webp"></image-slot>
+        <div class="cases-featured__scrim"></div>
+        <div class="cases-featured__text">
+          <span class="cases-featured__tag" id="featuredTag">AI &amp; Data<span class="metadot" aria-hidden="true"></span>Industrial</span>
+          <h2 id="featuredTitle">Building TBI's AI strategy and an execution-ready portfolio</h2>
+          <p class="cases-featured__description" id="featuredDescription">Translating AI ambition into a concrete, prioritised roadmap with quick wins and a portfolio-wide transformation programme.</p>
+          <span class="linklabel linklabel--on-ink">Read case <span class="arrowmini"></span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ FILTER BAR ============ -->
+  <section class="section" style="padding: 5px 0px">
+    <div class="container">
+      <div class="ins-filter reveal" id="casesFilterBar">
+        <div class="ins-dd" id="ddService">
+          <button class="ins-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <div class="ins-dd__btn-inner">
+              <span class="ins-dd__btn-hint">Service</span>
+              <span class="ins-dd__btn-value" id="ddServiceVal">All services</span>
+            </div>
+            <svg class="ins-dd__chevron" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="ins-dd__panel" role="listbox" id="ddServicePanel"></div>
+        </div>
+        <div class="ins-dd" id="ddSector">
+          <button class="ins-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <div class="ins-dd__btn-inner">
+              <span class="ins-dd__btn-hint">Sector</span>
+              <span class="ins-dd__btn-value" id="ddSectorVal">All sectors</span>
+            </div>
+            <svg class="ins-dd__chevron" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="ins-dd__panel" role="listbox" id="ddSectorPanel"></div>
+        </div>
+        <span class="ins-count" id="caseCount">12 cases</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASES GRID ============ -->
+  <section class="section" style="padding: 4px 0px 20px">
+    <div class="container">
+      <div class="so-case-grid so-case-grid--row3" id="caseGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ LOAD MORE ============ -->
+  <section class="section" style="padding: 0px 0px 125px">
+    <div class="container" style="display: flex; justify-content: center;">
+      <button class="btn btn--ghost" id="loadMoreBtn">Load more cases</button>
+    </div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to make disruption work for your <em>organisation?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost-dark" href="our-approach.html">Our approach</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/site.js"></script>
+<script src="site/scripts/cases-data.js"></script>
+<script>
+  // [tag(category-for-card-label), filters[], client, title, sector, logo{text,bg,color} OR img]
+  // Derived from shared dataset (site/scripts/cases-data.js)
+  var CASES = window.SO_CASES.map(function(c){ return [c.svc, c.tags, c.client, c.title, c.sector, (c.img ? {img:c.img} : c.logo), c.href, c.blurb]; });
+
+  var arrow = window.SO.ico("arrow");
+
+  // Full display names for filter dropdowns (match Services & Sectors pages)
+  var SERVICE_LABELS = {
+    "Digital": "Digital Strategy & Transformation",
+    "Sustainability": "Sustainability Strategy & Transformation",
+    "AI & Data": "AI & Data Strategy & Transformation",
+    "M&A": "Mergers and Acquisition"
+  };
+  var SECTOR_LABELS = {
+    "Industrial": "Industrial goods & services",
+    "Finance": "Finance",
+    "Energy & Utilities": "Energy & utilities",
+    "Consumer Goods": "Consumer Goods"
+  };
+  var activeService = "";
+  var activeSector = "";
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var svc = params.get("service");
+    if (svc) {
+      var known = CASES.map(function(c){ return c[0]; });
+      if (known.indexOf(svc) !== -1) activeService = svc;
+    }
+    var sec = params.get("sector");
+    if (sec) {
+      var knownSec = CASES.map(function(c){ return c[4]; });
+      if (knownSec.indexOf(sec) !== -1) activeSector = sec;
+    }
+  })();
+  var casesPerPage = 6;
+  var currentPage = 1;
+
+  /* ---- Render featured case (first from CASES) ---- */
+  function renderFeatured() {
+    var featured = CASES[0];
+    document.getElementById("featuredTitle").textContent = featured[3];
+    document.getElementById("featuredTag").textContent = featured[0] + " \u00b7 " + featured[4];
+    document.getElementById("featuredDescription").textContent = featured[7];
+    var fimg = document.getElementById("cases-featured-img");
+    if (fimg && featured[5] && featured[5].img) fimg.setAttribute("src", featured[5].img);
+    document.getElementById("featuredCase").href = featured[6];
+  }
+
+  var CHECK_SVG = '<svg class="ins-dd__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+  function closeAllDDs(except) {
+    ['ddService','ddSector'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el !== except) {
+        el.classList.remove('is-open');
+        var b = el.querySelector('.ins-dd__btn');
+        if (b) b.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  function buildDD(wrapperId, valId, panelId, items, activeVal, onChange) {
+    var wrapper = document.getElementById(wrapperId);
+    var valEl   = document.getElementById(valId);
+    var panel   = document.getElementById(panelId);
+    if (!wrapper || !valEl || !panel) return;
+    var activeItem = items.filter(function(i){ return i.val === activeVal; })[0] || items[0];
+    valEl.textContent = activeItem.label;
+    wrapper.classList.toggle('has-active', !!activeVal);
+    panel.innerHTML = items.map(function(item) {
+      var cls = item.val === activeVal ? ' is-active' : '';
+      return '<button class="ins-dd__opt' + cls + '" data-val="' + item.val + '" type="button">' + item.label + CHECK_SVG + '</button>';
+    }).join('');
+    panel.querySelectorAll('.ins-dd__opt').forEach(function(optBtn) {
+      optBtn.addEventListener('click', function() {
+        closeAllDDs(null);
+        onChange(this.getAttribute('data-val'));
+      });
+    });
+    var oldBtn = wrapper.querySelector('.ins-dd__btn');
+    var newBtn = oldBtn.cloneNode(true);
+    oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+    newBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var wasOpen = wrapper.classList.contains('is-open');
+      closeAllDDs(null);
+      if (!wasOpen) { wrapper.classList.add('is-open'); newBtn.setAttribute('aria-expanded','true'); }
+    });
+  }
+
+  document.addEventListener('click', function() { closeAllDDs(null); });
+
+  /* ---- Build filter dropdowns ---- */
+  function buildFilters() {
+    var services = [{val:'',label:'All services'}].concat(
+      CASES.map(function(c){ return c[0]; })
+        .filter(function(v,i,a){ return a.indexOf(v)===i; }).sort()
+        .map(function(s){ return {val:s,label:SERVICE_LABELS[s]||s}; })
+    );
+    var sectors = [{val:'',label:'All sectors'}].concat(
+      CASES.map(function(c){ return c[4]; })
+        .filter(function(v,i,a){ return a.indexOf(v)===i; }).sort()
+        .map(function(s){ return {val:s,label:SECTOR_LABELS[s]||s}; })
+    );
+    buildDD('ddService','ddServiceVal','ddServicePanel', services, activeService, function(val){
+      activeService = val; currentPage = 1; buildFilters(); renderCases();
+    });
+    buildDD('ddSector','ddSectorVal','ddSectorPanel', sectors, activeSector, function(val){
+      activeSector = val; currentPage = 1; buildFilters(); renderCases();
+    });
+  }
+
+  /* ---- Filter cases ---- */
+  function getFilteredCases() {
+    return CASES.filter(function(c) {
+      if (activeService && c[0] !== activeService) return false;
+      if (activeSector  && c[4] !== activeSector)  return false;
+      return true;
+    });
+  }
+
+  /* ---- Render cases grid ---- */
+  function media(c) {
+    if (c.img) return '<image-slot id="case-' + c._i + '" shape="rect" placeholder="Photo" src="' + c.img + '"></image-slot>';
+    return '<div class="logo-tile" style="background:' + c.bg + ';"><b style="color:' + c.c + ';">' + c.t + '</b></div>';
+  }
+
+  function renderCases() {
+    var filtered = getFilteredCases();
+    var start = (currentPage - 1) * casesPerPage;
+    var end = start + casesPerPage;
+    var page = filtered.slice(start, end);
+
+    var html = page.map(function (row, i) {
+      var c = { _i: i, img: row[5].img, bg: row[5].bg, c: row[5].c, t: row[5].t };
+      return '<a class="so-case reveal" data-tags="' + row[1].join(" ") + '" data-delay="' + (i % 3) + '" href="' + row[6] + '">' +
+        '<div class="so-case__media"><span class="so-case__tag">' + row[0] + '</span>' + media(c) + '</div>' +
+        '<div class="so-case__body"><span class="so-case__client">' + row[2] + '</span>' +
+        '<span class="so-case__title">' + row[3] + '</span>' +
+        '<div class="so-case__meta"><span>' + row[4] + '</span><span class="arrowmini">' + arrow + '</span></div></div></a>';
+    }).join("");
+
+    var grid = document.getElementById("caseGrid");
+    if (currentPage === 1) {
+      grid.innerHTML = html;
+    } else {
+      grid.innerHTML += html;
+    }
+
+    window.SO.reveal();
+
+    /* Update count */
+    var countEl = document.getElementById("caseCount");
+    if (countEl) countEl.textContent = filtered.length + " case" + (filtered.length !== 1 ? "s" : "");
+
+    /* Update load more button */
+    var hasMore = end < filtered.length;
+    var btn = document.getElementById("loadMoreBtn");
+    if (hasMore) {
+      btn.style.display = "block";
+      btn.textContent = "Load more cases";
+    } else {
+      btn.style.display = end > casesPerPage ? "block" : "none";
+      if (end > casesPerPage) btn.textContent = "No more cases";
+    }
+  }
+
+
+
+  /* ---- Load more handler ---- */
+  var loadMoreBtn = document.getElementById("loadMoreBtn");
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", function () {
+      currentPage++;
+      renderCases();
+    });
+  }
+
+  /* ---- Init ---- */
+  buildFilters();
+  renderFeatured();
+  renderCases();
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

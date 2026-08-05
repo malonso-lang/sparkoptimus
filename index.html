@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>SparkOptimus — We make disruption work for you</title>
+
+<!-- Design system foundations — unchanged, correct font paths -->
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+  <!-- Preload CDN scripts: browser starts fetching during HTML parsing, not at </body> -->
+  <link rel="preload" href="https://unpkg.com/react@18.3.1/umd/react.development.js" as="script" crossorigin="anonymous">
+  <link rel="preload" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" as="script" crossorigin="anonymous">
+  <link rel="preload" href="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" as="script" crossorigin="anonymous">
+
+<style>
+  /* -------------------------------------------------------
+     New homepage utility classes.
+     Only classes NOT already in site.css are defined here.
+     All var(--*) names are from tokens.css.
+  ------------------------------------------------------- */
+
+  /* Footer-flash guard: holds footer below viewport while React/Babel loads.
+     Once React mounts and renders into #app, :empty no longer applies. */
+  #app:empty { min-height: 100vh; }
+
+  /* Lucide <i> inline icon reset */
+  i[data-lucide] { display: inline-block; line-height: 0; }
+
+  /* Layout wrapper used by new sections */
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 5vw, 48px);
+  }
+
+  /* Section surface variants — additive to .section from site.css */
+  .section--dark {
+    background: var(--so-ink-900);
+    color: var(--fg-on-inverse);
+  }
+  .section--dark h1,
+  .section--dark h2,
+  .section--dark h3,
+  .section--dark h4 { color: #fff; }
+  .section--dark p   { color: var(--so-ink-200); }
+
+  .section--light { background: var(--bg-canvas); }
+  .section--paper { background: var(--bg-subtle); }
+
+  /* Section title — used by WhatWeDo, Cases, Team */
+  .sec-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 1.2rem + 2.2vw, 3rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+    color: var(--fg-1);
+  }
+
+  /* Arrow link with Lucide icon — distinct from .arrowlink in site.css */
+  .link-arrow {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--so-cyan-700);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color var(--duration-base) var(--ease-out);
+  }
+  .link-arrow svg { width: 17px; height: 17px; transition: transform var(--duration-base) var(--ease-out); }
+  .link-arrow:hover { color: var(--so-cyan-600); }
+  .link-arrow:hover svg { transform: translateX(4px); }
+  .section--dark .link-arrow { color: var(--so-cyan-400); }
+
+  /* Client logo reveal grid */
+  .client-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(56px, 6vw, 88px) clamp(16px, 2vw, 36px);
+    align-items: center;
+    justify-items: center;
+  }
+  .client-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(clamp(40px, 4vw, 54px) * var(--s, 1));
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(10px);
+    transition:
+      opacity  720ms var(--ease-out),
+      filter   720ms var(--ease-out),
+      transform720ms var(--ease-out);
+    transition-delay: calc(var(--i) * 55ms);
+  }
+  .client-logo img {
+    max-width: min(100%, 188px);
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+    transition: transform 200ms var(--ease-out);
+  }
+  .client-grid.is-in .client-logo { opacity: 1; filter: blur(0); transform: none; }
+  .client-logo:hover img { transform: scale(1.12); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .client-logo { transition: none; opacity: 1; filter: none; transform: none; }
+  }
+  @media (max-width: 860px) {
+    .client-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 24px;
+    }
+    /* Uniform cell — every logo box is the same size; image adjusts inside */
+    .client-logo {
+      height: 56px !important;
+      width: 100%;
+    }
+    .client-logo img {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  /* ── MOBILE-ONLY overrides (≤ 680px) ─────────────────────────── */
+  @media (max-width: 680px) {
+
+    /* 1. Service lists: split into 2 separate cards */
+    .svc-block {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      display: flex !important;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .svc-block .svc-list-grid > div:not(.svc-list-grid__divider) {
+      background: rgb(244, 254, 255);
+      border-radius: var(--radius-2xl);
+      padding: clamp(24px, 5vw, 40px);
+      border: 1px solid var(--border-1);
+    }
+
+    /* 2. Proof grid: 3×2 logo-only grid */
+    .proof-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .proof-grid__item {
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: clamp(14px, 3vw, 22px) clamp(10px, 2vw, 16px) !important;
+      gap: 0 !important;
+      min-width: 0 !important;   /* prevent grid column blowout */
+      overflow: hidden !important;
+    }
+    /* Uniform image container — same width as column, fixed height */
+    .proof-grid__item > div:first-child {
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .proof-grid__item > div:first-child img {
+      height: 42px !important;   /* uniform height — overrides inline p.h */
+      width: auto !important;
+      max-width: 100% !important;
+      object-fit: contain !important;
+    }
+    /* Hide title + subtitle text, keep only the logo img */
+    .proof-grid__item > div:last-child { display: none !important; }
+    /* Reset border rules for 3-col */
+    .proof-grid__item:nth-child(n+4) {
+      border-top: 1px solid rgba(255,255,255,0.10) !important;
+    }
+    .proof-grid__item:nth-child(3n+1) { border-left: none !important; }
+    .proof-grid__item:nth-child(3n+2),
+    .proof-grid__item:nth-child(3n+3) {
+      border-left: 1px solid rgba(255,255,255,0.10) !important;
+    }
+    .proof-grid__item:nth-child(1),
+    .proof-grid__item:nth-child(2),
+    .proof-grid__item:nth-child(3) { border-top: none !important; }
+  }
+
+  /* 3. Team grid: 2×2 on mobile */
+  @media (max-width: 480px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+  <meta name="description" content="SparkOptimus is a digital strategy and transformation consultancy in Amsterdam. We help organisations turn digital, AI, data, and sustainability disruption into business opportunity.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="SparkOptimus — We make disruption work for you">
+  <meta property="og:description" content="SparkOptimus is a digital strategy and transformation consultancy in Amsterdam. We help organisations turn digital, AI, data, and sustainability disruption into business opportunity.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/">
+  <meta property="og:image" content="site/assets/hero-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SparkOptimus — We make disruption work for you">
+  <meta name="twitter:description" content="SparkOptimus is a digital strategy and transformation consultancy in Amsterdam. We help organisations turn digital, AI, data, and sustainability disruption into business opportunity.">
+  <script type="application/ld+json">
+  [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.sparkoptimus.com/#website",
+    "url": "https://www.sparkoptimus.com/",
+    "name": "SparkOptimus",
+    "description": "Digital strategy and transformation consultancy",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.sparkoptimus.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SparkOptimus",
+    "url": "https://www.sparkoptimus.com",
+    "logo": "https://www.sparkoptimus.com/site/assets/logo-mark.svg",
+    "description": "SparkOptimus is a digital strategy and transformation consultancy based in Amsterdam. We help organisations turn digital, AI, data, and sustainability disruption into business opportunity.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jacob Obrechtplein 1",
+      "addressLocality": "Amsterdam",
+      "postalCode": "1071 KS",
+      "addressCountry": "NL"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/sparkoptimus",
+      "https://www.instagram.com/sparkoptimus"
+    ]
+  }
+  ]
+  </script>
+  <link rel="canonical" href="https://www.sparkoptimus.com/">
+<style>
+.home-notice{background:var(--so-ink-900);color:#fff;padding:120px 0 clamp(22px,2.6vw,36px)}
+.home-notice__inner{width:min(760px,92vw);margin:0 auto;display:grid;gap:14px;justify-items:center;text-align:center}
+.home-notice__eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.home-notice__dot{width:7px;height:7px;border-radius:999px;background:var(--so-cyan-500,#00D9F4);flex:none}
+.home-notice__lead{font-family:var(--font-display);font-weight:500;font-size:clamp(17px,.55vw + 15px,20px);line-height:1.45;letter-spacing:-.005em;margin:0;max-width:52ch;text-wrap:pretty;color:#fff}
+.home-notice__body{display:grid;gap:14px;max-width:70ch;font-size:clamp(13.5px,.25vw + 13px,15px);line-height:1.7;font-weight:400;color:#fff;text-wrap:pretty}
+.home-notice__body p{margin:0;color:#fff}
+.home-notice,.home-notice *{opacity:1}
+.home-notice__toggle{justify-self:center;text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:0;cursor:pointer;font:inherit;font-size:13px;font-weight:600;color:var(--so-cyan-500,#00D9F4);transition:gap 140ms ease}
+.home-notice__toggle:hover{gap:14px}
+.home-notice__toggle svg{width:13px;height:13px}
+@media (max-width:640px){.home-notice{padding-top:96px}}
+</style>
+</head>
+<body data-page="home">
+
+<!-- Nav injected by site/scripts/site.js — untouched -->
+<div id="site-nav-root"></div>
+
+<!-- Announcement / disclaimer strip — placeholder copy, edit freely -->
+<section class="home-notice" id="homeNotice" aria-label="Announcement">
+  <div class="home-notice__inner">
+    <div class="home-notice__eyebrow"><span class="home-notice__dot"></span>Announcement</div>
+    <p class="home-notice__lead">Today, we are excited to announce that the SparkOptimus team will join EY Parthenon NL from September 1 onward.</p>
+    <a class="home-notice__toggle" href="contact.html"><span>Read more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+  </div>
+</section>
+
+<!-- New homepage content mounts here via React -->
+<div id="app"></div>
+<!-- Noscript H1 fallback for crawlers that do not execute JS -->
+<noscript><h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Make disruption work for you — SparkOptimus</h1></noscript>
+
+<!-- Footer injected by site/scripts/site.js — untouched -->
+<div id="site-footer-root"></div>
+
+<!-- 1. image-slot web component (must be before React renders) -->
+<script src="site/scripts/image-slot.js"></script>
+
+<!-- 2. Shared site chrome: nav + footer injection -->
+<script src="site/scripts/site.js"></script>
+
+<!-- 3. React runtime -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- 4. Lucide icons (thin-line, 1.5px stroke — matches SO iconography) -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- 5. Tweaks panel (exports useTweaks, TweaksPanel, TweakSection, etc. to window) -->
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<!-- 6. Page components — each exports to window -->
+<script type="text/babel" src="hero.jsx"></script>
+<script type="text/babel" src="sections.jsx"></script>
+
+<!-- 7. App root — mounts after all components are ready -->
+<script type="text/babel" src="app.jsx"></script>
+
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

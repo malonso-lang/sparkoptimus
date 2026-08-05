@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="Behind the disruption: culture, people, and moments that matter at SparkOptimus.">
+<title>Life at SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ── Hero ── */
+  .las-hero {
+    padding-top: clamp(130px, 12vw, 180px);
+    padding-bottom: clamp(64px, 6vw, 96px);
+    background: var(--so-ink-900);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .las-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 30%, rgba(0,217,244,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,217,244,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .las-hero__split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 5vw, 80px); align-items: end; }
+  @media (max-width: 1024px) { .las-hero__split { grid-template-columns: 1fr; align-items: start; } }
+  /* BUG FIX: selector was missing — restored .las-hero h1 { */
+  .las-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.8rem, 1.4rem + 4.5vw, 5.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 20px;
+    color: #fff;
+  }
+  .las-hero h1 em {
+    font-style: normal;
+    color: var(--so-cyan-400);
+  }
+  .las-hero p {
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+    color: var(--so-ink-200);
+    max-width: 52ch;
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  /* ── Filter bar ── */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: clamp(28px,3vw,40px) 0 0;
+  }
+
+  /* ── Grid section ── */
+  .grid-section {
+    padding-block: clamp(48px, 5vw, 80px);
+  }
+
+  /* ── Photo grid ── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 240px;
+    gap: 18px;
+  }
+
+  /* span helpers */
+  .ph-w2 { grid-column: span 2; }
+  .ph-h2 { grid-row: span 2; }
+  .ph-w2h2 { grid-column: span 2; grid-row: span 2; }
+
+  /* individual items */
+  .photo-item {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--so-ink-800);
+    cursor: pointer;
+  }
+  .photo-item image-slot {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .photo-item .ph-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(6,11,26,0.72) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+    display: flex;
+    align-items: flex-end;
+    padding: 18px 20px;
+    pointer-events: none;
+  }
+  .photo-item:hover .ph-overlay { opacity: 1; }
+  .ph-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--so-cyan-300);
+    background: rgba(6,11,26,0.55);
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(0,217,244,0.2);
+  }
+
+  /* zoom on hover */
+  .photo-item image-slot,
+  .photo-item .ph-bg {
+    transition: transform 0.55s var(--ease-out);
+  }
+  .photo-item:hover image-slot,
+  .photo-item:hover .ph-bg {
+    transform: scale(1.04);
+  }
+
+  /* placeholder background (shown before image is dropped) */
+  .ph-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.25);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    user-select: none;
+  }
+  .ph-bg svg { width: 28px; height: 28px; opacity: 0.35; stroke: currentColor; }
+
+  /* gradient fills per category — gives distinct feel to each slot */
+  .photo-item[data-cat="team"]    { background: linear-gradient(135deg, #0d2233 0%, #0e3448 100%); }
+  .photo-item[data-cat="events"]  { background: linear-gradient(135deg, #0d1f35 0%, #143250 100%); }
+  .photo-item[data-cat="offices"] { background: linear-gradient(135deg, #0a1e30 0%, #0e2a3a 100%); }
+  .photo-item[data-cat="culture"] { background: linear-gradient(135deg, #0f2838 0%, #123448 100%); }
+
+  /* subtle cyan orb per item — purely decorative */
+  .photo-item::before {
+    content: "";
+    position: absolute;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,217,244,0.09) 0%, transparent 70%);
+    top: -20%;
+    right: -10%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* hidden state for filtering */
+  .photo-item.is-hidden {
+    display: none;
+  }
+
+  /* ── Lightbox ── */
+  .lb-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6,11,26,0.96);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .lb-backdrop.is-open { display: flex; }
+  .lb-inner {
+    position: relative;
+    max-width: 1080px;
+    max-height: 85vh;
+    width: 100%;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  }
+  .lb-inner image-slot {
+    width: 100%;
+    height: 75vh;
+    display: block;
+  }
+  .lb-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    background: rgba(6,11,26,0.7);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: #fff;
+    z-index: 10;
+    transition: background var(--duration-fast);
+  }
+  .lb-close:hover { background: rgba(6,11,26,0.95); }
+  .lb-close svg { width: 18px; height: 18px; }
+  .lb-meta {
+    padding: 20px 28px;
+    background: var(--so-ink-900);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .lb-meta-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--so-cyan-400);
+  }
+  .lb-nav {
+    display: flex;
+    gap: 12px;
+  }
+  .lb-nav button {
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: #fff;
+    transition: background var(--duration-fast);
+  }
+  .lb-nav button:hover { background: rgba(255,255,255,0.14); }
+  .lb-nav button svg { width: 16px; height: 16px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .photo-grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 220px;
+    }
+    .ph-w2h2 { grid-column: span 2; grid-row: span 2; }
+  }
+  @media (max-width: 768px) {
+    .photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+      gap: 12px;
+    }
+    .ph-w2 { grid-column: span 2; }
+    .ph-h2 { grid-row: span 1; }
+    .ph-w2h2 { grid-column: span 2; grid-row: span 1; }
+  }
+  @media (max-width: 480px) {
+    .photo-grid { grid-auto-rows: 160px; gap: 8px; }
+  }
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/life-at-sparkoptimus">
+    <meta property="og:url" content="https://www.sparkoptimus.com/life-at-sparkoptimus">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Life at SparkOptimus",
+    "description": "What it is like to work at SparkOptimus — our culture, values, and the people who make our firm what it is.",
+    "url": "https://www.sparkoptimus.com/life-at-sparkoptimus",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Careers",
+      "item": "https://www.sparkoptimus.com/careers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Life at SparkOptimus",
+      "item": "https://www.sparkoptimus.com/life-at-sparkoptimus"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- HERO -->
+  <header class="las-hero" data-screen-label="Life at SO hero">
+    <div class="container container--full">
+      <div class="las-hero__split">
+        <div class="reveal">
+          <h1>Life at SparkOptimus<em>.</em></h1>
+        </div>
+        <p class="reveal" data-delay="1" style="color: var(--so-ink-200); font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem); line-height: 1.6; margin: 0;">Behind the disruption: culture, people, and moments that matter.</p>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar reveal" data-delay="2" id="filterBar">
+        <button class="chip chip--active" data-filter="all">All</button>
+        <button class="chip" data-filter="team">Team</button>
+        <button class="chip" data-filter="events">Events</button>
+        <button class="chip" data-filter="offices">Offices</button>
+        <button class="chip" data-filter="culture">Culture</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PHOTO GRID -->
+  <section class="grid-section">
+    <div class="container container--full">
+      <div class="photo-grid" id="photoGrid">
+
+        <!-- Row 1: wide + 1 + 1 -->
+        <div class="photo-item ph-w2h2 reveal" data-cat="team">
+          <image-slot id="las-01" shape="rect" placeholder="Team collaboration"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="1" data-cat="offices">
+          <image-slot id="las-02" shape="rect" placeholder="Amsterdam office"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Offices</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="2" data-cat="culture">
+          <image-slot id="las-03" shape="rect" placeholder="Office culture moment"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Culture</span></div>
+        </div>
+
+        <!-- Row 2 (fills beside the 2x2 above) -->
+        <div class="photo-item reveal" data-delay="1" data-cat="events">
+          <image-slot id="las-04" shape="rect" placeholder="Recruitment event"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Events</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="2" data-cat="team">
+          <image-slot id="las-05" shape="rect" placeholder="Friday drinks"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+
+        <!-- Row 3: 1 + wide + 1 -->
+        <div class="photo-item reveal" data-cat="culture">
+          <image-slot id="las-06" shape="rect" placeholder="Coffee moment"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Culture</span></div>
+        </div>
+        <div class="photo-item ph-w2 reveal" data-delay="1" data-cat="events">
+          <image-slot id="las-07" shape="rect" placeholder="Company ski trip"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Events</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="2" data-cat="team">
+          <image-slot id="las-08" shape="rect" placeholder="Team lunch"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+
+        <!-- Row 4: 1 + 1 + 1 + 1 -->
+        <div class="photo-item reveal" data-cat="offices">
+          <image-slot id="las-09" shape="rect" placeholder="Meeting room"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Offices</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="1" data-cat="team">
+          <image-slot id="las-10" shape="rect" placeholder="Client workshop"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="2" data-cat="culture">
+          <image-slot id="las-11" shape="rect" placeholder="Team celebration"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Culture</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="3" data-cat="events">
+          <image-slot id="las-12" shape="rect" placeholder="Summer boat tour"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Events</span></div>
+        </div>
+
+        <!-- Row 5: tall left + 1 + wide -->
+        <div class="photo-item ph-h2 reveal" data-cat="team">
+          <image-slot id="las-13" shape="rect" placeholder="Portrait — team member"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="1" data-cat="offices">
+          <image-slot id="las-14" shape="rect" placeholder="Office entrance"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Offices</span></div>
+        </div>
+        <div class="photo-item ph-w2 reveal" data-delay="2" data-cat="culture">
+          <image-slot id="las-15" shape="rect" placeholder="Team sports event"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Culture</span></div>
+        </div>
+
+        <!-- Row 6 (fills beside tall left) -->
+        <div class="photo-item reveal" data-delay="1" data-cat="events">
+          <image-slot id="las-16" shape="rect" placeholder="Masterclass event"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Events</span></div>
+        </div>
+        <div class="photo-item ph-w2 reveal" data-delay="2" data-cat="team">
+          <image-slot id="las-17" shape="rect" placeholder="Strategy offsite"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+
+        <!-- Row 7: 1 + wide + 1 -->
+        <div class="photo-item reveal" data-cat="culture">
+          <image-slot id="las-18" shape="rect" placeholder="Learning session"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Culture</span></div>
+        </div>
+        <div class="photo-item ph-w2 reveal" data-delay="1" data-cat="offices">
+          <image-slot id="las-19" shape="rect" placeholder="Jacob Obrechtplein exterior"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Offices</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="2" data-cat="team">
+          <image-slot id="las-20" shape="rect" placeholder="Casual hallway chat"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+
+        <!-- Row 8: 4 uniform -->
+        <div class="photo-item reveal" data-cat="events">
+          <image-slot id="las-21" shape="rect" placeholder="Speaker session"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Events</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="1" data-cat="culture">
+          <image-slot id="las-22" shape="rect" placeholder="Annual dinner"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Culture</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="2" data-cat="team">
+          <image-slot id="las-23" shape="rect" placeholder="Brainstorm session"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Team</span></div>
+        </div>
+        <div class="photo-item reveal" data-delay="3" data-cat="offices">
+          <image-slot id="las-24" shape="rect" placeholder="Rooftop terrace"></image-slot>
+          <div class="ph-overlay"><span class="ph-tag">Offices</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- CTA BANNER -->
+<section class="section surface-teal ctaband">
+  <div class="ctaband__orb"></div>
+  <div class="container container--full">
+    <div class="ctaband__inner reveal">
+      <h2>Ready to join our <em>team?</em></h2>
+      <div class="ctaband__actions">
+        <a class="btn btn--primary" href="vacancies.html">Apply here</a>
+        <a class="btn btn--ghost-dark" href="welcome.html">About us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb-backdrop" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <image-slot id="lb-preview" shape="rect" placeholder=""></image-slot>
+    <div class="lb-meta">
+      <span class="lb-meta-label" id="lbLabel">—</span>
+      <div class="lb-nav">
+        <button id="lbPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button id="lbNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+  /* ── Filter ── */
+  var filterBtns = document.querySelectorAll('#filterBar .chip');
+  var items = document.querySelectorAll('.photo-item');
+  var activeFilter = 'all';
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      activeFilter = btn.dataset.filter;
+      filterBtns.forEach(function(b) { b.classList.remove('chip--active'); });
+      btn.classList.add('chip--active');
+      items.forEach(function(item) {
+        var match = activeFilter === 'all' || item.dataset.cat === activeFilter;
+        item.classList.toggle('is-hidden', !match);
+      });
+    });
+  });
+
+  /* ── Lightbox ── */
+  var lb = document.getElementById('lightbox');
+  var lbPreview = document.getElementById('lb-preview');
+  var lbLabel = document.getElementById('lbLabel');
+  var lbClose = document.getElementById('lbClose');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+  var currentIdx = 0;
+  var visibleItems = [];
+
+  function openLightbox(idx) {
+    visibleItems = Array.from(items).filter(function(i) { return !i.classList.contains('is-hidden'); });
+    if (!visibleItems.length) return;
+    currentIdx = idx;
+    showLbSlide(currentIdx);
+    lb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLbSlide(idx) {
+    var item = visibleItems[idx];
+    if (!item) return;
+    var tag = item.querySelector('.ph-tag');
+    lbLabel.textContent = tag ? tag.textContent : '—';
+    var slot = item.querySelector('image-slot');
+    lbPreview.setAttribute('placeholder', slot ? (slot.getAttribute('placeholder') || '') : '');
+    /* copy id-based persisted image if image-slot supports it */
+    lbPreview.setAttribute('id', 'lb-preview');
+  }
+
+  items.forEach(function(item, i) {
+    item.addEventListener('click', function() {
+      var list = Array.from(items).filter(function(it) { return !it.classList.contains('is-hidden'); });
+      var pos = list.indexOf(item);
+      openLightbox(pos);
+    });
+  });
+
+  lbClose.addEventListener('click', function() {
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+  });
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) {
+      lb.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  lbPrev.addEventListener('click', function() {
+    currentIdx = (currentIdx - 1 + visibleItems.length) % visibleItems.length;
+    showLbSlide(currentIdx);
+  });
+  lbNext.addEventListener('click', function() {
+    currentIdx = (currentIdx + 1) % visibleItems.length;
+    showLbSlide(currentIdx);
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { lb.classList.remove('is-open'); document.body.style.overflow = ''; }
+    if (e.key === 'ArrowLeft') { currentIdx = (currentIdx - 1 + visibleItems.length) % visibleItems.length; showLbSlide(currentIdx); }
+    if (e.key === 'ArrowRight') { currentIdx = (currentIdx + 1) % visibleItems.length; showLbSlide(currentIdx); }
+  });
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

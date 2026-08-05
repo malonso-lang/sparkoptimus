@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>CEO stories — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  .ceo-hero h1 { font-size: clamp(2.2rem,1.4rem + 3.4vw,4rem); }
+  .ceo-hero h1 .lead-word { color: var(--so-cyan-400); }
+  .platforms { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  /* .platform pill — moved to site.css */
+
+  .ep-feat__badge {
+    display: inline-flex; align-items: center; align-self: flex-start;
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--so-cyan-50);
+    border: 1px solid var(--so-cyan-200);
+    color: var(--so-cyan-700);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* featured episode */
+  .ep-feat { display: grid; grid-template-columns: 1.25fr 1fr; border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-md); background: var(--so-gray-0); margin-bottom: 56px; }
+  .ep-feat__q { background: var(--so-ink-900); color: #fff; padding: clamp(34px,4vw,56px); display: flex; flex-direction: column; justify-content: center; }
+  .ep-feat__q .mark { font-family: var(--font-quote); color: var(--so-cyan-400); font-size: 54px; line-height: 0.3; }
+  .ep-feat__q p { font-family: var(--font-quote); font-style: italic; font-size: clamp(1.05rem,0.9rem + 0.7vw,1.4rem); line-height: 1.5; color: #fff; margin: 28px 0 0; }
+  .ep-feat__meta { padding: clamp(34px,4vw,56px); display: flex; flex-direction: column; justify-content: center; }
+  .ep-feat__meta h2 { font-size: clamp(1.4rem,1.1rem + 1.2vw,2rem); margin: 16px 0 16px; }
+  .ep-feat__meta .who { font-size: 15px; color: var(--fg-2); }
+  .ep-feat__meta .btn { margin-top: 28px; align-self: flex-start; }
+
+  .ep-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px; }
+  .ep-head h2 { font-size: clamp(1.4rem,1.1rem + 1.2vw,2rem); margin: 0; }
+  .ep-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .ep-card { display: flex; flex-direction: column; border-radius: var(--radius-xl); overflow: hidden; background: var(--so-gray-0); border: 1px solid var(--border-1); transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base), border-color var(--duration-base); text-decoration: none; }
+  .ep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: transparent; }
+  .ep-card__img { width: 100%; aspect-ratio: 16 / 9; background: var(--so-ink-800); overflow: hidden; position: relative; }
+  .ep-card__img img { width: 100%; height: 100%; object-fit: cover; }
+  .ep-card__content { padding: 26px; display: flex; flex-direction: column; }
+  .ep-card__role { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--so-cyan-700); }
+  .ep-card__name { font-family: var(--font-display); font-weight: 800; font-size: 19px; color: var(--fg-1); margin: 4px 0 5px; line-height: 1.2; }
+  .ep-card__title { font-size: 14px; font-weight: 500; color: var(--fg-2); margin: 0; line-height: 1.45; }
+  .ep-card__ex { font-size: 13px; line-height: 1.55; color: var(--fg-3); margin: 0; }
+  .ep-card__foot { margin-top: auto; padding-top: 18px; display: flex; justify-content: flex-start; align-items: center; }
+  .ep-card__listen { font-size: 13px; font-weight: 600; color: var(--so-cyan-700); display: inline-flex; align-items: center; gap: 6px; }
+  .ep-card__listen svg { width: 14px; height: 14px; }  /* dead .nl newsletter section removed */
+
+  /* ── video placeholder ── */
+  .ep-feat__video { background: var(--so-ink-900); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; cursor: pointer; min-height: 260px; }
+  .ep-feat__play-btn { width: 66px; height: 66px; border-radius: 50%; background: rgba(255,255,255,0.10); border: 1.5px solid rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; transition: background 240ms var(--ease-out), border-color 240ms var(--ease-out), box-shadow 240ms var(--ease-out); }
+  .ep-feat__video:hover .ep-feat__play-btn { background: rgba(0,217,244,0.18); border-color: var(--so-cyan-400); box-shadow: 0 0 0 10px rgba(0,217,244,0.07); }
+  .ep-feat__video-lbl { color: rgba(255,255,255,0.38); font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; }
+  /* ── card logo badge ── */
+  .ep-card__logo-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(255,255,255,0.95); border-radius: var(--radius-sm); padding: 4px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.14); }
+  .ep-card__logo-badge img { height: 18px; width: auto; max-width: 80px; object-fit: contain; display: block; }
+  .ep-card__logo-badge span { font-size: 10px; font-weight: 700; color: var(--fg-1); letter-spacing: 0.02em; white-space: nowrap; }
+
+  @media (max-width: 900px) { .ep-feat { grid-template-columns: 1fr; } .ep-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) {
+    .ep-grid { grid-template-columns: 1fr; }
+    .nl__form { flex-direction: column; }
+  }
+</style>
+  <meta name="description" content="Conversations with digital leaders. CEOs from leading global organisations share their transformation journeys.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="CEO stories — SparkOptimus">
+  <meta property="og:description" content="Conversations with digital leaders. CEOs from leading global organisations share their transformation journeys.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/ceo-stories">
+  <meta property="og:image" content="site/assets/insights-featured-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CEO stories — SparkOptimus">
+  <meta name="twitter:description" content="Conversations with digital leaders. CEOs from leading global organisations share their transformation journeys.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/ceo-stories">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "CEO Stories — SparkOptimus",
+    "description": "CEO Stories — first-hand accounts from business leaders on navigating digital disruption and transformation.",
+    "url": "https://www.sparkoptimus.com/ceo-stories",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "CEO Stories",
+      "item": "https://www.sparkoptimus.com/ceo-stories"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="impact">
+<div id="site-nav-root"></div>
+
+<main>
+  <header class="page-hero page-hero--tall ceo-hero" data-screen-label="CEO hero">
+    <div class="container container--full page-hero__inner">
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1>Conversations with the leaders shaping tomorrow's business<em>.</em></h1>
+        </div>
+        <div>
+          <p class="page-hero__lead reveal" data-delay="2">In-depth podcast episodes with CEOs, founders, and executives navigating digital transformation, sustainability, and the future of their industries.</p>
+          <div class="platforms reveal" data-delay="3">
+            <a class="platform" href="https://open.spotify.com/show/sparkoptimus">
+              <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path fill="white" d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.33.1-.69-.08-.79-.41-.1-.33.08-.69.41-.79 3.38-.98 9.02-.79 12.57 1.39.3.17.41.55.24.85-.17.3-.55.41-.84.31zm-.1 3.13c-.26.41-.8.54-1.21.28-2.82-1.72-7.11-2.22-10.45-1.21-.45.14-.93-.12-1.07-.57-.14-.45.12-.93.57-1.07 3.81-1.15 8.55-.59 11.81 1.43.41.25.54.8.35 1.14zm-1.18 3.01c-.21.33-.64.43-.97.22a13.58 13.58 0 00-8.02-1.31c-.4.07-.77-.19-.84-.59-.07-.4.19-.77.59-.84a15.08 15.08 0 019.01 1.47c.33.21.43.64.23.97z"/></svg>
+              Spotify
+            </a>
+            <a class="platform" href="https://podcasts.apple.com/podcast/sparkoptimus-ceo-stories/id1712869122">
+              <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><rect width="24" height="24" rx="6" fill="#9933CC"/><path fill="white" d="M12 5a4 4 0 014 4v1a4 4 0 01-8 0V9a4 4 0 014-4zm0 1.5A2.5 2.5 0 009.5 9v1a2.5 2.5 0 005 0V9A2.5 2.5 0 0012 6.5zM7.5 13a4.5 4.5 0 009 0H15a3 3 0 01-6 0H7.5zm3.75 4v.5H9.75V19h4.5v-1.5H12.75V17h-1.5z"/></svg>
+              Apple Podcasts
+            </a>
+            <a class="platform" href="#">
+              <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><rect x="3" y="8.5" width="3" height="7" rx="1.5" fill="#4285F4"/><rect x="3" y="3" width="3" height="4" rx="1.5" fill="#4285F4"/><rect x="3" y="17" width="3" height="4" rx="1.5" fill="#4285F4"/><rect x="10.5" y="5.5" width="3" height="13" rx="1.5" fill="#EA4335"/><rect x="18" y="8.5" width="3" height="7" rx="1.5" fill="#34A853"/><rect x="18" y="3" width="3" height="4" rx="1.5" fill="#34A853"/><rect x="18" y="17" width="3" height="4" rx="1.5" fill="#34A853"/></svg>
+              Google Podcasts
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section surface-subtle">
+    <div class="container container--full">
+      <div class="ep-feat reveal">
+        <a class="ep-feat__video" id="epFeatVideo" href="#" style="text-decoration:none;">
+          <div class="ep-feat__play-btn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="7,4 20,12 7,20" fill="rgba(255,255,255,0.88)"/></svg>
+          </div>
+          <span class="ep-feat__video-lbl">Watch full interview</span>
+        </a>
+        <div class="ep-feat__meta">
+          <span class="ep-feat__badge">Latest episode</span>
+          <h2 id="epFeatTitle"></h2>
+          <div class="who" id="epFeatWho"></div>
+          <a class="btn btn--primary-light" id="epFeatLink">Watch now</a>
+        </div>
+      </div>
+
+      <div class="ep-head reveal">
+        <h2>All episodes</h2>
+      </div>
+      <div class="ep-grid" id="epGrid"></div>
+    </div>
+  </section>
+
+
+  
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to make disruption work for your <em>organisation?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost-dark" href="our-approach.html">Our approach</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/permalinks.js"></script>
+<script src="site/scripts/ceo-stories-data.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+  var LOGOS = {
+    "Henkel":           "site/assets/company logos/Henkel-Logo.svg.png",
+    "Nestlé":           "site/assets/company logos/Nestlé.svg.png",
+    "Just Eat Takeaway":"site/assets/company logos/542076-JET-Logo-Orange-Secondary-Horizontal-Stacked-RGB-95f33b-medium-1718351113.png",
+    "Heineken":         "site/assets/company logos/Heineken_N.V.-Logo.wine.png",
+    "bol.com":          "site/assets/company logos/Bol.com_2019_logo.svg.png"
+  };
+
+  var EP = window.SO_CEO_STORIES || [];
+
+  var arrow = window.SO.ico("arrow");
+
+  function logoBadge(company) {
+    var src = LOGOS[company];
+    if (src) {
+      return '<div class="ep-card__logo-badge"><img src="' + src + '" alt="' + company + '"></div>';
+    }
+    return '<div class="ep-card__logo-badge"><span>' + company + '</span></div>';
+  }
+
+  var feat = EP[0];
+  if (feat) {
+    document.getElementById("epFeatTitle").innerHTML = feat.title;
+    document.getElementById("epFeatWho").innerHTML = feat.name + ' — ' + feat.role + ', ' + feat.company;
+    document.getElementById("epFeatLink").href = feat.href;
+    if (feat.img) {
+      var fv = document.getElementById("epFeatVideo");
+      fv.style.backgroundImage = 'url("' + feat.img + '")';
+      fv.style.backgroundSize = 'cover';
+      fv.style.backgroundPosition = 'center';
+    }
+    var fvl = document.getElementById('epFeatVideo');
+    if (fvl) { fvl.href = feat.href;
+    }
+  }
+
+  document.getElementById("epGrid").innerHTML = EP.slice(1).map(function (e, i) {
+    var href = e.href || "#";
+    var imgStyle = e.img
+      ? 'background-image: url(' + e.img + '); background-size: cover; background-position: center;'
+      : 'background: linear-gradient(135deg, var(--so-gray-200), var(--so-gray-100));';
+    return '<a class="ep-card reveal" data-delay="' + (i % 3) + '" href="' + href + '">' +
+      '<div class="ep-card__img" style="' + imgStyle + '">' + logoBadge(e.company) + '</div>' +
+      '<div class="ep-card__content">' +
+      '<div class="ep-card__role">' + e.role + '</div>' +
+      '<div class="ep-card__name">' + e.name + '</div>' +
+      '<p class="ep-card__title">' + e.title + '</p>' +
+      '<div class="ep-card__foot">' +
+      '<span class="ep-card__listen">Listen ' + arrow + '</span></div></div></a>';
+  }).join("");
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

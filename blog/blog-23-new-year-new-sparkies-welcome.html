@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>New year, new Sparkies: Welcome!  — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+<link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+<link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+
+/* ============================================================
+   BLOG DETAIL — page styles
+   ============================================================ */
+
+/* ---------- READING PROGRESS ---------- */
+.bd-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: transparent;
+  z-index: 200;
+  pointer-events: none;
+}
+.bd-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--so-cyan-500);
+  transition: width 80ms linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ---------- HERO ---------- */
+.bd-hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--so-ink-900);
+}
+
+.bd-hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.bd-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transform: scale(1.04);
+  transition: transform 8s ease-out;
+}
+
+.bd-hero.is-loaded .bd-hero__bg img {
+  transform: scale(1);
+}
+
+.bd-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top,
+      rgba(6, 11, 26, 0.97) 0%,
+      rgba(6, 11, 26, 0.72) 45%,
+      rgba(6, 11, 26, 0.28) 80%,
+      rgba(6, 11, 26, 0.10) 100%);
+}
+
+.bd-hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: clamp(120px, 12vw, 180px) 40px clamp(56px, 6vw, 88px);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.bd-hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.bd-hero__meta-item {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.01em;
+}
+
+.bd-hero__meta-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+.bd-hero__meta-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--so-cyan-400);
+  padding: 4px 12px;
+  border: 1px solid rgba(0,217,244,0.35);
+  border-radius: var(--radius-pill);
+  margin-right: 16px;
+}
+
+.bd-hero h1 {
+  font-size: clamp(2.2rem, 1.2rem + 3.8vw, 4.4rem);
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin: 0 0 32px;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.bd-hero__author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bd-hero__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--so-cyan-500);
+  color: var(--so-ink-900);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.bd-hero__author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bd-hero__author-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.bd-hero__author-role {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ---------- ARTICLE LAYOUT ---------- */
+.bd-layout {
+  padding: clamp(56px, 6vw, 96px) 40px clamp(64px, 7vw, 112px);
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px 1fr 200px;
+  gap: 0 clamp(40px, 5vw, 80px);
+  align-items: start;
+}
+
+/* ---------- TABLE OF CONTENTS ---------- */
+.bd-toc {
+  position: sticky;
+  top: 96px;
+  padding-top: 4px;
+}
+
+.bd-toc__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin: 0 0 18px;
+}
+
+.bd-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bd-toc__link {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--fg-3);
+  text-decoration: none;
+  padding: 6px 12px 6px 0;
+  border-left: 2px solid var(--border-1);
+  padding-left: 14px;
+  line-height: 1.4;
+  transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.bd-toc__link:hover {
+  color: var(--fg-1);
+  border-left-color: var(--so-cyan-500);
+}
+
+.bd-toc__link.is-active {
+  color: var(--so-ink-900);
+  font-weight: 600;
+  border-left-color: var(--so-cyan-500);
+}
+
+/* ---------- ARTICLE BODY ---------- */
+.bd-article {
+  min-width: 0;
+}
+
+.bd-article__lead {
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
+  line-height: 1.65;
+  color: var(--fg-1);
+  font-weight: 400;
+  margin: 0 0 clamp(36px, 4vw, 52px);
+  max-width: 64ch;
+}
+
+.bd-article h2 {
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.95rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-1);
+  margin: clamp(48px, 5vw, 72px) 0 18px;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  scroll-margin-top: 100px;
+}
+
+.bd-article h3 {
+  font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.35rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-1);
+  margin: 36px 0 12px;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 100px;
+}
+
+.bd-article p {
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.0625rem);
+  line-height: 1.78;
+  color: var(--fg-2);
+  margin: 0 0 22px;
+  max-width: 68ch;
+}
+
+.bd-article ul,
+.bd-article ol {
+  margin: 0 0 24px 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 64ch;
+}
+
+.bd-article ul li,
+.bd-article ol li {
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--fg-2);
+  padding-left: 22px;
+  position: relative;
+}
+
+.bd-article ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--so-cyan-500);
+}
+
+.bd-article ol {
+  counter-reset: ol-counter;
+}
+
+.bd-article ol li {
+  counter-increment: ol-counter;
+}
+
+.bd-article ol li::before {
+  content: counter(ol-counter);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--so-cyan-700);
+  font-family: var(--font-display);
+}
+
+/* ---------- PULL QUOTE ---------- */
+.bd-pullquote {
+  margin: clamp(40px, 5vw, 64px) 0;
+  padding: clamp(28px, 3vw, 40px) clamp(24px, 3vw, 40px);
+  border-left: 3px solid var(--so-cyan-500);
+  background: var(--bg-subtle);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.bd-pullquote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
+  line-height: 1.55;
+  color: var(--fg-1);
+  margin: 0 0 16px !important;
+  max-width: none !important;
+}
+
+.bd-pullquote cite {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--fg-3);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- ARTICLE IMAGE ---------- */
+.bd-article__img {
+  margin: clamp(36px, 4vw, 56px) 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.bd-article__img img {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  display: block;
+}
+
+.bd-article__img figcaption {
+  font-size: 13px;
+  color: var(--fg-3);
+  padding: 12px 0 0;
+  line-height: 1.5;
+}
+
+/* ---------- INLINE HIGHLIGHT BOX ---------- */
+.bd-highlight {
+  background: var(--so-cyan-50);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3vw, 36px);
+  margin: clamp(32px, 4vw, 52px) 0;
+}
+
+.bd-highlight p {
+  margin: 0 !important;
+  color: var(--so-ink-700) !important;
+  font-weight: 500;
+  max-width: none !important;
+}
+
+/* ---------- SIDEBAR ---------- */
+.bd-sidebar {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.bd-sidebar__card {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+.bd-sidebar__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin: 0 0 16px;
+}
+
+.bd-share-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bd-share-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-2);
+  text-decoration: none;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-1);
+  background: var(--so-gray-0);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.bd-share-link svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--fg-3);
+}
+
+.bd-share-link:hover {
+  border-color: var(--so-cyan-400);
+  color: var(--so-cyan-700);
+  box-shadow: var(--shadow-sm);
+}
+
+.bd-share-link:hover svg {
+  color: var(--so-cyan-500);
+}
+
+.bd-related-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bd-related-mini__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-1);
+}
+
+.bd-related-mini__item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.bd-related-mini__title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--fg-1);
+  line-height: 1.4;
+  transition: color var(--duration-fast);
+}
+
+.bd-related-mini__item:hover .bd-related-mini__title {
+  color: var(--so-cyan-700);
+}
+
+.bd-related-mini__date {
+  font-size: 12px;
+  color: var(--fg-3);
+}
+
+/* ---------- TAGS ROW ---------- */
+.bd-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding-top: clamp(28px, 3vw, 40px);
+  border-top: 1px solid var(--border-1);
+}
+
+.bd-tag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-2);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-2);
+  background: var(--so-gray-0);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.bd-tag:hover {
+  border-color: var(--so-cyan-500);
+  color: var(--so-cyan-700);
+}
+
+/* ---------- AUTHOR BIO ---------- */
+.bd-author {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-2xl);
+  padding: clamp(32px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 28px;
+  align-items: start;
+  margin-top: clamp(48px, 6vw, 80px);
+}
+
+.bd-author__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--so-cyan-500);
+  color: var(--so-ink-900);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.bd-author__name {
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-1);
+  margin: 0 0 4px;
+}
+
+.bd-author__role {
+  font-size: 13px;
+  color: var(--fg-3);
+  margin: 0 0 14px;
+}
+
+.bd-author__bio {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--fg-2);
+  margin: 0;
+  max-width: 58ch;
+}
+
+/* ---------- RELATED ARTICLES ---------- */
+.bd-related {
+  background: var(--bg-subtle);
+  padding: clamp(64px, 7vw, 96px) 40px;
+}
+
+.bd-related__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.bd-related__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+
+.bd-related__head h2 {
+  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.bd-related__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.5vw, 28px);
+}
+
+.bd-rcard {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--so-gray-0);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
+}
+
+.bd-rcard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.bd-rcard__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+}
+
+.bd-rcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.bd-rcard:hover .bd-rcard__media img {
+  transform: scale(1.04);
+}
+
+.bd-rcard__body {
+  padding: clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.bd-rcard__tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--so-cyan-600);
+}
+
+.bd-rcard__title {
+  font-size: clamp(1rem, 0.88rem + 0.5vw, 1.2rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-1);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.bd-rcard__excerpt {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 4px 0 0;
+}
+
+.bd-rcard__footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bd-rcard__author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-2);
+}
+
+.bd-rcard__date {
+  font-size: 12px;
+  color: var(--fg-3);
+}
+
+/* ---------- BACK TO BLOG ---------- */
+.bd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  margin-bottom: 36px;
+  transition: color var(--duration-fast) var(--ease-out), gap var(--duration-fast) var(--ease-out);
+}
+
+.bd-back:hover {
+  color: rgba(255,255,255,0.9);
+  gap: 12px;
+}
+
+.bd-back svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1200px) {
+  .bd-layout {
+    grid-template-columns: 180px 1fr 160px;
+    gap: 0 clamp(32px, 4vw, 56px);
+  }
+}
+
+@media (max-width: 960px) {
+  .bd-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .bd-toc {
+    display: none;
+  }
+  .bd-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-1);
+  }
+  .bd-sidebar__card {
+    flex: 1;
+    min-width: 200px;
+  }
+  .bd-related__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .bd-hero__content { padding-inline: 24px; }
+  .bd-layout { padding-inline: 24px; }
+  .bd-related { padding-inline: 24px; }
+  .bd-related__grid { grid-template-columns: 1fr; }
+  .bd-author { grid-template-columns: 1fr; gap: 18px; }
+  .bd-author__avatar { width: 56px; height: 56px; font-size: 18px; }
+  .bd-sidebar { flex-direction: column; }
+}
+
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+<meta name="description" content="What a fantastic way to start into 2022. 9 new Sparkies have been added to the team recently. Great to have you all on board!">
+<meta property="og:title" content="Thirsty for disruption — SparkOptimus">
+<meta property="og:description" content="When you think about digital disruption, beer or brewing might not be the first industry that comes to mind. However, the beer world's ability to adapt and leverage digital tools is impressive.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.sparkoptimus.com/blog/thirsty-for-digital-disruption">
+<meta property="og:image" content="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64ef99c5c4ac7dfe8730e16f_international-beer-day-01.jpg">
+<meta property="og:site_name" content="SparkOptimus">
+<meta property="og:title" content="New year, new Sparkies: Welcome! ">
+<meta property="og:description" content="What a fantastic way to start into 2022. 9 new Sparkies have been added to the team recently. Great to have you all on board!">
+<meta property="og:image" content="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64ef98b1856495547187fd5e_header_nassim.png">
+<link rel="canonical" href="blog-23-new-year-new-sparkies-welcome.html">
+</head>
+<body data-page="blog">
+
+<!-- Reading progress bar -->
+<div class="bd-progress" aria-hidden="true">
+  <div class="bd-progress__bar" id="progressBar"></div>
+</div>
+
+<script>window.SO_FORCE_ID=23;</script>
+<div id="site-nav-root"></div>
+
+<main>
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"><h1>New year, new Sparkies: Welcome! </h1><p>What a fantastic way to start into 2022. 9 new Sparkies have been added to the team recently. Great to have you all on board!</p></div>
+
+  <!-- ============ HERO ============ -->
+  <header class="bd-hero" id="bd-hero" data-screen-label="Article hero">
+    <div class="bd-hero__bg">
+      <img src="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64ef99c5c4ac7dfe8730e16f_international-beer-day-01.jpg" alt="" id="heroImg">
+    </div>
+    <div class="bd-hero__scrim"></div>
+    <div class="bd-hero__content">
+      <a href="blog.html" class="bd-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to blog
+      </a>
+      <div class="bd-hero__meta">
+        <span class="bd-hero__meta-tag" id="bdTag">Digital</span>
+        <span class="bd-hero__meta-item" id="bdDate"></span>
+        <span class="bd-hero__meta-sep"></span>
+        <span class="bd-hero__meta-item" id="bdRead"></span>
+      </div>
+      <h1 id="bdTitle">Blog</h1>
+      <div class="bd-hero__author">
+        <div class="bd-hero__avatar" id="bdAvatar"></div>
+        <div class="bd-hero__author-info">
+          <span class="bd-hero__author-name" id="bdAuthor"></span>
+          <span class="bd-hero__author-role" id="bdAuthorRole"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ ARTICLE ============ -->
+  <div class="bd-layout" id="bd-layout">
+
+    <!-- Table of contents (desktop) -->
+    <nav class="bd-toc" aria-label="Article contents">
+      <p class="bd-toc__title">In this article</p>
+      <ul class="bd-toc__list" id="bdToc"></ul>
+    </nav>
+
+    <!-- Article body -->
+    <article class="bd-article" id="bd-article">
+      <div id="bdBody"></div>
+      <div class="bd-tags" id="bdTags"></div>
+      <div class="bd-author">
+        <div class="bd-author__avatar" id="bdBioAvatar"></div>
+        <div>
+          <h3 class="bd-author__name" id="bdBioName"></h3>
+          <p class="bd-author__role" id="bdBioRole"></p>
+          <p class="bd-author__bio" id="bdBioText"></p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="bd-sidebar">
+
+      <div class="bd-sidebar__card">
+        <p class="bd-sidebar__label">Share</p>
+        <div class="bd-share-links">
+          <a class="bd-share-link" href="#" onclick="return false;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            LinkedIn
+          </a>
+          <a class="bd-share-link" href="#" onclick="return false;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            Copy link
+          </a>
+          <a class="bd-share-link" href="#" onclick="return false;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <div class="bd-sidebar__card">
+        <p class="bd-sidebar__label">More articles</p>
+        <div class="bd-related-mini" id="bdMini"></div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- ============ RELATED ARTICLES ============ -->
+  <section class="bd-related" data-screen-label="Related articles">
+    <div class="bd-related__inner">
+      <div class="bd-related__head">
+        <h2>More from the blog</h2>
+        <a class="arrowlink" href="blog.html">
+          All articles
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="bd-related__grid" id="bdRelated"></div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to make disruption work for your <em>organisation?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost-dark" href="services.html">Our services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/blog-data.js"></script>
+<script src="site/scripts/blog-bodies.js"></script>
+<script src="site/scripts/permalinks.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+(function () {
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function prettyDate(v) {
+    var p = String(v).split('/');
+    if (p.length !== 3) return v;
+    return parseInt(p[0], 10) + ' ' + MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[2];
+  }
+  function initials(n) {
+    return String(n).split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase();
+  }
+  var posts = window.SO_POSTS || [];
+  var bodies = window.SO_POST_BODIES || {};
+  var id = parseInt(window.SO_FORCE_ID || new URLSearchParams(location.search).get('p'), 10);
+  var post = posts.filter(function (p) { return p.id === id; })[0] || posts[0];
+  if (!post) return;
+  var body = bodies[post.id] || null;
+
+  document.title = post.title + ' — SparkOptimus';
+  document.getElementById('bdTitle').textContent = post.title;
+  document.getElementById('bdTag').textContent = post.tag;
+  document.getElementById('bdDate').textContent = prettyDate(post.date);
+  document.getElementById('bdRead').textContent = (body && body.readTime) ? body.readTime : '3 min read';
+  document.getElementById('bdAvatar').textContent = initials(post.author);
+  document.getElementById('bdAuthor').textContent = post.author;
+  var _role = (body && body.authorRole && body.authorRole !== post.author) ? body.authorRole : '';
+  var _ar = document.getElementById('bdAuthorRole');
+  _ar.textContent = _role;
+  _ar.style.display = _role ? '' : 'none';
+  var hero = document.getElementById('heroImg');
+  hero.src = (body && body.hero) ? body.hero : post.image;
+  hero.alt = post.title;
+
+  var bodyEl = document.getElementById('bdBody');
+  bodyEl.innerHTML = body ? body.html
+    : '<p class="bd-article__lead">' + post.excerpt + '</p>' +
+      '';
+
+  /* TOC from rendered h2s */
+  var heads = bodyEl.querySelectorAll('h2');
+  var toc = document.getElementById('bdToc');
+  if (!heads.length) {
+    var tocNav = toc.closest('.bd-toc');
+    if (tocNav) tocNav.style.visibility = 'hidden';
+  } else {
+    toc.innerHTML = Array.prototype.map.call(heads, function (h, i) {
+      if (!h.id) h.id = 'sec-' + i;
+      return '<li><a class="bd-toc__link" href="#' + h.id + '">' + h.textContent + '</a></li>';
+    }).join('');
+  }
+
+  var tags = (body && body.tags) ? body.tags : [post.tag];
+  document.getElementById('bdTags').innerHTML = tags.map(function (t) {
+    return '<a class="bd-tag" href="blog.html">' + t + '</a>';
+  }).join('');
+
+  document.getElementById('bdBioAvatar').textContent = initials(post.author);
+  document.getElementById('bdBioName').textContent = post.author;
+  document.getElementById('bdBioRole').textContent = _role || 'The SparkOptimus Blog Team';
+  document.getElementById('bdBioText').textContent = (body && body.authorBio)
+    ? body.authorBio
+    : 'Part of the SparkOptimus team, writing about digital strategy, transformation, sustainability and the trends shaping our clients\' industries.';
+
+  var pool = posts.filter(function (p) { return p.id !== post.id; });
+  var same = pool.filter(function (p) { return p.tag === post.tag; });
+  var ordered = same.concat(pool.filter(function (p) { return same.indexOf(p) === -1; }));
+
+  document.getElementById('bdMini').innerHTML = ordered.slice(0, 3).map(function (p) {
+    return '<a class="bd-related-mini__item" href="' + SO_PL('blog', p.id) + '">' +
+      '<span class="bd-related-mini__title">' + p.title + '</span>' +
+      '<span class="bd-related-mini__date">' + prettyDate(p.date) + '</span></a>';
+  }).join('');
+
+  document.getElementById('bdRelated').innerHTML = ordered.slice(0, 3).map(function (p) {
+    return '<a class="bd-rcard reveal" href="' + SO_PL('blog', p.id) + '">' +
+      '<div class="bd-rcard__media"><img src="' + p.image + '" alt="" loading="lazy" decoding="async"></div>' +
+      '<div class="bd-rcard__body">' +
+        '<span class="bd-rcard__tag">' + p.tag + '</span>' +
+        '<h3 class="bd-rcard__title">' + p.title + '</h3>' +
+        '<p class="bd-rcard__excerpt">' + p.excerpt + '</p>' +
+        '<div class="bd-rcard__footer"><span class="bd-rcard__author">' + p.author + '</span>' +
+        '<span class="bd-rcard__date">' + prettyDate(p.date) + '</span></div>' +
+      '</div></a>';
+  }).join('');
+  document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+})();
+</script>
+<script>
+(function () {
+  /* Reading progress bar */
+  var progressBar = document.getElementById('progressBar');
+  function updateProgress() {
+    var article = document.getElementById('bd-article');
+    if (!article || !progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  /* Hero image subtle Ken Burns */
+  var heroEl = document.getElementById('bd-hero');
+  if (heroEl) {
+    window.addEventListener('load', function () {
+      heroEl.classList.add('is-loaded');
+    });
+  }
+
+  /* Active TOC link on scroll */
+  var tocLinks = document.querySelectorAll('.bd-toc__link');
+  var sections = [];
+  tocLinks.forEach(function (link) {
+    var href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    var id = href.replace('#', '');
+    var el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el, link: link });
+  });
+
+  function updateToc() {
+    var scrollY = window.scrollY + 120;
+    var current = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+        current = sections[i];
+      }
+    }
+    tocLinks.forEach(function (l) { l.classList.remove('is-active'); });
+    if (current) current.link.classList.add('is-active');
+  }
+
+  window.addEventListener('scroll', updateToc, { passive: true });
+  updateToc();
+
+  /* Copy link button */
+  var copyBtn = document.querySelector('.bd-share-link[href="#"]');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href).then(function () {
+          var span = copyBtn.querySelector('svg + *') || copyBtn.lastChild;
+          var orig = copyBtn.innerHTML;
+          copyBtn.innerHTML = copyBtn.innerHTML.replace('Copy link', 'Copied!');
+          setTimeout(function () { copyBtn.innerHTML = orig; }, 2000);
+        });
+      }
+    });
+  }
+
+  /* Reveal animations */
+  if (window.SO && window.SO.reveal) {
+    window.SO.reveal();
+  }
+})();
+</script>
+</body>
+</html>

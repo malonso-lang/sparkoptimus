@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Our board — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* Portrait card styles — matches team.html ink card design */
+  .pcard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    padding: 24px 16px 0;
+    transition: all var(--duration-base) var(--ease-out);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+  .pcard__av { display: none; }
+  .pcard__image {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    object-position: top center;
+    margin-top: auto;
+  }
+  .pcard__name {
+    font-size: 15px;
+    font-weight: var(--weight-bold);
+    margin: 0 0 4px;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .pcard__role {
+    font-size: 12px;
+    color: var(--so-cyan-300);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0;
+  }
+  /* Sticky filter bar — JS-driven (CSS sticky broken by body overflow-x:clip) */
+  .filter-bar-sticky {
+    z-index: 50;
+    background: var(--bg-canvas);
+    padding: clamp(12px,1.5vw,18px) 0;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .filter-bar-sticky.is-fixed {
+    position: fixed;
+    top: 76px;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: var(--bg-canvas);
+    padding: clamp(12px,1.5vw,18px) 0;
+    border-bottom: 1px solid var(--border-1);
+  }
+  @media (max-width: 920px) {
+    .filter-bar-sticky.is-fixed { top: 0; }
+  }
+  .filter-bar-ph { height: 0; }
+</style>
+  <meta name="description" content="The supervisory board and advisors who help shape the strategic direction of SparkOptimus.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Our board — SparkOptimus">
+  <meta property="og:description" content="The supervisory board and advisors who help shape the strategic direction of SparkOptimus.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/board">
+  <meta property="og:image" content="site/assets/team-hero-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our board — SparkOptimus">
+  <meta name="twitter:description" content="The supervisory board and advisors who help shape the strategic direction of SparkOptimus.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/board">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "Board — SparkOptimus",
+    "description": "The SparkOptimus supervisory board — senior leaders providing strategic oversight and governance.",
+    "url": "https://www.sparkoptimus.com/board",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Team",
+      "item": "https://www.sparkoptimus.com/team"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Board",
+      "item": "https://www.sparkoptimus.com/board"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="about">
+<div id="site-nav-root"></div>
+
+<main>
+  <header class="page-hero page-hero--tall" data-screen-label="Board hero">
+    <div class="container container--full page-hero__inner">
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1>Our board<em>.</em></h1>
+        </div>
+        <p class="page-hero__lead reveal" data-delay="2">Meet the independent advisors who shape the strategic direction and long-term ambition of SparkOptimus.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="filter-bar-sticky">
+    <div class="container container--full">
+      <div class="people-bar" id="filterBar">
+        <span class="people-bar__label">Show</span>
+        <a class="chip" href="team.html">All</a>
+        <a class="chip" href="team.html">Partners</a>
+        <a class="chip" href="team.html">Associate Partners</a>
+        <a class="chip" href="team.html">Managers</a>
+        <a class="chip" href="team.html">Associates</a>
+        <a class="chip" href="team.html">Staff</a>
+        <span class="chip chip--active">Board</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:clamp(40px,4vw,56px);">
+    <div class="container container--full">
+      <div class="people-group people-group--ink reveal" style="margin-top:clamp(40px,4vw,56px);">
+        <div class="people-group__head"><h2>Board of Directors <span class="people-group__count">8</span></h2></div>
+        <div class="people-grid people-grid--3" id="boardGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 16px;max-width:16ch;">Want to join our team?</h2>
+        <p style="color:rgba(255,255,255,0.82);max-width:42ch;margin:0 auto 28px;">We're always looking for talented strategists, technologists and sector specialists to join our mission.</p>
+        <a class="btn btn--primary" href="careers.html">Explore careers</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+  var BOARD = [
+    ["Annet Aris","Board Member"],["Rob van den Bergh","Board Member"],["Volkert Doeksen","Board Member"],["Derk Haank","Board Member"],
+    ["Adriaan Nühn","Board Member"],["Daniel Ropers","Board Member"],["Anthony Ruys","Board Member"],["Marco Sodi","Board Member"]
+  ];
+  function initials(n){ return n.split(" ").filter(function(w){return w[0] && /[A-Za-zÀ-ÿ]/.test(w[0]);}).slice(0,2).map(function(w){return w[0];}).join("").toUpperCase(); }
+  document.getElementById("boardGrid").innerHTML = BOARD.map(function(p,i){
+    return '<div class="pcard pcard--ink reveal" data-delay="' + (i % 5) + '">' +
+      '<p class="pcard__name">' + p[0] + '</p>' +
+      '<span class="pcard__role">' + p[1] + '</span>' +
+      '<img src="uploads/michiel-boss-partner-sparkoptimus.png" alt="' + p[0] + '" class="pcard__image">' +
+      '</div>';
+  }).join("");
+  window.SO.reveal();
+
+  // Sticky filter bar — IntersectionObserver on the hero
+  (function(){
+    var bar = document.querySelector('.filter-bar-sticky');
+    var hero = document.querySelector('.page-hero');
+    if (!bar || !hero) return;
+    var ph = document.createElement('div');
+    bar.insertAdjacentElement('afterend', ph);
+    var navH = window.innerWidth > 920 ? 76 : 0;
+    new IntersectionObserver(function(entries) {
+      var gone = !entries[0].isIntersecting;
+      ph.style.height = gone ? (bar.offsetHeight + 'px') : '0';
+      bar.classList.toggle('is-fixed', gone);
+    }, { rootMargin: '-' + navH + 'px 0px 0px 0px', threshold: 0 }).observe(hero);
+  })();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="SparkOptimus DEI Commitment — Building an inclusive, equitable workplace.">
+<title>Our DEI Commitment | SparkOptimus Careers</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ── Page-scoped styles ── */
+  /* * { box-sizing } removed — site.css handles globally */
+  /* Hero */
+  .dei-hero {
+    padding: clamp(120px, 12vw, 160px) 0;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dei-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dei-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: 
+      linear-gradient(135deg, 
+        #e8dae8 0%,
+        #e6d9e0 15%,
+        #e8ddd8 35%,
+        #ebe8e6 50%,
+        #e8ede8 70%,
+        #dfe8ed 85%,
+        #dce1e8 100%
+      );
+  }
+
+  .dei-hero::before {
+    display: none;
+  }
+
+  .dei-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.3rem + 3.6vw, 4.2rem);
+    font-weight: 900;
+    margin: 0 0 24px 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+    color: #0a1628;
+  }
+
+  .dei-hero__split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 5vw, 80px); align-items: end; }
+  @media (max-width: 1024px) { .dei-hero__split { grid-template-columns: 1fr; align-items: start; } }
+  .dei-hero h1 em { font-style: normal; color: var(--so-cyan-400); }
+
+  .dei-hero p {
+    font-size: clamp(1rem, 0.95rem + 0.5vw, 1.3rem);
+    color: #374151;
+    max-width: 65ch;
+    margin: 0;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Main content */
+  .dei-content {
+    padding: clamp(100px, 10vw, 160px) 0;
+    background: #fff;
+  }
+
+  /* remove .container override — use site.css container + container--full */
+
+  .dei-section {
+    margin-bottom: clamp(80px, 10vw, 120px);
+  }
+
+  .dei-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.3rem + 2.2vw, 3rem);
+    font-weight: 900;
+    color: var(--fg-1);
+    margin: 0 0 32px 0;
+    line-height: 1.2;
+  }
+
+  .dei-section > p {
+    font-size: 17px;
+    color: var(--fg-2);
+    line-height: 1.8;
+    max-width: 85ch;
+    margin: 0 0 32px 0;
+  }
+
+  /* Pillars grid */
+  .dei-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .dei-pillar {
+    padding: 40px;
+    background: var(--so-gray-0);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-2xl);
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .dei-pillar:hover {
+    border-color: var(--so-cyan-400);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+  .dei-pillar h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg-1);
+    margin: 0 0 14px 0;
+  }
+  .dei-pillar p {
+    font-size: 15.5px;
+    color: var(--fg-2);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Commitment statement */
+  .commitment-box {
+    padding: 40px 48px;
+    background: rgba(0,217,244,0.04);
+    border: 1px solid rgba(0,217,244,0.18);
+    border-radius: var(--radius-2xl);
+  }
+
+  .commitment-box p {
+    font-size: 17px;
+    color: var(--fg-2);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  /* .dei-cta replaced by site.css surface-teal ctaband */
+
+  /* ---------- button variants — scoped so they don't override site.css .btn ---------- */
+  .dei-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s var(--ease-out);
+    gap: 8px;
+  }
+  .dei-btn--primary {
+    background: #00D4E8;
+    color: #0a1628;
+  }
+  .dei-btn--primary:hover {
+    background: #00C2D1;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 212, 232, 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .dei-pillars {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dei-pillars {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .dei-pillar {
+      padding: 28px;
+    }
+
+    .commitment-box {
+      padding: 32px;
+    }
+
+    .dei-section > p {
+      font-size: 16px;
+    }
+  }
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/dei-commitment">
+    <meta property="og:url" content="https://www.sparkoptimus.com/dei-commitment">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "DEI Commitment — SparkOptimus",
+    "description": "SparkOptimus commitment to diversity, equity, and inclusion — building a firm that reflects the world we operate in.",
+    "url": "https://www.sparkoptimus.com/dei-commitment",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Careers",
+      "item": "https://www.sparkoptimus.com/careers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "DEI commitment",
+      "item": "https://www.sparkoptimus.com/dei-commitment"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="dei-hero" data-screen-label="DEI Commitment">
+    <div class="dei-hero-bg"></div>
+    <div class="container container--full">
+      <div class="dei-hero__split reveal">
+        <div>
+          <h1>Diversity, equity &amp; inclusion<em>.</em></h1>
+        </div>
+        <p>At SparkOptimus, DEI are not aspirations we work toward someday. They are principles we actively embed in how we work, hire, develop our people, and show up in the world today.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="dei-content">
+    <div class="container container--full">
+      <div class="reveal">
+        <!-- Commitment statement -->
+        <div class="dei-section">
+          <h2>Our commitment</h2>
+          <div class="commitment-box">
+            <p>We are committed to building an inclusive, equitable workplace where every person, regardless of gender, nationality, sexual orientation, disability, cultural background, or any other identity, can thrive. This commitment applies across our operations, our talent practices, our client relationships, and our role in the broader community. It is approved and championed by our leadership team.</p>
+          </div>
+        </div>
+
+        <!-- Three pillars -->
+        <div class="dei-section">
+          <h2>How we approach this today</h2>
+          <p>We translate our commitment into concrete action across three areas:</p>
+
+          <div class="dei-pillars">
+            <div class="dei-pillar">
+              <h3>Within our team</h3>
+              <p>We run annual employee surveys that explicitly cover DEI-related themes such as belonging, fairness, and inclusion, and we use the outcomes to inform our people priorities. Participation is always voluntary and anonymous. We support employee-led groups, including SparkPride, our internationals community, and our women-in-consulting group, and give these groups the time, space, and resources to operate independently and meaningfully.</p>
+            </div>
+
+            <div class="dei-pillar">
+              <h3>In how we hire</h3>
+              <p>We include our DEI commitment in all job postings, have a policy of not requesting salary histories from candidates, and actively work to reduce bias throughout our recruitment process, from inclusive job description language to structured selection criteria.</p>
+            </div>
+
+            <div class="dei-pillar">
+              <h3>In how we grow our people</h3>
+              <p>We offer mentorship opportunities to all employees, provide leave policies that go beyond legal minimums (including gender affirmation leave, parental leave, adoption leave, and interchangeable religious/cultural holidays), and run annual DEI-themed training, most visibly our annual Pride training.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Looking forward -->
+        <div class="dei-section">
+          <h2>Looking forward</h2>
+          <p>We review and update our DEI actions annually based on employee feedback and data. Our leadership team holds accountability for progress and ensures our commitment continues to translate into meaningful action.</p>
+          <p>As a certified B Corp, this commitment is part of who we are. We believe that a more equitable SparkOptimus makes us a better company, for our people, our clients, and the communities we operate in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section surface-teal ctaband" data-screen-label="DEI CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to join <em>us?</em></h2>
+        <div class="ctaband__actions">
+          <a href="vacancies.html" class="btn btn--primary">View open roles</a>
+          <a href="careers.html" class="btn btn--ghost-dark">Our culture</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

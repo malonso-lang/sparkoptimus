@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Font Size Benchmark — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ---- Report shell ---- */
+  body { background: var(--so-gray-50); }
+
+  .report-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 64px 40px 120px;
+  }
+
+  /* ---- Header ---- */
+  .report-header {
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border-2);
+    margin-bottom: 64px;
+  }
+  .report-header__eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--so-cyan-700); margin-bottom: 18px;
+  }
+  .report-header__eyebrow::before {
+    content: ""; width: 20px; height: 2px;
+    background: var(--so-cyan-500); border-radius: 2px; display: block;
+  }
+  .report-header h1 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(2rem, 1.2rem + 2.5vw, 3.2rem);
+    line-height: 1.08; letter-spacing: -0.025em;
+    color: var(--so-ink-900); margin: 0 0 20px;
+  }
+  .report-header__meta {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    font-size: 13.5px; color: var(--fg-3);
+  }
+  .report-header__meta span { display: flex; align-items: center; gap: 7px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--so-gray-300); }
+
+  /* ---- Section titles ---- */
+  .section-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 22px; color: var(--fg-1);
+    letter-spacing: -0.01em; margin: 0 0 6px;
+  }
+  .section-subtitle {
+    font-size: 15px; color: var(--fg-3); margin: 0 0 28px; line-height: 1.55;
+  }
+
+  /* ---- Spacer ---- */
+  .gap { margin-bottom: 64px; }
+  .gap-sm { margin-bottom: 40px; }
+
+  /* ---- Standards table ---- */
+  .standards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .std-card {
+    background: var(--so-gray-0);
+    border-radius: 16px;
+    border: 1px solid var(--border-1);
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .std-card__org {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--fg-3);
+  }
+  .std-card__rule {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 28px; line-height: 1; color: var(--fg-1); letter-spacing: -0.02em;
+  }
+  .std-card__rule sub { font-size: 14px; font-weight: 500; color: var(--fg-3); letter-spacing: 0; }
+  .std-card__label {
+    font-size: 13.5px; color: var(--fg-2); line-height: 1.5; flex: 1;
+  }
+  .std-card__badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; align-self: flex-start;
+  }
+  .badge--aa   { background: #e6f7ef; color: #1a7a4a; }
+  .badge--aaa  { background: #e6ebf9; color: #3d52b5; }
+  .badge--ind  { background: var(--so-ink-50); color: var(--so-ink-500); }
+  .badge--sec  { background: #fff4e0; color: #8a5000; }
+
+  /* ---- Summary strip ---- */
+  .summary-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border-1);
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border-1);
+    margin-bottom: 36px;
+  }
+  .summary-cell {
+    background: var(--so-gray-0);
+    padding: 22px 24px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .summary-cell__n {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 36px; line-height: 1; letter-spacing: -0.03em;
+  }
+  .summary-cell__label { font-size: 12.5px; color: var(--fg-3); font-weight: 600; letter-spacing: 0.04em; }
+  .n--critical { color: #c0392b; }
+  .n--warning  { color: #d97706; }
+  .n--border   { color: #6366f1; }
+  .n--ok       { color: #1a7a4a; }
+
+  /* ---- Threshold legend ---- */
+  .threshold-legend {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;
+  }
+  .tleg {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 600; color: var(--fg-2);
+  }
+  .tleg__swatch {
+    width: 10px; height: 10px; border-radius: 3px;
+  }
+  .sw-critical { background: #fde8e6; border: 1.5px solid #f4a29b; }
+  .sw-warning  { background: #fef3cd; border: 1.5px solid #f5cc71; }
+  .sw-border   { background: #ede9fe; border: 1.5px solid #a5b4fc; }
+  .sw-ok       { background: #d1fae5; border: 1.5px solid #6ee7b7; }
+
+  /* ---- Audit table ---- */
+  .audit-table-wrap {
+    background: var(--so-gray-0);
+    border-radius: 16px;
+    border: 1px solid var(--border-1);
+    overflow: hidden;
+  }
+  .audit-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .audit-table th {
+    padding: 13px 18px;
+    text-align: left;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--fg-3);
+    background: var(--so-gray-50);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .audit-table td {
+    padding: 11px 18px;
+    border-bottom: 1px solid var(--border-1);
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+  .audit-table tr:last-child td { border-bottom: 0; }
+  .audit-table tr.row--critical td { background: #fff8f7; }
+  .audit-table tr.row--warning  td { background: #fffdf5; }
+  .audit-table tr.row--border   td { background: #faf9ff; }
+  .audit-table tr.row--ok       td { background: #f6fdf9; }
+
+  .audit-table tr.row--critical td:first-child { border-left: 3px solid #e74c3c; }
+  .audit-table tr.row--warning  td:first-child { border-left: 3px solid #f59e0b; }
+  .audit-table tr.row--border   td:first-child { border-left: 3px solid #818cf8; }
+  .audit-table tr.row--ok       td:first-child { border-left: 3px solid #34d399; }
+
+  .class-name {
+    font-family: var(--font-mono); font-size: 12.5px;
+    background: var(--bg-muted); padding: 2px 7px;
+    border-radius: 5px; color: var(--fg-1);
+    white-space: nowrap;
+  }
+  .size-val {
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  }
+  .size-val--critical { color: #c0392b; }
+  .size-val--warning  { color: #b45309; }
+  .size-val--border   { color: #4f46e5; }
+  .size-val--ok       { color: #065f46; }
+
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .pill--critical { background: #fde8e6; color: #9b1c1c; }
+  .pill--warning  { background: #fef3cd; color: #78350f; }
+  .pill--border   { background: #ede9fe; color: #3730a3; }
+  .pill--ok       { background: #d1fae5; color: #065f46; }
+
+  .context-note { font-size: 12.5px; color: var(--fg-3); font-style: italic; }
+
+  /* ---- Token scale visual ---- */
+  .token-scale {
+    background: var(--so-gray-0); border-radius: 16px;
+    border: 1px solid var(--border-1); overflow: hidden;
+  }
+  .token-scale__row {
+    display: grid; grid-template-columns: 120px 80px 1fr 140px;
+    gap: 20px; padding: 16px 24px;
+    align-items: center;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .token-scale__row:last-child { border-bottom: 0; }
+  .token-scale__row.is-critical { background: #fff8f7; border-left: 3px solid #e74c3c; }
+  .token-scale__row.is-warning  { background: #fffdf5; border-left: 3px solid #f59e0b; }
+  .token-scale__row.is-ok       { background: #f6fdf9; border-left: 3px solid #34d399; }
+  .token-scale__name  { font-family: var(--font-mono); font-size: 12px; color: var(--fg-2); }
+  .token-scale__px    { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--fg-1); }
+  .token-scale__preview { font-family: var(--font-sans); color: var(--fg-1); line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ---- Recommendations ---- */
+  .recs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rec-card {
+    background: var(--so-gray-0); border-radius: 16px;
+    border: 1px solid var(--border-1); padding: 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .rec-card__num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--so-ink-900); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .rec-card__head {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 16px; color: var(--fg-1);
+  }
+  .rec-card__body { font-size: 13.5px; color: var(--fg-2); line-height: 1.6; }
+  .rec-card__code {
+    font-family: var(--font-mono); font-size: 12px;
+    background: var(--bg-muted); padding: 10px 14px;
+    border-radius: 8px; color: var(--fg-1); line-height: 1.6;
+  }
+  .rec-card--priority {
+    border-color: transparent;
+    background: var(--so-ink-900); color: #fff;
+    grid-column: 1 / -1;
+  }
+  .rec-card--priority .rec-card__head { color: #fff; }
+  .rec-card--priority .rec-card__body { color: var(--so-ink-200); }
+  .rec-card--priority .rec-card__num { background: var(--so-cyan-500); color: var(--so-ink-900); }
+  .rec-card--priority .rec-card__code {
+    background: rgba(255,255,255,0.08); color: var(--so-ink-100);
+  }
+
+  /* ---- Section header strip ---- */
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .count-badge {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--fg-3); background: var(--bg-muted);
+    padding: 3px 10px; border-radius: 999px; flex-shrink: 0;
+  }
+
+  /* ---- Table section divider ---- */
+  .audit-table .section-row td {
+    background: var(--so-gray-50);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--fg-3);
+    padding: 8px 18px;
+    border-bottom: 1px solid var(--border-1);
+    border-left: none;
+  }
+
+  /* ---- Verdict banner ---- */
+  .verdict {
+    background: var(--so-ink-900); border-radius: 20px;
+    padding: 32px 36px;
+    display: flex; gap: 24px; align-items: center;
+    flex-wrap: wrap;
+  }
+  .verdict__icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #fde8e6; display: grid; place-items: center;
+    flex-shrink: 0; font-size: 24px;
+  }
+  .verdict__text { flex: 1; min-width: 200px; }
+  .verdict__title { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: #fff; margin: 0 0 6px; }
+  .verdict__body { font-size: 14.5px; color: var(--so-ink-200); line-height: 1.6; margin: 0; }
+
+  @media (max-width: 840px) {
+    .standards-grid { grid-template-columns: 1fr 1fr; }
+    .summary-strip  { grid-template-columns: 1fr 1fr; }
+    .recs-grid      { grid-template-columns: 1fr; }
+    .rec-card--priority { grid-column: 1; }
+    .token-scale__row { grid-template-columns: 100px 60px 1fr; }
+    .token-scale__row .status-pill { display: none; }
+  }
+  @media (max-width: 560px) {
+    .report-wrap { padding: 32px 20px 80px; }
+    .standards-grid { grid-template-columns: 1fr; }
+    .summary-strip  { grid-template-columns: 1fr 1fr; }
+    .token-scale__row { grid-template-columns: 90px 55px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-wrap">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="report-header">
+    <p class="report-header__eyebrow">Typography Audit</p>
+    <h1>Font Size Benchmark<br>SparkOptimus</h1>
+    <div class="report-header__meta">
+      <span>Source: site/styles/tokens.css + site.css</span>
+      <span class="dot"></span>
+      <span>June 2025</span>
+      <span class="dot"></span>
+      <span>v1.0</span>
+    </div>
+  </header>
+
+  <!-- ═══ SECTION 1 — STANDARDS ═══ -->
+  <section class="gap">
+    <div class="section-header">
+      <div>
+        <p class="section-title">1 &nbsp;What the standards say</p>
+        <p class="section-subtitle">Four major references cover font sizing for web. None set a hard legal floor, but they converge strongly around a practical minimum.</p>
+      </div>
+    </div>
+
+    <div class="standards-grid">
+      <div class="std-card">
+        <span class="std-card__org">WCAG 2.1 &mdash; Level AA</span>
+        <div class="std-card__rule">16<sub>px</sub></div>
+        <p class="std-card__label">No explicit pixel minimum — but defines "large text" as ≥18pt (24px) or bold ≥14pt (~18.66px), which influences contrast requirements. Industry consensus reads the implicit body minimum as 16px.</p>
+        <span class="std-card__badge badge--aa">AA</span>
+      </div>
+      <div class="std-card">
+        <span class="std-card__org">WCAG 2.1 &mdash; Level AAA</span>
+        <div class="std-card__rule">18<sub>px</sub></div>
+        <p class="std-card__label">Enhanced readability. Recommends 18px+ for body text, and specifically states 18pt (24px) normal or 14pt bold (~18.66px) as the threshold below which full 4.5:1 contrast is required.</p>
+        <span class="std-card__badge badge--aaa">AAA</span>
+      </div>
+      <div class="std-card">
+        <span class="std-card__org">Section 508 / US Federal</span>
+        <div class="std-card__rule">15–16<sub>px</sub></div>
+        <p class="std-card__label">Recommends 11–12pt (15–16px) for web. Explicitly notes this is not the signage minimum of 16pt — on websites users can zoom, so typical body text at 15–16px is acceptable.</p>
+        <span class="std-card__badge badge--sec">Section 508</span>
+      </div>
+      <div class="std-card">
+        <span class="std-card__org">Industry / UX consensus</span>
+        <div class="std-card__rule">16<sub>px</sub></div>
+        <p class="std-card__label">Browser default is 16px. Major design systems (Material 3, Apple HIG, Shopify Polaris) set body at 16px. Secondary/helper text 14px. Absolute minimum for any rendered text: 12px (uppercase-only labels with wide tracking may stretch to 11px).</p>
+        <span class="std-card__badge badge--ind">Consensus</span>
+      </div>
+      <div class="std-card">
+        <span class="std-card__org">Dyslexia &amp; low-vision research</span>
+        <div class="std-card__rule">18<sub>px</sub></div>
+        <p class="std-card__label">Academic research recommends 18pt (24px) for users with dyslexia. Even for neurotypical users, studies show reading accuracy improves from 12px → 16px → 18px. Beyond 18px gains diminish for flowing text.</p>
+        <span class="std-card__badge badge--aaa">Research</span>
+      </div>
+      <div class="std-card" style="background: var(--so-cyan-50); border-color: var(--so-cyan-200);">
+        <span class="std-card__org" style="color:var(--so-cyan-700);">Our working thresholds</span>
+        <div class="std-card__rule" style="color:var(--so-ink-900);">16<sub>px</sub></div>
+        <p class="std-card__label" style="color:var(--so-ink-700);">Body text minimum. Secondary/UI text: 14px. Uppercase eyebrow labels: 12px acceptable if bold + tracked. Absolute hard floor: 11px (nav group titles only).</p>
+        <span class="std-card__badge" style="background:var(--so-ink-900); color:#fff;">SparkOptimus</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 2 — VERDICT ═══ -->
+  <section class="gap-sm">
+    <div class="verdict">
+      <div class="verdict__icon">⚠️</div>
+      <div class="verdict__text">
+        <p class="verdict__title">22 CSS classes use text below 13px — including readable body-level copy</p>
+        <p class="verdict__body">Body text (16px ✓) and most heading sizes are solid. The problem is concentrated in <strong style="color:#fff;">UI micro-labels, footer elements, and card metadata</strong> — all currently set at 11–13px with low contrast on muted colors. These are real readability risks, not just academic ones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 3 — TOKEN SCALE ═══ -->
+  <section class="gap">
+    <p class="section-title">2 &nbsp;Current type scale tokens</p>
+    <p class="section-subtitle">The design token scale defined in <code>tokens.css</code>. These are reference variables — issues arise when hardcoded values in <code>site.css</code> deviate below them.</p>
+
+    <div class="token-scale">
+      <div class="token-scale__row" style="background:var(--so-gray-50); border-bottom:1px solid var(--border-1);">
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-3);">Token</span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-3);">Value</span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-3);">Live preview</span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-3);">Status</span>
+      </div>
+      <div class="token-scale__row is-critical">
+        <span class="token-scale__name">--text-xs</span>
+        <span class="token-scale__px size-val--critical">12px</span>
+        <span class="token-scale__preview" style="font-size:12px;">The quick brown fox jumps</span>
+        <span class="status-pill pill--critical">Critical</span>
+      </div>
+      <div class="token-scale__row is-warning">
+        <span class="token-scale__name">--text-sm</span>
+        <span class="token-scale__px size-val--warning">14px</span>
+        <span class="token-scale__preview" style="font-size:14px;">The quick brown fox jumps</span>
+        <span class="status-pill pill--warning">Border zone</span>
+      </div>
+      <div class="token-scale__row is-ok">
+        <span class="token-scale__name">--text-md</span>
+        <span class="token-scale__px size-val--ok">16px</span>
+        <span class="token-scale__preview" style="font-size:16px;">The quick brown fox jumps</span>
+        <span class="status-pill pill--ok">✓ Body min</span>
+      </div>
+      <div class="token-scale__row is-ok">
+        <span class="token-scale__name">--text-lg</span>
+        <span class="token-scale__px size-val--ok">18px</span>
+        <span class="token-scale__preview" style="font-size:18px;">The quick brown fox jumps</span>
+        <span class="status-pill pill--ok">✓ AAA body</span>
+      </div>
+      <div class="token-scale__row is-ok">
+        <span class="token-scale__name">--text-xl</span>
+        <span class="token-scale__px size-val--ok">20px</span>
+        <span class="token-scale__preview" style="font-size:20px;">The quick brown fox jumps</span>
+        <span class="status-pill pill--ok">✓ Good</span>
+      </div>
+      <div class="token-scale__row is-ok">
+        <span class="token-scale__name">--text-2xl</span>
+        <span class="token-scale__px size-val--ok">24px</span>
+        <span class="token-scale__preview" style="font-size:24px;">The quick brown fox</span>
+        <span class="status-pill pill--ok">✓ Good</span>
+      </div>
+      <div class="token-scale__row is-ok">
+        <span class="token-scale__name">--text-3xl</span>
+        <span class="token-scale__px size-val--ok">30px</span>
+        <span class="token-scale__preview" style="font-size:30px;">Heading text</span>
+        <span class="status-pill pill--ok">✓ Good</span>
+      </div>
+    </div>
+
+    <p style="font-size:13.5px; color:var(--fg-3); margin-top:14px; line-height:1.6;">
+      ⚠ <strong style="color:var(--fg-2);">--text-xs (12px)</strong> is used as the token for eyebrows and micro-labels. This needs bumping to 13px. <strong style="color:var(--fg-2);">--text-sm (14px)</strong> is acceptable for secondary UI elements but should not be used for sustained reading text (captions, body copy).
+    </p>
+  </section>
+
+  <!-- ═══ SECTION 4 — FULL AUDIT ═══ -->
+  <section class="gap">
+    <div class="section-header">
+      <div>
+        <p class="section-title">3 &nbsp;Full site.css font-size audit</p>
+        <p class="section-subtitle">Every CSS class with an explicit font-size declaration, sorted by severity.</p>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="threshold-legend">
+      <span class="tleg"><span class="tleg__swatch sw-critical"></span>Critical — ≤12px</span>
+      <span class="tleg"><span class="tleg__swatch sw-warning"></span>Warning — 12.5–13.9px</span>
+      <span class="tleg"><span class="tleg__swatch sw-border"></span>Border zone — 14–15.9px</span>
+      <span class="tleg"><span class="tleg__swatch sw-ok"></span>OK — 16px+</span>
+    </div>
+
+    <!-- Summary strip -->
+    <div class="summary-strip">
+      <div class="summary-cell">
+        <span class="summary-cell__n n--critical">18</span>
+        <span class="summary-cell__label">Critical ≤12px</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-cell__n n--warning">14</span>
+        <span class="summary-cell__label">Warning 12.5–13.9px</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-cell__n n--border">14</span>
+        <span class="summary-cell__label">Border zone 14–15.9px</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-cell__n n--ok">12</span>
+        <span class="summary-cell__label">OK 16px+</span>
+      </div>
+    </div>
+
+    <!-- Audit table -->
+    <div class="audit-table-wrap">
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th style="width:220px;">CSS Class</th>
+            <th style="width:80px;">Size</th>
+            <th>Used for</th>
+            <th style="width:110px;">Status</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- CRITICAL -->
+          <tr class="section-row"><td colspan="5">Critical — ≤ 12 px</td></tr>
+
+          <tr class="row--critical">
+            <td><code class="class-name">.site-nav__grouptitle</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>Dropdown section headers (nav)</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Bold + uppercase + tracked. Acceptable at 11px for nav only.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-nav__drop-overview-cta</code></td>
+            <td><span class="size-val size-val--critical">11.5px</span></td>
+            <td>"See all" CTA inside nav dropdown</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Clickable link — interactive targets below 13px fail AA.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-drawer__subgroup-title</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>Mobile drawer section labels</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">On mobile screens, 11px is a real strain. Raise to 12–13px.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-footer__head</code></td>
+            <td><span class="size-val size-val--critical">11.5px</span></td>
+            <td>Footer column section headers</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Low contrast muted color at 11.5px — likely fails 4.5:1 AA.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.so-case__tag</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>Case study category badge (image overlay)</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">White on dark bg — contrast likely OK, but 11px is too small on mobile.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.filterbar__label</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>"Filter by:" label in filter bars</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Purely informational; lowest priority, but still jarring.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.people-bar__label</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>"Filter by:" on team/people page</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Same pattern as filterbar__label.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.pcard__role</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>Job title on person cards</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Readable content — 11px is too small. Priority fix.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-search__section-head</code></td>
+            <td><span class="size-val size-val--critical">11px</span></td>
+            <td>Search results group headers</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Context labels in a key interaction — raise to 12–13px.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.linklabel</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Uppercase arrow link labels (CTA)</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Interactive link at 12px. Raise to 13px minimum.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.numblock__biglabel</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Stat label under big numbers</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Descriptive text under stats — 12px with fg-3 color is very faint.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.numblock__quote small</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Quote attribution (company/role)</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Readable content. Should be 13–14px.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.so-case__client</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Client name on case cards</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Readable content + low-contrast cyan — likely fails AA.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.so-case__meta</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Sector/date metadata on case cards</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Informational text. Should be 13px.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-search__result-cat</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Category label under search results</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Muted white on dark background at 12px — hard to read.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-search__hint</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td">Keyboard shortcuts hint in search</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Decorative hints — lowest priority in this group.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.site-footer__legal (mobile)</code></td>
+            <td><span class="size-val size-val--critical">12px</span></td>
+            <td>Legal links in footer (mobile)</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Mobile breakpoint shrinks from 13px → 12px. Should stay 13px.</td>
+          </tr>
+          <tr class="row--critical">
+            <td><code class="class-name">.eyebrow (site.css override)</code></td>
+            <td><span class="size-val size-val--critical">12.5px</span></td>
+            <td>Section eyebrow labels</td>
+            <td><span class="status-pill pill--critical">Critical</span></td>
+            <td class="context-note">Bold + uppercase + tracked. Borderline — raise token to 13px.</td>
+          </tr>
+
+          <!-- WARNING -->
+          <tr class="section-row"><td colspan="5">Warning — 12.5 – 13.9 px</td></tr>
+
+          <tr class="row--warning">
+            <td><code class="class-name">.chip</code></td>
+            <td><span class="size-val size-val--warning">13px</span></td>
+            <td>Filter chips / category tags</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Interactive element — raise to 14px for comfortable tapping.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.site-nav__drop-overview-label</code></td>
+            <td><span class="size-val size-val--warning">13.5px</span></td>
+            <td>"Overview" label in nav dropdowns</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Raise to 14px to match .site-nav__droplink span.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.site-footer__formnote</code></td>
+            <td><span class="size-val size-val--warning">13px</span></td>
+            <td>Newsletter form note ("No spam…")</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Acceptable helper text. Raise to 13.5px is enough.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.site-footer__bottom</code></td>
+            <td><span class="size-val size-val--warning">13px</span></td>
+            <td>Copyright + legal row in footer</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Muted color + 13px — raise to 13.5–14px.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.numblock__quote b</code></td>
+            <td><span class="size-val size-val--warning">13px</span></td>
+            <td>Quote attribution name (bold)</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Readable content. Raise to 14px.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.ins-cta__nl-note</code></td>
+            <td><span class="size-val size-val--warning">12.5px</span></td>
+            <td>Privacy note under CTA newsletter</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Low contrast muted. Raise to 13.5px.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.tcard__who small</code></td>
+            <td><span class="size-val size-val--warning">12.5px</span></td>
+            <td>Testimonial person's company/role</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Readable content in quote cards. Raise to 13.5px.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.site-nav__droplink small</code></td>
+            <td><span class="size-val size-val--warning">12.5px</span></td>
+            <td>Subtitle line in nav droplinks</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Descriptive subtitle. Raise to 13px.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.svc-grid__head span</code></td>
+            <td><span class="size-val size-val--warning">12.5px</span></td>
+            <td>Services table column headers</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Uppercase tracked — 13px would suffice.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.ap-stat .l</code></td>
+            <td><span class="size-val size-val--warning">13px</span></td>
+            <td>Stat label on approach page</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Muted on dark ink background. Low contrast risk.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.filterbar__count</code></td>
+            <td><span class="size-val size-val--warning">13px</span></td>
+            <td>"12 results" count in filter bar</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Informational count. Fine at 13px but raise to 14px.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.site-search__result-cat</code></td>
+            <td><span class="size-val size-val--warning">12px</span></td>
+            <td>Category text below result titles</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Already listed in Critical — extremely low contrast.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.tcard__who b</code></td>
+            <td><span class="size-val size-val--warning">14px</span></td>
+            <td>Testimonial person's name (bold)</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Barely acceptable. Consider 15px for names.</td>
+          </tr>
+          <tr class="row--warning">
+            <td><code class="class-name">.numblock__biglabel</code></td>
+            <td><span class="size-val size-val--warning">12px</span></td>
+            <td>Stat descriptor under large numbers</td>
+            <td><span class="status-pill pill--warning">Warning</span></td>
+            <td class="context-note">Already in Critical — fg-3 color at 12px fails contrast.</td>
+          </tr>
+
+          <!-- BORDER ZONE -->
+          <tr class="section-row"><td colspan="5">Border zone — 14 – 15.9 px</td></tr>
+
+          <tr class="row--border">
+            <td><code class="class-name">.btn</code></td>
+            <td><span class="size-val size-val--border">15px</span></td>
+            <td>Primary / ghost buttons</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Acceptable for buttons. 15px + bold weight reads well.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.btn--sm</code></td>
+            <td><span class="size-val size-val--border">14px</span></td>
+            <td>Small button variant</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Minimum for interactive text. Acceptable if not primary action.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.arrowlink</code></td>
+            <td><span class="size-val size-val--border">14px</span></td>
+            <td>Arrow links (e.g. "Read more →")</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Interactive link. Consider 15px to improve tap target perception.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-nav__link</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Top-level navigation items</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Compact nav convention. 14.5px is acceptable at desktop.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-nav__grouplink</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Nav dropdown link items</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Compact nav. Acceptable given bold weight.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-nav__droplink span</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Link titles in wide nav dropdowns</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">OK. Consistent with grouplink.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-footer__tagline</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Footer brand tagline copy</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Body-level copy in footer — consider bumping to 15–16px.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-footer__col a</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Footer navigation links</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Dark footer — low contrast at 14.5px. Consider 15px.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.ins-cta__nl-input</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Newsletter email input field</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Input text — raise to 16px to prevent iOS auto-zoom.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-footer__input</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td">Footer newsletter email input</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">⚠ iOS zooms in on inputs &lt; 16px. Must be 16px.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.svc-card p</code></td>
+            <td><span class="size-val size-val--border">14.5px</span></td>
+            <td>Services card body copy</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Body-level reading text — raise to 16px for consistency.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.tcard p</code></td>
+            <td><span class="size-val size-val--border">15px</span></td>
+            <td>Testimonial quote body text</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Near-body copy for reading. Raise to 16px.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.numblock__quote p</code></td>
+            <td><span class="size-val size-val--border">15px</span></td>
+            <td">Quote text inside numblock</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Readable quote — raise to 16px.</td>
+          </tr>
+          <tr class="row--border">
+            <td><code class="class-name">.site-search__result-title</code></td>
+            <td><span class="size-val size-val--border">15px</span></td>
+            <td>Search result page titles</td>
+            <td><span class="status-pill pill--border">Border zone</span></td>
+            <td class="context-note">Primary navigational text. 15px bold is acceptable.</td>
+          </tr>
+
+          <!-- OK -->
+          <tr class="section-row"><td colspan="5">OK — 16 px +</td></tr>
+
+          <tr class="row--ok">
+            <td><code class="class-name">body / p</code></td>
+            <td><span class="size-val size-val--ok">16px</span></td>
+            <td>All paragraph / body text</td>
+            <td><span class="status-pill pill--ok">✓ OK</span></td>
+            <td class="context-note">Meets WCAG AA body minimum.</td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">.site-drawer__link</code></td>
+            <td><span class="size-val size-val--ok">16.5px</span></td>
+            <td>Mobile drawer nav items</td>
+            <td><span class="status-pill pill--ok">✓ OK</span></td>
+            <td class="context-note">Good for mobile tap targets.</td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">.so-case__title</code></td>
+            <td><span class="size-val size-val--ok">18px</span></td>
+            <td>Case study card titles</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note">Meets AAA body minimum.</td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">.site-nav__wordmark</code></td>
+            <td><span class="size-val size-val--ok">18px</span></td>
+            <td>SparkOptimus wordmark in nav</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note"></td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">.site-search__input</code></td>
+            <td><span class="size-val size-val--ok">19px</span></td>
+            <td>Search bar text input</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note">Drops to 16px on mobile — correct iOS zoom prevention.</td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">.site-footer__word</code></td>
+            <td><span class="size-val size-val--ok">19px</span></td>
+            <td>SparkOptimus wordmark in footer</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note"></td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">h3, .h3</code></td>
+            <td><span class="size-val size-val--ok">24px</span></td>
+            <td>H3 headings</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note"></td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">h2, .h2</code></td>
+            <td><span class="size-val size-val--ok">clamp(28–40px)</span></td>
+            <td>Section headings</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note"></td>
+          </tr>
+          <tr class="row--ok">
+            <td><code class="class-name">h1, .display</code></td>
+            <td><span class="size-val size-val--ok">clamp(44–80px)</span></td>
+            <td>Hero / display headings</td>
+            <td><span class="status-pill pill--ok">✓ Good</span></td>
+            <td class="context-note"></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 5 — SPECIAL RULE: iOS INPUT ═══ -->
+  <section class="gap">
+    <p class="section-title">4 &nbsp;The iOS input zoom trap</p>
+    <p class="section-subtitle">A frequently overlooked consequence of sub-16px text.</p>
+
+    <div style="background:var(--so-gray-0); border-radius:16px; border:1px solid var(--border-1); padding:28px 32px; display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start;">
+      <div>
+        <p style="font-size:15px; font-weight:700; color:var(--fg-1); margin:0 0 8px;">The problem</p>
+        <p style="font-size:14px; line-height:1.65; color:var(--fg-2); margin:0;">iOS Safari automatically zooms the viewport to 16px when a user taps an <code style="font-size:12px;">&lt;input&gt;</code> with <code style="font-size:12px;">font-size &lt; 16px</code>. This causes a jarring zoom animation and often requires a manual pinch-out to restore the view.</p>
+      </div>
+      <div>
+        <p style="font-size:15px; font-weight:700; color:var(--fg-1); margin:0 0 8px;">Affected elements</p>
+        <ul style="font-size:14px; line-height:1.8; color:var(--fg-2); margin:0; padding-left:18px;">
+          <li><code class="class-name">.site-footer__input</code> — 14.5px ⚠</li>
+          <li><code class="class-name">.ins-cta__nl-input</code> — 14.5px ⚠</li>
+        </ul>
+        <p style="font-size:13px; color:var(--fg-3); margin:12px 0 0;">Fix: set <code style="font-size:12px;">font-size: 16px</code> on both. Visual weight is barely noticeable at this scale.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 6 — RECOMMENDATIONS ═══ -->
+  <section class="gap">
+    <p class="section-title">5 &nbsp;Recommendations</p>
+    <p class="section-subtitle">Prioritised fixes — high impact first.</p>
+
+    <div class="recs-grid">
+
+      <div class="rec-card rec-card--priority">
+        <div class="rec-card__num">1</div>
+        <p class="rec-card__head">Raise the --text-xs token from 12px → 13px</p>
+        <p class="rec-card__body">This single token change improves ~18 class instances immediately — eyebrows, micro labels, stat labels. At 13px with 0.14em letter-spacing and bold weight, uppercase labels are comfortable to read.</p>
+        <pre class="rec-card__code">/* tokens.css */
+--text-xs:  13px;   /* was 12px */
+--text-sm:  14px;   /* unchanged */
+--text-md:  16px;   /* body — unchanged */</pre>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-card__num">2</div>
+        <p class="rec-card__head">Fix both newsletter inputs to 16px</p>
+        <p class="rec-card__body">Prevents iOS viewport zoom on tap. Both <code>.site-footer__input</code> and <code>.ins-cta__nl-input</code> need <code>font-size: 16px</code>. This is a functional bug, not a preference.</p>
+        <pre class="rec-card__code">/* site.css — line ~401 + ~539 */
+.site-footer__input  { font-size: 16px; }
+.ins-cta__nl-input   { font-size: 16px; }</pre>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-card__num">3</div>
+        <p class="rec-card__head">Raise .pcard__role from 11px → 13px</p>
+        <p class="rec-card__body">Job titles on person cards are <em>readable content</em>, not decorative labels. 11px with muted color is a real accessibility failure. The role text communicates key information about each person.</p>
+        <pre class="rec-card__code">/* site.css */
+.pcard__role {
+  font-size: 13px;  /* was 11px */
+  letter-spacing: 0.06em;
+}</pre>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-card__num">4</div>
+        <p class="rec-card__head">Raise body-level card copy to 16px</p>
+        <p class="rec-card__body">Three components use 14.5–15px for flowing reading text: <code>.tcard p</code>, <code>.numblock__quote p</code>, and <code>.svc-card p</code>. These should follow the body standard of 16px.</p>
+        <pre class="rec-card__code">.tcard p          { font-size: 16px; }  /* was 15px */
+.numblock__quote p { font-size: 16px; }  /* was 15px */
+.svc-card p        { font-size: 16px; }  /* was 14.5px */</pre>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-card__num">5</div>
+        <p class="rec-card__head">Raise footer micro-labels to 12–13px</p>
+        <p class="rec-card__body">Footer column headers (<code>.site-footer__head</code>) at 11.5px with muted color on dark background very likely fail the 4.5:1 contrast requirement. Raise to 12.5–13px and verify contrast ratio.</p>
+        <pre class="rec-card__code">.site-footer__head { font-size: 12.5px; }  /* was 11.5px */
+.site-footer__bottom { font-size: 13.5px; } /* was 13px */
+.site-footer__legal a { font-size: 13px; }  /* keep on mobile */</pre>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-card__num">6</div>
+        <p class="rec-card__head">Raise card metadata labels from 11–12px</p>
+        <p class="rec-card__body">Case card client names (<code>.so-case__client</code>), meta rows (<code>.so-case__meta</code>), and case tags (<code>.so-case__tag</code>) at 11–12px with very low contrast fail on multiple counts. Raise to 13px.</p>
+        <pre class="rec-card__code">.so-case__client { font-size: 13px; }  /* was 12px */
+.so-case__meta   { font-size: 13px; }  /* was 12px */
+.so-case__tag    { font-size: 12px; }  /* was 11px */</pre>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 7 — WHAT'S OK TO KEEP SMALL ═══ -->
+  <section class="gap">
+    <p class="section-title">6 &nbsp;What it's OK to keep small</p>
+    <p class="section-subtitle">Not every sub-14px element is a failure — context matters.</p>
+
+    <div style="background:var(--so-gray-0); border-radius:16px; border:1px solid var(--border-1); overflow:hidden;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0;">
+        <div style="padding:28px 32px; border-right:1px solid var(--border-1);">
+          <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--so-cyan-700); margin:0 0 14px;">Acceptable small text</p>
+          <ul style="font-size:14px; line-height:1.9; color:var(--fg-2); margin:0; padding-left:18px; list-style:none;">
+            <li>✅ Nav group titles — 11px bold uppercase, purely structural, glanceable</li>
+            <li>✅ Keyboard hint labels in search overlay — purely decorative, power users only</li>
+            <li>✅ Image overlay tags with white text on dark — contrast compensates for size</li>
+            <li>✅ Filter bar "Filter by:" label — purely structural, accompanies chip filters</li>
+          </ul>
+        </div>
+        <div style="padding:28px 32px;">
+          <p style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#c0392b; margin:0 0 14px;">Never acceptable small</p>
+          <ul style="font-size:14px; line-height:1.9; color:var(--fg-2); margin:0; padding-left:18px; list-style:none;">
+            <li>🚫 Job titles / names on people cards — readable, informational</li>
+            <li>🚫 Body copy in cards (testimonials, services) — sustained reading</li>
+            <li>🚫 Input field text — iOS zoom trap + 4.5:1 contrast risk</li>
+            <li>🚫 Quote attributions — readable content that communicates source credibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer style="border-top:1px solid var(--border-1); padding-top:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <p style="font-size:13px; color:var(--fg-3); margin:0;">Font Size Benchmark &mdash; SparkOptimus Design System</p>
+    <p style="font-size:13px; color:var(--fg-3); margin:0;">June 2025</p>
+  </footer>
+
+</div><!-- /report-wrap -->
+</body>
+</html>

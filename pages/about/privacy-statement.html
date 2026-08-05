@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Privacy Statement — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  .ps-header {
+    padding-top: clamp(100px, 12vw, 140px);
+    padding-bottom: clamp(32px, 4vw, 56px);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .ps-header h1 {
+    font-size: clamp(2.4rem, 1.4rem + 3vw, 3.8rem);
+    margin: 0 0 16px;
+    color: var(--fg-1);
+  }
+  .ps-header h1 em { font-style: normal; color: var(--so-cyan-600); }
+  .ps-header__date { font-size: 13px; color: var(--fg-3); margin: 0; }
+
+  .ps-body {
+    padding: clamp(56px, 7vw, 96px) 0 clamp(80px, 9vw, 140px);
+  }
+
+  .ps-content {
+    max-width: none;
+  }
+
+  .ps-content p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--fg-2);
+    margin: 0 0 20px;
+  }
+
+  .ps-content h2 {
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+    font-weight: 700;
+    color: var(--fg-1);
+    margin: 48px 0 14px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-1);
+  }
+  .ps-content h2:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .ps-content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fg-1);
+    margin: 28px 0 10px;
+  }
+
+  .ps-content a {
+    color: var(--so-cyan-700);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ps-content a:hover { color: var(--so-cyan-800); }
+
+  .ps-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 24px 0 32px;
+    color: var(--fg-2);
+  }
+  .ps-content table th {
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    border-bottom: 2px solid var(--border-1);
+    padding: 8px 12px 8px 0;
+  }
+  .ps-content table td {
+    padding: 12px 12px 12px 0;
+    border-bottom: 1px solid var(--border-1);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  .ps-content table td:first-child { font-weight: 600; color: var(--fg-1); white-space: nowrap; }
+
+  .ps-footer-note {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-1);
+    font-size: 13px;
+    color: var(--fg-3);
+    line-height: 1.6;
+  }
+
+  .ps-footer-note a {
+    color: var(--so-cyan-700);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    /* Reduce top padding on mobile */
+    .ps-header { padding-top: 72px; }
+    /* Table overflows on narrow screens — make it scrollable */
+    .ps-content table { display: block; overflow-x: auto; }
+  }
+</style>
+  <meta name="description" content="How SparkOptimus collects, uses, and protects your personal data.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Privacy statement — SparkOptimus">
+  <meta property="og:description" content="How SparkOptimus collects, uses, and protects your personal data.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/privacy-statement">
+  <meta property="og:image" content="site/assets/team-hero-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy statement — SparkOptimus">
+  <meta name="twitter:description" content="How SparkOptimus collects, uses, and protects your personal data.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/privacy-statement">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Statement — SparkOptimus",
+    "description": "SparkOptimus privacy statement — how we collect, use, and protect personal data in line with GDPR.",
+    "url": "https://www.sparkoptimus.com/privacy-statement",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy statement",
+      "item": "https://www.sparkoptimus.com/privacy-statement"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="about">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- HEADER -->
+  <header class="ps-header">
+    <div class="container">
+      <h1>Privacy statement<em>.</em></h1>
+      <p class="ps-header__date">Date of last modification: December 5th 2023</p>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <section class="ps-body">
+    <div class="container">
+      <div class="ps-content">
+
+        <p>Ensuring the privacy and confidentiality of information entrusted to him is important for SparkOptimus<sup>1</sup>. As part of this fundamental obligation, SparkOptimus is committed to ensuring the protection and correct use of your personal information (referred to as "personal data"). SparkOptimus takes data protection and privacy seriously, and is GDPR compliant. We adhere to the strict regulations outlined by the General Data Protection Regulation (GDPR) to ensure the lawful and transparent processing of personal data. In this Online and Event Privacy Statement you can read how we collect, use, share and protect personal data collected through your website visit or during events (co)organized by us.</p>
+
+        <h2>1. Collection and use of personal data</h2>
+        <p>SparkOptimus collects personal data necessary to meet your demand as a visitor of the website, as described later in this document, marketing purposes, event organization and website management. Sparkoptimus collects personal data, including but not limited to, your name and contact details, both through our website and at events. This data is also utilized for marketing purposes and event organization. Specifically, we may use your personal data to send invitations to events and store your preferences regarding future communications.</p>
+
+        <h3>1.1 Automatic collection of personal data</h3>
+        <p>SparkOptimus may use cookies, web beacons and other techniques to automatically collect certain types of information when you make use of our online services. Processing this data allows us to improve and personalize the operation, usability and effectiveness of the services. It also helps us to measure the effectiveness of our marketing activities.</p>
+
+        <h3>1.1.1 IP Addresses</h3>
+        <p>An IP address is a number assigned to your computer when you gain access to the internet. It allows computers and servers to recognize you and to communicate with others. IP addresses from which visitors seem to originate, may be registered for IT security and diagnostic purposes. This information may also be used in an aggregated form to identify trends in website usage and to analyze performance.</p>
+
+        <h3>1.1.2 Cookies</h3>
+        <p>A "cookie" is a small piece of text placed by a website within the browser of the device you use to visit the website (e.g. computer or smartphone). The cookie enables the website to recognize your device and is used for various purposes. Despite the usual automatic acceptance of cookies by web browsers, you can set your browser to notify you when you receive a cookie or to reject cookies. However, please note when you do not accept cookies you may not be able to experience the full functionality of websites. Below you will find a list of types of cookies used on our websites.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Purpose</th>
+              <th>Description</th>
+              <th>Type &amp; Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Security</td>
+              <td>Our websites are built for standard web browsers. These have a built-in cookie functionality that helps with compatibility issues (e.g., web browser type) and improves performance (e.g., faster loading of content).</td>
+              <td>Session — Removed after closing the browser</td>
+            </tr>
+            <tr>
+              <td>Website Preferences</td>
+              <td>Our cookies remember your website preferences (e.g., language) or enhance the personal experience (e.g., by a personalized greeting or content). These cookies are used on parts of the website that you access with your own account.</td>
+              <td>Session — Removed after closing the browser</td>
+            </tr>
+            <tr>
+              <td>Analytical</td>
+              <td>We use various (external) cookies to analyze the use of our websites. This enables us to improve the quality and content of the websites. Collected information includes IP address, number of unique visitors, search terms, location, date, duration and frequency of visit, used hardware, browser type, and marketing campaign data.</td>
+              <td>Permanent</td>
+            </tr>
+            <tr>
+              <td>Social Media</td>
+              <td>We use (external) social media widgets and/or buttons to allow visitors to share information from our websites via social media and e-mail. Interactions are recorded at an aggregated level. We recommend consulting the privacy information of the relevant social media before using this functionality.</td>
+              <td>Permanent — automatically removed if you do not use the SparkOptimus website for two years</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>1.1.3 Event Organization</h3>
+        <p>To register for events (co)organized by SparkOptimus, we make use of a registration form on the website. The data is used to organize the event, to communicate about the organization of the event and can be used for marketing purposes at a later moment.</p>
+
+        <h3>1.2 Web beacons</h3>
+        <p>A web beacon is a small file on a webpage, newsletter, e-mail or other communication and is used to gather information about, for example, the extent to which e-mail is accessed, what content is viewed, etc. This information is used to measure the interest of visitors and to improve our services and communication.</p>
+
+        <h3>1.3 Events</h3>
+        <p>During Sparkoptimus events, photographic and/or video material may be collected for marketing purposes. By participating in our events you give SparkOptimus permission to use the photographic and/or video material for marketing purposes.</p>
+
+        <h2>2. Social media widgets and applications</h2>
+        <p>SparkOptimus uses social media widgets on its website. Clicking these widgets means you interact with third parties (the social media parties).</p>
+
+        <h2>3. Sharing and transfer of personal data</h2>
+        <p>We do not share personal data with third parties except in case they are co-organizer of an event (this will be mentioned explicitly in the branding of the event) or in case this is a legal obligation and/or this results from a judiciary prescript. In some cases SparkOptimus can share your personal data with external companies or service providers working on our behalf to be able to accept your requests. Furthermore, we may publish photographic and/or video recordings collected during events on our own website or third-party websites for marketing purposes.</p>
+        <p>SparkOptimus may also store personal data in a country other than where you are located. Any transfers of personal data by SparkOptimus take place in accordance with Dutch and EU data protection laws and regulations. SparkOptimus can be forced to disclose personal data by binding legal obligations under Dutch statute law, for example in case of a judicial decision or a lawful request by law enforcement. Other than aforementioned disclosures, SparkOptimus will not disclose your personal data to third parties without your consent.</p>
+
+        <h2>4. Choices</h2>
+        <p>You have several choices regarding the use of our online services. In general, you are not obligated to provide personal data. However, SparkOptimus may ask you to provide certain personal information in order to provide you with the service you have requested or to provide you with (additional) information about our services and events organized by us. Certain online services may also ask for your permission for a particular use of your personal data, you can accept or reject these requests. If you opt for a specific service or communication, such as an e-newsletter, you will be able to unsubscribe by following the instructions mentioned in the communication offered. If you decide to opt out of a service or communication, we will try to remove your information as soon as possible, however we may require additional information before we can process your request. As described above, you can set your browser to notify you when you receive a cookie or to reject cookies. Please note, however, certain functionalities of our websites may not work properly if you choose to refuse cookies.</p>
+
+        <h2>5. Access</h2>
+        <p>You are entitled to access any personal data SparkOptimus processes about you, unless this would unduly affect a third party.</p>
+        <p>Access requests, as well as requests for correction and/or deletion of personal data SparkOptimus processes, can be submitted to EY Parthenon Netherlands, which handles these requests for SparkOptimus from 1 September onward. Their contact details are published on <a href="https://www.ey.com/en_nl" target="_blank" rel="noopener">ey.com</a>. Please be aware SparkOptimus does have some discretion to decline deletion request, for example when there is an obligation to retain that data under applicable statute law. An example of such an obligation can be data retention requirements under taxation laws.</p>
+        <p>In case you have a complaint about the processing of your personal data by SparkOptimus you have the right to file a complaint with the Dutch DPA (Autoriteit Persoonsgegevens).</p>
+
+        <h2>6. Data security and integrity</h2>
+        <p>SparkOptimus has security management and procedures in place to protect personal data from unauthorized loss, misuse, alteration, or destruction. However, despite the far-reaching efforts of SparkOptimus, the integrity of the data cannot be absolutely guaranteed against all threats. To our best ability, access to your personal data will be strictly limited to those who are involved on behalf of SparkOptimus in the provision of services to you and who are otherwise entitled to do so within the constraints of the privacy law. The individuals who have access to the personal data are obliged to maintain the confidentiality of such information. We also endeavor to ensure your personal information is kept only for as long as necessary to provide services to you, as long as this is legally permitted or until you request removal of your personal data.</p>
+
+        <h2>7. Links to other websites</h2>
+        <p>Please be aware SparkOptimus websites can link to other websites, not governed by this Online and Event Privacy Statement, but by other Privacy Statements that may differ. We recommend you to review the privacy policy of any website you visit before providing personal information.</p>
+
+        <h2>8. Changes to this policy</h2>
+        <p>SparkOptimus may modify this Online and Event Privacy Statement from time to time. When we make changes to it, we will revise the "last modified date", which is listed at the top of this page. We recommend you to review the Online and Event Privacy Statement on a regular basis, so that you are up to date on how SparkOptimus is protecting your personal information.</p>
+
+        <h2>9. Questions regarding Privacy policy and enforcement</h2>
+        <p>SparkOptimus is committed to ensure the privacy of your personal data. Questions or concerns about the processing of your personal data, including any concerns regarding compliance with this Online and Event Privacy Statement, are handled by EY Parthenon Netherlands from 1 September onward. Their contact details are published on <a href="https://www.ey.com/en_nl" target="_blank" rel="noopener">ey.com</a>.</p>
+
+        <div class="ps-footer-note">
+          <p><sup>1</sup> References in this Online Privacy Policy to "SparkOptimus", "we", "our" and "us" refer to SparkOptimus B.V. The responsible, SparkOptimus B.V., is registered with the trade register in the Netherlands under number 34254566.</p>
+          <p><a href="#">Get information about our Terms &amp; Conditions →</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+<script src="site/scripts/site.js"></script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

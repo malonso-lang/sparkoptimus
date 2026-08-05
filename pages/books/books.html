@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Books & benchmarks — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+/* ================================================================
+   BOOKS PAGE
+================================================================ */
+
+/* ---- BOOKS SECTION HEADER ---- */
+.books-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-1);
+}
+
+.books-section-head h2 {
+  font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem);
+  font-weight: 600;
+  margin: 0;
+  color: var(--fg-1);
+}
+
+.books-section-head span {
+  font-size: 14px;
+  color: var(--fg-3);
+}
+
+/* ---- BOOK CARD (2x2 grid) ---- */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-1);
+  background: var(--bg-canvas);
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+  box-shadow: var(--shadow-sm);
+}
+
+.book-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border-2); }
+.book-card:hover .book-card__image img { transform: scale(1.04); }
+.book-card__cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--so-cyan-600); text-decoration: none; transition: gap var(--duration-fast), color var(--duration-fast); margin-top: 6px; }
+.book-card:hover .book-card__cta { color: var(--so-cyan-700); gap: 10px; }
+.book-card__cta svg { width: 14px; height: 14px; stroke-width: 2.5; }
+
+.book-card__image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  position: relative;
+  background: var(--so-gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.book-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s var(--ease-out);
+}
+
+
+
+.book-card__tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(6,11,26,0.7);
+  color: rgba(255,255,255,0.9);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.book-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 28px 28px;
+  flex: 1;
+}
+
+.book-card__title {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.book-card__desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-2);
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1024px) {
+  .books-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+@media (max-width: 640px) {
+  .books-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (max-width: 480px) {
+  /* 2-col too narrow on small phones — cards go single column */
+  .books-grid { grid-template-columns: 1fr; }
+}
+
+/* .ins-feat + .btn--outline-cyan — moved to site.css */
+
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <meta name="description" content="Published works and research benchmarks on digital transformation by the SparkOptimus team.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Books & benchmarks — SparkOptimus">
+  <meta property="og:description" content="Published works and research benchmarks on digital transformation by the SparkOptimus team.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/books">
+  <meta property="og:image" content="site/assets/insights-featured-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Books & benchmarks — SparkOptimus">
+  <meta name="twitter:description" content="Published works and research benchmarks on digital transformation by the SparkOptimus team.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/books">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Books — SparkOptimus",
+    "description": "Books by SparkOptimus on digital disruption, transformation strategy, and the future of business.",
+    "url": "https://www.sparkoptimus.com/books",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Books",
+      "item": "https://www.sparkoptimus.com/books"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="books">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- ============================================================
+       DARK HERO
+       ============================================================ -->
+  <header class="page-hero page-hero--tall" data-screen-label="Books hero">
+    <div class="page-hero__bg-img" style="background-image: url('site/assets/insights-featured-bg.jpg');"></div>
+    <div class="container container--full page-hero__inner">
+      <div class="page-hero__split">
+        <div class="reveal" data-delay="1">
+          <h1>Books & benchmarks<em>.</em></h1>
+        </div>
+        <p class="page-hero__lead reveal" data-delay="2">Strategic thinking captured in writing — from CEO handbooks on disruption to our latest AI benchmark research.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       BOOKS GRID
+       ============================================================ -->
+  <section style="padding: clamp(56px, 6vw, 88px) 0;">
+    <div class="container container--full" style="max-width: 1280px; margin-left: auto; margin-right: auto; padding: 0 var(--grid-gutter);">
+    <div class="books-section-head">
+      <h2>Our publications</h2>
+      <span>6 titles</span>
+    </div>
+    <div class="books-grid">
+
+      <!-- Gen & Agentic AI benchmark 2026 — newest first -->
+      <a href="benchmark-gen-ai-2026.html" class="book-card">
+        <div class="book-card__image">
+          <img loading="lazy" decoding="async" src="uploads/pasted-1781093200745-0.png" alt="Gen &amp; Agentic AI benchmark 2026">
+          <span class="book-card__tag">Benchmark<span class="metadot" aria-hidden="true"></span>2026</span>
+        </div>
+        <div class="book-card__content">
+          <h3 class="book-card__title">Gen &amp; Agentic AI benchmark 2026 edition</h3>
+          <p class="book-card__desc">Generative and agentic AI adoption, maturity, and ROI across industries and organizations.</p>
+          <span class="book-card__cta">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Gen AI benchmark 2025 -->
+      <a href="benchmark-gen-ai-2025.html" class="book-card">
+        <div class="book-card__image">
+          <img loading="lazy" decoding="async" src="uploads/pasted-1781093998732-0.png" alt="Gen AI benchmark 2025 edition">
+          <span class="book-card__tag">Benchmark<span class="metadot" aria-hidden="true"></span>2025</span>
+        </div>
+        <div class="book-card__content">
+          <h3 class="book-card__title">Gen AI benchmark 2025 edition</h3>
+          <p class="book-card__desc">State of generative AI adoption across industries — tracking maturity, use cases, and business value creation in 2025.</p>
+          <span class="book-card__cta">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Disruption in Action 2023 -->
+      <a href="book-disruption-in-action.html" class="book-card">
+        <div class="book-card__image">
+          <img loading="lazy" decoding="async" src="uploads/6748417241f937956e06691f_Untitled design (13).png" alt="Disruption in Action">
+          <span class="book-card__tag">Book<span class="metadot" aria-hidden="true"></span>2023</span>
+        </div>
+        <div class="book-card__content">
+          <h3 class="book-card__title">Disruption in Action</h3>
+          <p class="book-card__desc">Disruption in Action reveals how to take on digital disruption and win. Told through seven fictionalised company stories based on the authors' experience.</p>
+          <span class="book-card__cta">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Make Disruption Work 2021 -->
+      <a href="book-make-disruption-work.html" class="book-card">
+        <div class="book-card__image">
+          <img loading="lazy" decoding="async" src="uploads/64e889bbaeb0026b1a4a4461_MakeDisruptionWorkBook_SparkOptimus_v2-e1626964165251-520x350.png" alt="Make Disruption Work">
+          <span class="book-card__tag">Book<span class="metadot" aria-hidden="true"></span>2021</span>
+        </div>
+        <div class="book-card__content">
+          <h3 class="book-card__title">Make Disruption Work</h3>
+          <p class="book-card__desc">A CEO handbook for digital transformation. Based on experience transforming some of the biggest companies in the world.</p>
+          <span class="book-card__cta">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- 10 Recommendations 2020 -->
+      <a href="book-next-decade.html" class="book-card">
+        <div class="book-card__image">
+          <img loading="lazy" decoding="async" src="uploads/64e889a6b01a38fc785d07cc_SO_10-recommendations_Cover-520x350.png" alt="10 Recommendations to make disruption work in the next decade">
+          <span class="book-card__tag">Report<span class="metadot" aria-hidden="true"></span>2020</span>
+        </div>
+        <div class="book-card__content">
+          <h3 class="book-card__title">10 Recommendations to make disruption work in the next decade</h3>
+          <p class="book-card__desc">We have developed 10 "conversation starters" on the opportunities we think matter most to spark inspiration and challenge thinking.</p>
+          <span class="book-card__cta">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- A Decade of Making Disruption Work 2019 -->
+      <a href="book-decade.html" class="book-card">
+        <div class="book-card__image">
+          <img loading="lazy" decoding="async" src="uploads/64e8898df59d8fbae93f8dba_Make-Disruption-Work-Mockup-1-520x350.png" alt="A Decade of Making Disruption Work">
+          <span class="book-card__tag">Book<span class="metadot" aria-hidden="true"></span>2019</span>
+        </div>
+        <div class="book-card__content">
+          <h3 class="book-card__title">A Decade of Making Disruption Work</h3>
+          <p class="book-card__desc">The story of a decade in which digital start-ups became global brands and what happens next in making disruption work.</p>
+          <span class="book-card__cta">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+        </div>
+      </a>
+
+    </div>
+    </div>
+  </section>
+
+  
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to make disruption work for your <em>organisation?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost-dark" href="our-approach.html">Our approach</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

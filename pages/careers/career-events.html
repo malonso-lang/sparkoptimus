@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="Join SparkOptimus at our recruiting events. Meet our team, learn about career opportunities, and discover what it's like to work with us.">
+<title>Recruiting Events — SparkOptimus Careers</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ---------- events hero (split: copy + event card) ---------- */
+  .ev-hero { padding-bottom: clamp(64px, 7vw, 120px); }
+  .ev-hero__split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(40px, 5vw, 88px); align-items: start; }
+
+  .ev-hero h1 { font-size: clamp(2.5rem, 1.4rem + 3.6vw, 4.2rem); line-height: 1.04; max-width: 16ch; }
+  .ev-hero__lead { color: var(--so-ink-100); font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem); line-height: 1.6; max-width: 50ch; margin: 24px 0 0; }
+
+  /* bullet list */
+  .ev-topics { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-direction: column; gap: 13px; }
+  .ev-topics li { display: flex; align-items: center; gap: 14px; font-size: 15.5px; font-weight: 500; color: #fff; }
+  .ev-topics__tick { flex-shrink: 0; width: 26px; height: 26px; border-radius: var(--radius-pill); background: var(--so-cyan-500); color: var(--so-ink-900); display: grid; place-items: center; }
+  .ev-topics__tick svg { width: 14px; height: 14px; }
+
+  /* meta badges */
+  .ev-hero__meta { display: flex; flex-wrap: wrap; gap: 12px 26px; margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--border-on-inverse); }
+  .ev-hero__meta span { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--so-ink-300); }
+  .ev-hero__meta svg { width: 17px; height: 17px; color: var(--so-ink-300); }
+
+  /* ---------- event card ---------- */
+  .ev-card { background: var(--so-gray-0); border-radius: var(--radius-2xl); padding: clamp(28px, 2.4vw, 42px); box-shadow: var(--shadow-xl); }
+  .ev-card__date-chip {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--so-cyan-50); color: var(--so-cyan-800);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 7px 14px; border-radius: var(--radius-pill); margin-bottom: 20px;
+  }
+  .ev-card__date-chip svg { width: 14px; height: 14px; }
+  .ev-card__h { font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.2; }
+  .ev-card__sub { font-size: 15px; color: var(--fg-3); margin: 0 0 22px; line-height: 1.5; }
+  .ev-card__desc { font-size: 15px; line-height: 1.65; color: var(--fg-2); margin: 0 0 24px; }
+
+  /* detail rows */
+  .ev-card__details { display: flex; flex-direction: column; gap: 12px; margin: 0 0 26px; padding: 20px; background: var(--bg-subtle); border-radius: var(--radius-lg); }
+  .ev-card__detail { display: flex; align-items: flex-start; gap: 11px; }
+  .ev-card__detail-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--so-cyan-50); color: var(--so-cyan-700); display: grid; place-items: center; }
+  .ev-card__detail-icon svg { width: 15px; height: 15px; }
+  .ev-card__detail-body { display: flex; flex-direction: column; gap: 1px; }
+  .ev-card__detail-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3); }
+  .ev-card__detail-val { font-size: 14.5px; color: var(--fg-1); font-weight: 500; }
+
+  /* register button */
+  .ev-register { width: 100%; }
+
+  /* success state */
+  .ev-success { text-align: center; padding: 10px 4px 6px; }
+  .ev-success__ic { display: inline-grid; place-items: center; width: 58px; height: 58px; border-radius: var(--radius-pill); background: var(--so-cyan-50); color: var(--so-cyan-700); margin-bottom: 18px; }
+  .ev-success__ic svg { width: 26px; height: 26px; }
+  .ev-success h2 { font-family: var(--font-display); font-weight: 800; font-size: 25px; letter-spacing: -0.02em; color: var(--fg-1); margin: 0 0 10px; }
+  .ev-success p { font-size: 15px; line-height: 1.6; color: var(--fg-2); margin: 0 auto 22px; max-width: 300px; }
+  .ev-success__reset { border: 0; background: transparent; color: var(--so-cyan-700); font-weight: 600; font-size: 14.5px; cursor: pointer; font-family: inherit; }
+  .ev-success__reset:hover { color: var(--so-cyan-800); }
+
+  /* no-events state */
+  .ev-empty { text-align: center; padding: 8px 0 4px; }
+  .ev-empty__ic { display: inline-grid; place-items: center; width: 58px; height: 58px; border-radius: var(--radius-pill); background: var(--so-cyan-50); color: var(--so-cyan-700); margin-bottom: 18px; }
+  .ev-empty__ic svg { width: 26px; height: 26px; }
+  .ev-empty h2 { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--fg-1); margin: 0 0 10px; }
+  .ev-empty p { font-size: 15px; line-height: 1.6; color: var(--fg-2); margin: 0 auto 24px; max-width: 300px; }
+
+  .is-hidden { display: none; }
+
+  @media (max-width: 1024px) {
+    .ev-hero__split { grid-template-columns: 1fr; gap: 44px; }
+  }
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/career-events">
+    <meta property="og:url" content="https://www.sparkoptimus.com/career-events">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Career Events — SparkOptimus",
+    "description": "SparkOptimus career events — meet our team at recruitment days, campus events, and open office evenings.",
+    "url": "https://www.sparkoptimus.com/career-events",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Careers",
+      "item": "https://www.sparkoptimus.com/careers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Career events",
+      "item": "https://www.sparkoptimus.com/career-events"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <header class="page-hero page-hero--tall page-hero--photo ev-hero" data-screen-label="Events hero">
+    <div class="page-hero__bg">
+      <img loading="lazy" decoding="async" src="site/assets/career-events-hero.jpg" alt="SparkOptimus event setup" style="width:100%;height:100%;object-fit:cover;display:block;object-position: center 40%;">
+    </div>
+    <div class="page-hero__scrim"></div>
+    <div class="container container--full page-hero__inner">
+      <div class="ev-hero__split">
+
+        <!-- left: editorial copy -->
+        <div class="reveal">
+          <h1 style="color: rgb(255, 255, 255);">Meet us in person<em>.</em></h1>
+          <p class="ev-hero__lead">Join us at our recruiting events to experience SparkOptimus first-hand. Work through real consulting cases, meet the team, and find out if we're the right fit for each other.</p>
+          <ul class="ev-topics">
+            <li><span class="ev-topics__tick" data-ic="check"></span>Tackle real digital transformation cases</li>
+            <li><span class="ev-topics__tick" data-ic="check"></span>Meet consultants and partners directly</li>
+            <li><span class="ev-topics__tick" data-ic="check"></span>Get a feel for our culture and ambition</li>
+          </ul>
+          <div class="ev-hero__meta">
+            <span data-meta="calendar">Limited seats available</span>
+
+          </div>
+        </div>
+
+        <!-- right: event card -->
+        <div class="reveal" data-delay="1">
+          <div class="ev-card" id="evCard">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+(function () {
+  /* ── icons ── */
+  var ICONS = {
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9h17M8 3v3M16 3v3"/></svg>',
+    shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.2 2.9 7.4 7 9 4.1-1.6 7-4.8 7-9V6l-7-3Z"/></svg>',
+    location: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>',
+    clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+    format: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+    spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>'
+  };
+
+  /* wire icons */
+  document.querySelectorAll('[data-ic]').forEach(function (el) {
+    var k = el.getAttribute('data-ic');
+    if (k === 'arrow') { el.innerHTML = window.SO && window.SO.ico ? window.SO.ico('arrow') : ICONS.arrow; return; }
+    if (ICONS[k]) el.innerHTML = ICONS[k];
+  });
+  document.querySelectorAll('[data-meta]').forEach(function (el) {
+    var k = el.getAttribute('data-meta');
+    if (ICONS[k]) el.insertAdjacentHTML('afterbegin', ICONS[k]);
+  });
+
+  /* ── Event data ──
+     Set to null or empty object to show the no-events state.
+     Swap in real data here to show a live event.
+  ── */
+  var EVENT = {
+    date:     'June 15, 2026',
+    time:     '2:00 – 5:00 PM CET',
+    title:    'Master Digital Transformation Cases',
+    location: 'Amsterdam + Live webinar',
+    format:   'In-person workshop & live stream',
+    audience: 'Students & early-career professionals',
+    desc:     "Join us for an exclusive workshop where you'll tackle real consulting problems from our projects. Learn the frameworks we use to drive digital transformation at Europe's leading organisations \u2014 and meet the people behind them."
+  };
+  /* To show empty state: var EVENT = null; */
+
+  var card = document.getElementById('evCard');
+
+  function renderEvent(ev) {
+    card.innerHTML =
+      '<div id="evContent">' +
+        '<div class="ev-card__date-chip">' + ICONS.calendar + ev.date + '</div>' +
+        '<h2 class="ev-card__h">' + ev.title + '</h2>' +
+        '<p class="ev-card__sub">' + ev.time + '</p>' +
+        '<p class="ev-card__desc">' + ev.desc + '</p>' +
+        '<div class="ev-card__details">' +
+          '<div class="ev-card__detail"><div class="ev-card__detail-icon">' + ICONS.location + '</div><div class="ev-card__detail-body"><span class="ev-card__detail-label">Location</span><span class="ev-card__detail-val">' + ev.location + '</span></div></div>' +
+          '<div class="ev-card__detail"><div class="ev-card__detail-icon">' + ICONS.format + '</div><div class="ev-card__detail-body"><span class="ev-card__detail-label">Format</span><span class="ev-card__detail-val">' + ev.format + '</span></div></div>' +
+          '<div class="ev-card__detail"><div class="ev-card__detail-icon">' + ICONS.users + '</div><div class="ev-card__detail-body"><span class="ev-card__detail-label">Audience</span><span class="ev-card__detail-val">' + ev.audience + '</span></div></div>' +
+        '</div>' +
+        '<button class="btn btn--primary ev-register" id="evRegister">Register now <span data-ic="arrow"></span></button>' +
+      '</div>' +
+      '<div class="ev-success is-hidden" id="evSuccess">' +
+        '<div class="ev-success__ic">' + ICONS.spark + '</div>' +
+        '<h2>You\'re registered.</h2>' +
+        '<p>We\'ll send a confirmation and all the details to your inbox. See you there!</p>' +
+        '<button class="ev-success__reset" id="evReset">Register another person</button>' +
+      '</div>';
+
+    /* wire register button */
+    document.getElementById('evRegister').addEventListener('click', function () {
+      document.getElementById('evContent').classList.add('is-hidden');
+      document.getElementById('evSuccess').classList.remove('is-hidden');
+    });
+    document.getElementById('evReset').addEventListener('click', function () {
+      document.getElementById('evContent').classList.remove('is-hidden');
+      document.getElementById('evSuccess').classList.add('is-hidden');
+    });
+
+    /* re-wire arrow icon */
+    card.querySelectorAll('[data-ic="arrow"]').forEach(function (el) {
+      el.innerHTML = ICONS.arrow;
+    });
+  }
+
+  function renderEmpty() {
+    card.innerHTML =
+      '<div class="ev-empty">' +
+        '<div class="ev-empty__ic">' + ICONS.calendar + '</div>' +
+        '<h2>No events scheduled yet</h2>' +
+        '<p>We\'re planning our next recruiting events. In the meantime, explore open positions or send us an open application.</p>' +
+        '<a href="vacancies.html" class="btn btn--primary" style="display:inline-flex;">View open positions ' + ICONS.arrow + '</a>' +
+      '</div>';
+  }
+
+  if (EVENT && EVENT.title) {
+    renderEvent(EVENT);
+  } else {
+    renderEmpty();
+  }
+
+})();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

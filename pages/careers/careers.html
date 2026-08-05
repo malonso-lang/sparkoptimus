@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Careers — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  .car-hero { text-align: center; }
+  .car-hero h1 { font-size: clamp(2.8rem,1.6rem + 5vw,5.4rem); margin: 16px auto 0; }
+  .car-hero p { margin-left: auto; margin-right: auto; }
+  .car-hero .btn { margin-top: 32px; }
+
+  .work-head { text-align: center; max-width: 620px; margin: 0 auto clamp(40px,5vw,64px); }
+  .work-head h2 { font-size: clamp(1.8rem,1.2rem + 2vw,2.8rem); margin: 14px 0 14px; }
+  .work-head p { font-size: var(--text-lg); color: var(--fg-2); margin: 0; }
+  .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .work-card { padding: 34px; border-radius: var(--radius-xl); background: var(--so-gray-0); box-shadow: var(--shadow-sm); border: 1px solid var(--border-1); }
+  .work-card h3 { color: var(--so-cyan-700); font-size: 19px; margin: 0 0 14px; }
+  .work-card p { font-size: 14.5px; line-height: 1.6; color: var(--fg-2); margin: 0; }
+
+  /* process */
+  .proc-wrap { background: var(--so-gray-0); border-radius: var(--radius-2xl); box-shadow: var(--shadow-md); padding: clamp(40px,5vw,72px); }
+  .proc-head { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+  .proc-head h2 { font-size: clamp(1.7rem,1.2rem + 1.8vw,2.6rem); margin: 0 0 14px; }
+  .proc-head p { color: var(--fg-2); margin: 0; }
+  .proc { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; position: relative; }
+  .proc::before { content: ""; position: absolute; top: 26px; left: 10%; right: 10%; height: 2px; background: var(--border-2); z-index: 0; }
+  .proc-step { text-align: center; position: relative; z-index: 1; }
+  .proc-num { width: 52px; height: 52px; border-radius: 50%; background: var(--so-gray-0); border: 2px solid var(--so-cyan-500); color: var(--so-cyan-700); font-family: var(--font-display); font-weight: 800; font-size: 19px; display: grid; place-items: center; margin: 0 auto 18px; }
+  .proc-step h4 { font-size: 16px; margin: 0 0 8px; }
+  .proc-step p { font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0; }
+
+  /* vacancies */
+  .vac-head { text-align: center; max-width: 600px; margin: 0 auto clamp(36px,4vw,52px); }
+  .vac-head h2 { font-size: clamp(1.8rem,1.2rem + 2vw,2.8rem); margin: 0 0 14px; }
+  .vac-head p { color: var(--fg-2); margin: 0; }
+  .vac-group { margin-bottom: 36px; }
+  .vac-group__h { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--so-cyan-700); margin: 0 0 16px; }
+  .vac-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 28px; border-radius: var(--radius-lg); background: var(--so-gray-0); border: 1px solid var(--border-1); text-decoration: none; margin-bottom: 12px; transition: border-color var(--duration-base), box-shadow var(--duration-base), transform var(--duration-base); }
+  .vac-row:hover { border-color: transparent; box-shadow: var(--shadow-md); transform: translateX(4px); }
+  .vac-row__t { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--fg-1); margin: 0 0 6px; }
+  .vac-row__m { font-size: 13px; color: var(--fg-3); }
+  .vac-row__a { width: 44px; height: 44px; border-radius: 50%; background: var(--so-cyan-50); color: var(--so-cyan-700); display: grid; place-items: center; flex-shrink: 0; transition: background var(--duration-base), color var(--duration-base); }
+  .vac-row:hover .vac-row__a { background: var(--so-cyan-500); color: var(--so-ink-900); }
+  .vac-row__a svg { width: 18px; height: 18px; }
+  @media (max-width: 900px) { .work-grid { grid-template-columns: 1fr; } .proc { grid-template-columns: 1fr 1fr; gap: 32px 16px; } .proc::before { display: none; } }
+  @media (max-width: 640px) {
+  }
+  @media (max-width: 480px) {
+    /* 2-col steps too narrow on small phones */
+    .proc { grid-template-columns: 1fr; gap: 24px; }
+    /* Reduce horizontal padding on vacancy rows */
+    .vac-row { padding: 16px 18px; }
+  }
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <meta name="description" content="Join SparkOptimus. We are looking for ambitious people who want to make disruption work for the organisations they advise.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Careers — SparkOptimus">
+  <meta property="og:description" content="Join SparkOptimus. We are looking for ambitious people who want to make disruption work for the organisations they advise.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/careers">
+  <meta property="og:image" content="site/assets/careers-hero-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Careers — SparkOptimus">
+  <meta name="twitter:description" content="Join SparkOptimus. We are looking for ambitious people who want to make disruption work for the organisations they advise.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/careers">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Careers at SparkOptimus",
+    "description": "Join SparkOptimus — a leading digital strategy consultancy in Amsterdam. Explore open roles and life at our firm.",
+    "url": "https://www.sparkoptimus.com/careers",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Careers",
+      "item": "https://www.sparkoptimus.com/careers"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+  <header class="page-hero page-hero--tall car-hero" data-screen-label="Careers hero">
+    <div class="container page-hero__inner">
+      <h1 class="reveal">Make digital work.</h1>
+      <p class="page-hero__lead reveal" data-delay="2">Join Europe's leading digital strategy consultancy. We help global brands and fast-growing scale-ups build digital businesses, bridging the gap between strategy and execution.</p>
+      <a class="btn btn--primary reveal" data-delay="3" href="#vacancies">Find your role</a>
+    </div>
+  </header>
+
+  <!-- working at -->
+  <section class="section">
+    <div class="container container--full">
+      <div class="work-head reveal">
+        <h2>Working at SparkOptimus</h2>
+        <p>We are looking for entrepreneurial top talent with a passion for digital. In return, we offer a dynamic environment where you can make a real impact from day one.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card reveal"><h3>Steep learning curve</h3><p>You will work on strategic C-level challenges and be responsible for your own workstreams immediately. We provide extensive on-the-job coaching, regular feedback sessions, and dedicated training weeks to accelerate your growth.</p></div>
+        <div class="work-card reveal" data-delay="1"><h3>Impactful projects</h3><p>We don't write reports that end up in a drawer. You will be involved in the entire lifecycle of a project — from designing a disruptive digital strategy to actually building and scaling the digital venture alongside our clients.</p></div>
+        <div class="work-card reveal" data-delay="2"><h3>Unique culture &amp; events</h3><p>We work hard, but we celebrate our successes. Enjoy our legendary Friday afternoon drinks, our famous annual ski trip, summer boat tours through the Amsterdam canals, and regular team sports events.</p></div>
+      </div>
+      <div class="reveal" style="text-align:center;margin-top:clamp(32px,4vw,48px);">
+        <a class="btn btn--secondary" href="life-at-sparkoptimus.html">Explore life at SparkOptimus</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- process -->
+  <section class="section surface-subtle">
+    <div class="container container--full">
+      <div class="proc-wrap reveal">
+        <div class="proc-head">
+          <h2>The application process</h2>
+          <p>Our process is rigorous but transparent. We want to get to know the real you, and give you the opportunity to see if our DNA matches yours.</p>
+        </div>
+        <div class="proc">
+          <div class="proc-step"><div class="proc-num">1</div><h4>Apply</h4><p>Upload your CV, motivation letter, and academic transcripts via our portal.</p></div>
+          <div class="proc-step"><div class="proc-num">2</div><h4>First round</h4><p>Two interviews focusing on your personal drive, CV, and a short practical business case.</p></div>
+          <div class="proc-step"><div class="proc-num">3</div><h4>Assessment</h4><p>An online analytical capabilities test to evaluate your quantitative and logical reasoning.</p></div>
+          <div class="proc-step"><div class="proc-num">4</div><h4>Final round</h4><p>Two extensive case interviews with our Partners to test your strategic and pragmatic thinking.</p></div>
+          <div class="proc-step"><div class="proc-num">5</div><h4>Offer</h4><p>Welcome to the team! We finalize the details and get you ready for your first day.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- vacancies -->
+  <section class="section" id="vacancies">
+    <div class="container container--full">
+      <div class="vac-head reveal">
+        <h2>Vacancies</h2>
+        <p>Ready to join us? Browse our current openings across Strategy, Data &amp; AI, and our central operations team.</p>
+      </div>
+      <div style="max-width:880px;margin:0 auto;" id="vacList"></div>
+    </div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 24px;max-width:18ch;">Don't see your role? <em>We'd still love to meet you.</em></h2>
+        <a class="btn btn--primary" href="#contact">Send an open application</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+  var VAC = [
+    ["Strategy Consulting", [
+      ["Associate", "0–2 years experience<i class=metadot></i>Amsterdam HQ<i class=metadot></i>Full-Time"],
+      ["Digital Strategy Consultant", "2–5 years experience<i class=metadot></i>Amsterdam HQ<i class=metadot></i>Full-Time"],
+      ["Manager Digital Strategy", "5+ years experience<i class=metadot></i>Amsterdam HQ<i class=metadot></i>Full-Time"]
+    ]],
+    ["Data & AI", [
+      ["Data Strategy & AI Consultant", "2+ years experience<i class=metadot></i>Amsterdam HQ<i class=metadot></i>Full-Time"]
+    ]],
+    ["Internships", [
+      ["Working Student / Intern Strategy Consulting", "Currently in Master's<i class=metadot></i>Amsterdam HQ<i class=metadot></i>3–6 Months"]
+    ]]
+  ];
+  var arrow = window.SO.ico("arrow");
+  document.getElementById("vacList").innerHTML = VAC.map(function (g) {
+    return '<div class="vac-group reveal"><p class="vac-group__h">' + g[0] + '</p>' +
+      g[1].map(function (r) {
+        return '<a class="vac-row" href="#"><div><p class="vac-row__t">' + r[0] + '</p>' +
+          '<span class="vac-row__m">' + r[1] + '</span></div>' +
+          '<span class="vac-row__a">' + arrow + '</span></a>';
+      }).join("") + '</div>';
+  }).join("");
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

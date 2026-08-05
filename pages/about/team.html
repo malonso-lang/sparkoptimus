@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Our team — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<!-- React+Babel moved to end of body — see below -->
+<!-- Preload CDN scripts so browser fetches them during HTML parsing -->
+<link rel="preload" href="https://unpkg.com/react@18.3.1/umd/react.development.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" as="script" crossorigin="anonymous">
+<style>
+  .page-hero__bg-img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .page-hero__inner {
+    position: relative;
+    z-index: 2;
+  }
+  .team-filter {
+    position: sticky;
+    top: 84px;
+    z-index: 20;
+    margin-left: calc(-1 * var(--grid-gutter, 32px));
+    margin-right: calc(-1 * var(--grid-gutter, 32px));
+    padding: 0 var(--grid-gutter, 32px);
+    background: var(--bg-canvas);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .team-filter.people-bar {
+    border-radius: 0;
+    box-shadow: none;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  
+  /* Team card styles */
+  .pcard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-lg);
+    padding: 24px 16px 0;
+    background: var(--bg-canvas);
+    transition: all var(--duration-base) var(--ease-out);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .pcard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+  
+  .pcard__av {
+    display: none;
+  }
+  
+  .pcard__image {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    object-position: top center;
+    margin-top: auto;
+    background: transparent;
+  }
+  
+  .pcard__name {
+    font-size: 15px;
+    font-weight: var(--weight-bold);
+    margin: 0 0 4px;
+    color: var(--fg-1);
+    line-height: 1.3;
+  }
+  
+  .pcard__role {
+    font-size: 12px;
+    color: var(--fg-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0;
+  }
+  
+  .pcard__li {
+    display: none;
+  }
+  
+  /* Restore ink card appearance — higher specificity needed to beat .pcard base rule above */
+  .pcard.pcard--ink {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .pcard.pcard--ink:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  /* Grid layouts */
+  .people-grid--3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  
+  .people-grid--4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  
+  .people-grid--5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 28px;
+  }
+  
+  .people-group {
+    margin-bottom: clamp(60px, 8vw, 100px);
+  }
+  
+  .people-group__head {
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+  
+  .people-group__head h2 {
+    font-size: clamp(1.5rem, 1rem + 1.5vw, 2.2rem);
+    margin: 0;
+    color: var(--fg-1);
+  }
+  
+  .people-group__count {
+    color: var(--fg-3);
+    font-weight: var(--weight-regular);
+    margin-left: 8px;
+  }
+  
+  .pcard.is-hidden {
+    display: none;
+  }
+  
+  @media (max-width: 1200px) {
+    .people-grid--5 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (max-width: 920px) {
+    .people-grid--3,
+    .people-grid--4,
+    .people-grid--5 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .pcard {
+      padding: 20px 12px 0;
+    }
+  }
+  
+  /* Linked card wrapper — resets anchor styles, card handles its own hover */
+  a.pcard__link { text-decoration: none; color: inherit; display: block; }
+  a.pcard__link:hover .pcard { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+  @media (max-width: 640px) {
+    .people-grid--3,
+    .people-grid--4,
+    .people-grid--5 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+
+  /* =========================================
+     TWEAKS
+     ========================================= */
+
+  /* -- Format: circle -- */
+  body[data-format="circle"] .pcard__image {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    margin: 14px auto 18px;
+  }
+  body[data-format="circle"] .pcard { padding-bottom: 18px; }
+
+  /* -- Format: minimal (initials avatar) -- */
+  body[data-format="minimal"] .pcard__image { display: none; }
+  body[data-format="minimal"] .pcard__av {
+    display: flex;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 12px auto 18px;
+    background: var(--so-cyan-100, #cffafe);
+    color: var(--so-cyan-700, #0e7490);
+  }
+  body[data-format="minimal"] .pcard { padding-bottom: 18px; }
+  body[data-format="minimal"][data-accent="midnight"] .pcard__av { background: #e8edf5; color: #0f1e3d; }
+  body[data-format="minimal"][data-accent="ember"]    .pcard__av { background: #fef3c7; color: #b45309; }
+
+  /* -- Density (desktop only — mobile always collapses via breakpoints above) -- */
+  @media (min-width: 921px) {
+    body[data-density="airy"] .people-grid--3,
+    body[data-density="airy"] .people-grid--4,
+    body[data-density="airy"] .people-grid--5 { grid-template-columns: repeat(3, 1fr); gap: 44px; }
+    body[data-density="airy"] .pcard__image { height: 460px; }
+
+    body[data-density="dense"] .people-grid--3 { grid-template-columns: repeat(4, 1fr); }
+    body[data-density="dense"] .people-grid--4,
+    body[data-density="dense"] .people-grid--5 { grid-template-columns: repeat(5, 1fr); }
+    body[data-density="dense"] .people-grid--3,
+    body[data-density="dense"] .people-grid--4,
+    body[data-density="dense"] .people-grid--5 { gap: 16px; }
+    body[data-density="dense"] .pcard__image { height: 240px; }
+    body[data-density="dense"] .pcard__name { font-size: 14px; }
+    body[data-density="dense"] .pcard__role { font-size: 11px; }
+  }
+
+  /* -- Accent: midnight -- */
+  body[data-accent="midnight"] .chip--active { background: #0f1e3d; border-color: #0f1e3d; }
+  body[data-accent="midnight"] .pcard__role { color: #2d4a7a; }
+  body[data-accent="midnight"] .people-group__head h2 { color: #0f1e3d; }
+
+  /* -- Accent: ember -- */
+  body[data-accent="ember"] .chip--active { background: #b45309; border-color: #b45309; }
+  body[data-accent="ember"] .pcard__role { color: #b45309; }
+  body[data-accent="ember"] .people-group__head h2 { color: #92400e; }
+</style>
+  <meta name="description" content="Meet the people behind SparkOptimus. Partners, consultants, and experts in digital strategy and transformation, based in Amsterdam.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Our team — SparkOptimus">
+  <meta property="og:description" content="Meet the people behind SparkOptimus. Partners, consultants, and experts in digital strategy and transformation, based in Amsterdam.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/team">
+  <meta property="og:image" content="site/assets/team-hero-bg.jpg">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our team — SparkOptimus">
+  <meta name="twitter:description" content="Meet the people behind SparkOptimus. Partners, consultants, and experts in digital strategy and transformation, based in Amsterdam.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/team">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "Our Team — SparkOptimus",
+    "description": "Meet the SparkOptimus team — experienced digital strategists and transformation experts based in Amsterdam.",
+    "url": "https://www.sparkoptimus.com/team",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Team",
+      "item": "https://www.sparkoptimus.com/team"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="about">
+<div id="site-nav-root"></div>
+
+<main>
+  <header class="page-hero page-hero--tall" data-screen-label="Team hero">
+    <div class="page-hero__bg-img" style="background: url('site/assets/team-hero-bg.jpg') center center / cover no-repeat; opacity: 0.40;"></div>
+    <div class="page-hero::before" style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(6,11,26,0.55) 0%, rgba(6,11,26,0.75) 100%); pointer-events: none;"></div>
+    <div class="container container--full page-hero__inner">
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1>Our team<em>.</em></h1>
+        </div>
+        <p class="page-hero__lead reveal" data-delay="2">Meet the people behind SparkOptimus — strategists, technologists, and sector specialists united by one mission: to future-proof your business.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top:clamp(48px,5vw,72px);">
+    <div class="container container--full">
+      <div class="people-bar team-filter reveal" id="filterBar">
+        <span class="people-bar__label">Show</span>
+        <button class="chip chip--active" data-filter="all">All</button>
+        <button class="chip" data-filter="partners">Partners</button>
+        <button class="chip" data-filter="associate-partners">Associate Partners</button>
+        <button class="chip" data-filter="managers">Managers</button>
+        <button class="chip" data-filter="associates">Associates</button>
+        <button class="chip" data-filter="staff">Staff</button>
+        <button class="chip" data-filter="board">Board</button>
+      </div>
+      <div style="margin-top:clamp(40px,4vw,56px);" id="peopleRoot"></div>
+    </div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 16px;max-width:16ch;">Want to join our team?</h2>
+        <p style="color:rgba(255,255,255,0.82);max-width:42ch;margin:0 auto 28px;">We're always looking for talented strategists, technologists and sector specialists to join our mission.</p>
+        <a class="btn btn--primary" href="careers.html">Explore careers</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+  var GROUPS = [
+    { key:"partner-leaders", title:"Leadership", cols:3, ink:false, people:[
+      ["Alexandra Jankovich","Partner","uploads/64db5d9fbcd0c6c9b192b1b6__Alexandra-Jankovich-SparkOptimus-300fe26a.webp"],["Tom Voskes","Partner","uploads/64db5ff1c5b39333450584a9__Tom-Voskes-SparkOptimus.webp","team-tom-voskes.html"],["Michiel Bos","Partner","uploads/michiel-boss-partner-sparkoptimus.png"],
+      ["Henriëtte Hoving","Partner",""],["Joris Hulst","Partner",""],["Steven Koolen","Partner",""]
+    ]},
+    { key:"associate-partners", title:"Associate Partners", cols:3, ink:false, people:[
+      ["Matti van Engelen","Associate Partner",""],["Steven Loost","Associate Partner",""],["Bibianne van der Maesen","Associate Partner",""],["Amy Tuk","Associate Partner",""],["Sébastien Volker","Associate Partner",""]
+    ]},
+    { key:"managers", title:"Managers", cols:3, ink:false, people:[
+      ["Claire Broeders","Manager",""],["Tijmen Kroezen","Manager",""],["Simon van Heijst","Manager",""],["Micol Agliati","Manager",""],
+      ["Jan Pit","Manager",""],["Kars-Jan Giesen","Manager",""],["Niki Boelens","Manager",""]
+    ]},
+    { key:"associates", title:"Associates", cols:3, ink:false, people:[
+      ["Valérie de Vlam","Associate",""],["Sam Greenwood","Associate",""],["Stephan Weenk","Associate",""],["Samuel Otterloo","Associate",""],["Luke Hussell","Associate",""],
+      ["Eleonore Droste","Associate",""],["Arnaud Dathis","Associate",""],["Job van Rijckevorsel","Associate",""],["Leonie Litwy","Associate",""],["Isa van Delft","Associate",""]
+    ]},
+    { key:"staff", title:"Staff", cols:3, ink:false, people:[
+      ["Ali Ghannadrad","Staff",""],["Diego Hofman","Staff",""],["Elif Colak","Staff",""],["Bo Versluis","Staff",""],["Marjolein Dunnink","Staff",""],
+      ["Nastasia Filips","Staff",""],["Annabel Breu","Staff",""],["Jolanda Mullenburg","Staff",""],["Elena Sukhenko","Staff",""],["Miguel Jara","Staff",""],["Katja Knox","Staff",""]
+    ]},
+    { key:"board", title:"Board of Directors", cols:3, ink:true, people:[
+      ["Annet Aris","Board Member",""],["Rob van den Bergh","Board Member",""],["Volkert Doeksen","Board Member",""],["Derk Haank","Board Member",""],
+      ["Adriaan Nühn","Board Member",""],["Daniel Ropers","Board Member",""],["Anthony Ruys","Board Member",""],["Marco Sodi","Board Member",""]
+    ]}
+  ];
+  var li = window.SO.ico("linkedin");
+  function initials(n){ return n.split(" ").filter(function(w){return w[0] && /[A-Za-zÀ-ÿ]/.test(w[0]);}).slice(0,2).map(function(w){return w[0];}).join("").toUpperCase(); }
+  function cardHTML(p, ink, i){
+    var imgPath = p[2] || 'uploads/michiel-boss-partner-sparkoptimus.png';
+    var url = p[3] || null;
+    var av = initials(p[0]);
+    var inner = '<div class="pcard' + (ink ? ' pcard--ink' : '') + (url ? ' pcard--linked' : '') + ' reveal" data-delay="' + (i % 5) + '">' +
+      '<p class="pcard__name">' + p[0] + '</p>' +
+      '<span class="pcard__role">' + p[1] + '</span>' +
+      '<span class="pcard__av" aria-hidden="true">' + av + '</span>' +
+      '<img src="' + imgPath + '" alt="' + p[0] + '" class="pcard__image">' +
+      '</div>';
+    return url ? '<a href="' + url + '" class="pcard__link">' + inner + '</a>' : inner;
+  }
+  document.getElementById("peopleRoot").innerHTML = GROUPS.map(function(g){
+    return '<div class="people-group' + (g.ink ? ' people-group--ink' : '') + '" data-group="' + g.key + '">' +
+      '<div class="people-group__head"><h2>' + g.title + ' <span class="people-group__count">' + g.people.length + '</span></h2></div>' +
+      '<div class="people-grid people-grid--' + g.cols + '">' +
+      g.people.map(function(p,i){ return cardHTML(p, g.ink, i); }).join("") + '</div></div>';
+  }).join("");
+
+  document.getElementById("filterBar").addEventListener("click", function(e){
+    var btn = e.target.closest(".chip"); if(!btn) return;
+    this.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("chip--active"); });
+    btn.classList.add("chip--active");
+    var f = btn.getAttribute("data-filter");
+    document.querySelectorAll(".people-group").forEach(function(g){
+      g.classList.toggle("is-hidden", !(f === "all" || g.getAttribute("data-group") === f));
+    });
+  });
+  window.SO.reveal();
+</script>
+
+<!-- React + Babel moved from <head> to end of body to prevent render-blocking -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<div id="tweaks-root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  var TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "format":  "portrait",
+    "density": "standard",
+    "accent":  "#0891b2"
+  }/*EDITMODE-END*/;
+
+  function TeamTweaks() {
+    var _useTweaks = useTweaks(TWEAK_DEFAULTS);
+    var t = _useTweaks[0], setTweak = _useTweaks[1];
+
+    React.useEffect(function() {
+      var b = document.body;
+      b.dataset.format  = t.format;
+      b.dataset.density = t.density;
+      b.dataset.accent  = t.accent === '#0f1e3d' ? 'midnight'
+                        : t.accent === '#b45309' ? 'ember'
+                        : 'cyan';
+    }, [t.format, t.density, t.accent]);
+
+    return (
+      <TweaksPanel>
+        <TweakSection label="Card style" />
+        <TweakRadio
+          label="Format"
+          value={t.format}
+          options={["portrait", "circle", "minimal"]}
+          onChange={function(v){ setTweak("format", v); }}
+        />
+        <TweakSection label="Grid" />
+        <TweakRadio
+          label="Density"
+          value={t.density}
+          options={["airy", "standard", "dense"]}
+          onChange={function(v){ setTweak("density", v); }}
+        />
+        <TweakSection label="Colour" />
+        <TweakColor
+          label="Accent"
+          value={t.accent}
+          options={["#0891b2", "#0f1e3d", "#b45309"]}
+          onChange={function(v){ setTweak("accent", v); }}
+        />
+      </TweaksPanel>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(
+    React.createElement(TeamTweaks)
+  );
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

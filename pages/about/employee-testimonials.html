@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="No script, no PR polish — hear what SparkOptimus people say about working here.">
+<title>What our people say — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+
+/* ══ HERO ══════════════════════════════════════════════ */
+.tes-hero {
+  padding-top: clamp(130px, 12vw, 180px);
+  padding-bottom: clamp(72px, 7vw, 112px);
+  background: var(--so-ink-900);
+  position: relative;
+  overflow: hidden;
+}
+.tes-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 75% 20%, rgba(0,217,244,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.tes-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: end;
+}
+@media (max-width: 960px) {
+  .tes-hero__inner { grid-template-columns: 1fr; gap: 40px; }
+}
+.tes-hero__heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.8rem, 1.4rem + 4.5vw, 5rem);
+  line-height: 1.04;
+  letter-spacing: -0.026em;
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+.tes-hero__heading em { font-style: normal; color: var(--so-cyan-400); }
+.tes-hero__lead {
+  font-size: clamp(1rem, 0.85rem + 0.5vw, 1.15rem);
+  color: var(--so-ink-300);
+  line-height: 1.65;
+  margin: 0 0 44px;
+  max-width: 48ch;
+}
+.tes-stats { display: flex; flex-wrap: wrap; gap: 0; align-items: stretch; }
+.tes-stat {
+  padding-right: clamp(24px, 3vw, 48px);
+  margin-right: clamp(24px, 3vw, 48px);
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.tes-stat:last-child { border-right: 0; padding-right: 0; margin-right: 0; }
+.tes-stat__num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 1.5rem + 1.5vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--so-cyan-400);
+  margin: 0 0 6px;
+}
+.tes-stat__label { font-size: 13px; color: var(--so-ink-400); font-weight: 500; margin: 0; }
+
+/* ══ SECTION INTRO ══════════════════════════════════════ */
+.tes-intro {
+  max-width: 600px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.tes-intro h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  color: var(--fg-1);
+  text-wrap: balance;
+}
+.tes-intro p { font-size: var(--text-lg); color: var(--fg-2); margin: 0; line-height: 1.6; }
+
+/* ══ CARD GRID ══════════════════════════════════════════ */
+.tes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+@media (max-width: 960px) { .tes-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px)  { .tes-grid { grid-template-columns: 1fr; } }
+
+/* ══ CARD ═══════════════════════════════════════════════ */
+.tes-card {
+  background: var(--so-gray-0);
+  border-radius: 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 260ms var(--ease-out), transform 260ms var(--ease-out);
+}
+.tes-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.tes-card:focus-visible {
+  outline: 2px solid var(--so-cyan-500);
+  outline-offset: 3px;
+}
+
+/* ── Card front ──────────────────────────────────────── */
+.tes-card__front {
+  padding: 32px 32px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Person row */
+.tes-card__person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.tes-card__avatar {
+  width: 52px;
+  height: 66px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--so-ink-800);
+}
+.tes-card__avatar image-slot {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.tes-card--c1 .tes-card__avatar { background: linear-gradient(135deg, #0e2a42, #153a58); }
+.tes-card--c2 .tes-card__avatar { background: linear-gradient(135deg, #0e172a, #162440); }
+.tes-card--c3 .tes-card__avatar { background: linear-gradient(135deg, #0a2030, #123040); }
+.tes-card--c4 .tes-card__avatar { background: linear-gradient(135deg, #0d2438, #153248); }
+.tes-card--c5 .tes-card__avatar { background: linear-gradient(135deg, #122238, #1a3250); }
+.tes-card--c6 .tes-card__avatar { background: linear-gradient(135deg, #0e1f34, #162e48); }
+
+.tes-card__info { flex: 1; min-width: 0; }
+.tes-card__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--fg-1);
+  margin: 0 0 2px;
+}
+.tes-card__meta { font-size: 12.5px; color: var(--fg-3); margin: 0; }
+.tes-card__tenure {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--so-cyan-700);
+  background: var(--so-cyan-50);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tes-card__rule { height: 1px; background: var(--border-1); margin: 0 0 24px; }
+
+/* Quote — clamped */
+.tes-card__quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--fg-2);
+  margin: 0;
+  flex: 1;
+  text-wrap: pretty;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+
+/* ── Card footer — "Read full story" ─────────────────── */
+.tes-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 32px 26px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border-1);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--so-cyan-700);
+  letter-spacing: 0.01em;
+  transition: color 180ms ease, gap 180ms ease;
+}
+.tes-card__footer svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  transition: transform 200ms var(--ease-out);
+}
+.tes-card:hover .tes-card__footer {
+  color: var(--so-cyan-500);
+  gap: 12px;
+}
+.tes-card:hover .tes-card__footer svg {
+  transform: translateX(3px);
+}
+
+/* ══ MODAL OVERLAY ══════════════════════════════════════
+   Mobile  → bottom sheet (slides up)
+   Desktop → centered modal (scales in)
+══════════════════════════════════════════════════════════ */
+.tm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+.tm-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tm-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6,11,26,0.76);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.tm-sheet {
+  position: relative;
+  z-index: 1;
+  background: var(--so-ink-900);
+  border-radius: 28px 28px 0 0;
+  width: 100%;
+  max-height: 90svh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translateY(100%);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 -24px 80px rgba(0,0,0,0.45);
+}
+.tm-overlay.is-open .tm-sheet {
+  transform: translateY(0);
+}
+
+/* Mobile handle */
+.tm-handle {
+  display: flex;
+  justify-content: center;
+  padding: 14px 0 0;
+  flex-shrink: 0;
+}
+.tm-handle::before {
+  content: '';
+  width: 40px;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.16);
+}
+
+/* Desktop: centered modal */
+@media (min-width: 680px) {
+  .tm-overlay {
+    align-items: center;
+    padding: 32px;
+  }
+  .tm-sheet {
+    border-radius: 28px;
+    max-width: 680px;
+    max-height: 84vh;
+    transform: scale(0.93) translateY(20px);
+    box-shadow:
+      0 40px 120px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tm-overlay.is-open .tm-sheet {
+    transform: scale(1) translateY(0);
+  }
+  .tm-handle { display: none; }
+}
+
+/* Sheet inner */
+.tm-inner {
+  padding: 28px 36px 44px;
+  overflow: hidden; /* contain float */
+}
+@media (max-width: 479px) {
+  .tm-inner { padding: 20px 24px 36px; }
+}
+
+/* Close button — absolute on sheet */
+.tm-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 150ms ease, color 150ms ease;
+}
+.tm-close:hover {
+  background: rgba(255,255,255,0.13);
+  color: #fff;
+}
+.tm-close svg { width: 18px; height: 18px; }
+
+/* ── Large portrait — floats left, text wraps around ── */
+.tm-portrait {
+  float: left;
+  width: 44%;
+  margin: 0 28px 16px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0e2a42, #153a58);
+}
+.tm-portrait__img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: block;
+}
+.tm-portrait__img image-slot {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.tm-person {
+  padding: 16px 18px 18px;
+}
+.tm-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  margin: 0 0 3px;
+}
+.tm-role { font-size: 13px; color: rgba(255,255,255,0.45); margin: 0 0 10px; }
+.tm-tenure {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--so-cyan-400);
+  background: rgba(0,217,244,0.1);
+  border: 1px solid rgba(0,217,244,0.18);
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Mobile: portrait goes full-width at top */
+@media (max-width: 679px) {
+  .tm-portrait {
+    float: none;
+    width: 100%;
+    margin: 0 0 24px;
+  }
+}
+
+/* Primary quote */
+.tm-quote-primary {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 0.9rem + 0.7vw, 1.35rem);
+  line-height: 1.62;
+  color: rgba(255,255,255,0.92);
+  margin: 0 0 24px;
+  text-wrap: pretty;
+}
+
+/* Extended copy */
+.tm-quote-extra {
+  font-size: clamp(0.92rem, 0.85rem + 0.3vw, 1rem);
+  line-height: 1.78;
+  color: rgba(255,255,255,0.58);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/employee-testimonials">
+    <meta property="og:url" content="https://www.sparkoptimus.com/employee-testimonials">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Employee Testimonials — SparkOptimus",
+    "description": "Hear from SparkOptimus employees about their experience, growth, and what makes our firm a great place to work.",
+    "url": "https://www.sparkoptimus.com/employee-testimonials",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Careers",
+      "item": "https://www.sparkoptimus.com/careers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Employee testimonials",
+      "item": "https://www.sparkoptimus.com/employee-testimonials"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="careers">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- ══ HERO ══════════════════════════════════════════════ -->
+  <header class="tes-hero" data-screen-label="Testimonials hero">
+    <div class="container container--full">
+      <div class="tes-hero__inner">
+        <div class="reveal is-in">
+          <h1 class="tes-hero__heading">In their own<br><em>words.</em></h1>
+        </div>
+        <div class="reveal is-in" data-delay="1">
+          <p class="tes-hero__lead">People across the firm — from associate to principal, across every practice — on what the work is actually like.</p>
+          <div class="tes-stats">
+            <div class="tes-stat">
+              <p class="tes-stat__num">50+</p>
+              <p class="tes-stat__label">Employees</p>
+            </div>
+            <div class="tes-stat">
+              <p class="tes-stat__num">10+</p>
+              <p class="tes-stat__label">Nationalities</p>
+            </div>
+            <div class="tes-stat">
+              <p class="tes-stat__num">4.4</p>
+              <p class="tes-stat__label">Glassdoor score</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ GRID ══════════════════════════════════════════════ -->
+  <section class="section surface-subtle" data-screen-label="Testimonials">
+    <div class="container container--full">
+      <div class="tes-intro reveal is-in">
+        <h2>What makes SparkOptimus different<br>is the people inside it.</h2>
+        <p>Six consultants, different roles, different years in. Read what they actually think.</p>
+      </div>
+      <div class="tes-grid" id="tesGrid"></div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<!-- ══ MODAL / BOTTOM SHEET ══════════════════════════════ -->
+<div class="tm-overlay" id="tmOverlay" aria-modal="true" role="dialog" aria-labelledby="tmName">
+  <div class="tm-backdrop" id="tmBackdrop"></div>
+  <div class="tm-sheet" id="tmSheet" tabindex="-1">
+    <div class="tm-handle"></div>
+    <button class="tm-close" id="tmClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+      </svg>
+    </button>
+    <div class="tm-inner">
+      <div class="tm-portrait">
+        <div class="tm-portrait__img" id="tmPortrait"></div>
+        <div class="tm-person">
+          <p class="tm-name" id="tmName"></p>
+          <p class="tm-role" id="tmRole"></p>
+          <span class="tm-tenure" id="tmTenure"></span>
+        </div>
+      </div>
+      <p class="tm-quote-primary" id="tmQuotePrimary"></p>
+      <p class="tm-quote-extra" id="tmQuoteExtra"></p>
+    </div>
+  </div>
+</div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+
+var TESTIMONIALS = [
+  {
+    id: "t-01", name: "Sophie van Dijk", role: "Consultant",
+    department: "Digital Strategy", tenure: "2 years", color: "c1",
+    quote: "I was put on a full workstream within my first two weeks. Not observing — actually running it, talking directly to the client, writing the output. That kind of responsibility from day one is what separates SparkOptimus from every other firm I looked at coming out of university.",
+    extra: "The feedback culture was the biggest surprise. After every client presentation, every deliverable, there's a real debrief — not just 'good job' but honest, specific input on what landed and what didn't. It's uncomfortable at first. But it's the fastest way I've ever developed. By the end of my first year I was helping onboard new associates, which I genuinely didn't expect to be doing so soon. You grow into responsibility here because you're given it before you feel ready for it."
+  },
+  {
+    id: "t-02", name: "Lars Hendriks", role: "Senior Consultant",
+    department: "AI & Data", tenure: "3 years", color: "c2",
+    quote: "There's a version of AI consulting that stops at the PowerPoint. We don't do that. Every model we build, every data strategy we design, has to actually run in the client's environment and change how decisions get made. That accountability to real outcomes is what makes the work hard — and worth doing.",
+    extra: "I joined from a technical background in data engineering and was worried the strategy layer would pull me away from real substance. The opposite happened. Sitting at the intersection of strategy and implementation means you have to understand both deeply. The clients we work with are running complex, live operations — there's no room for vague recommendations or pretty charts that don't connect to anything. That rigour is what I stay for."
+  },
+  {
+    id: "t-03", name: "Mia Jansen", role: "Manager",
+    department: "Sustainability", tenure: "4 years", color: "c3",
+    quote: "Four years in and I've still not worked on a project without a concrete output. That sounds obvious but it's genuinely rare in consulting. We're hired to change things, not to describe them — and that expectation shapes every day of your work here.",
+    extra: "The sustainability practice has matured a lot since I joined. What started as reporting and compliance work has grown into full transformation strategy — helping energy companies redesign business models, helping consumer brands rethink supply chains end to end. The complexity of the problems is what keeps it interesting. And the fact that it actually matters beyond the boardroom. I've seen strategies we designed show up in annual reports, in capital allocation shifts, in how companies talk publicly about their direction."
+  },
+  {
+    id: "t-04", name: "Tom Bakker", role: "Associate",
+    department: "Digital Strategy", tenure: "1 year", color: "c4",
+    quote: "I studied engineering, not business. I wasn't sure a strategy consultancy would know what to do with me. But in the first month it became clear that my background wasn't a quirk to manage around — it was directly useful. The way I think about systems and tradeoffs fits naturally into digital strategy.",
+    extra: "The learning curve is steep. In my first project I was doing market sizing in week one and presenting findings to a C-suite in week six. There's no slow ramp — but there is real support. My manager was direct and available, the feedback was honest, and when I got things wrong I understood exactly why. A year in I feel like I've done three years of work. That compression is uncomfortable sometimes, but it's also why people who leave here are so sought after."
+  },
+  {
+    id: "t-05", name: "Emma de Vries", role: "Principal",
+    department: "Digital Strategy", tenure: "6 years", color: "c5",
+    quote: "Most people don't stay six years at a consultancy. I stayed because the work kept changing. The problems we were solving in 2019 look nothing like what we're working on now — different sector dynamics, different technology, different client expectations. If you want stability, this isn't the place. If you want to stay sharp, it is.",
+    extra: "What I value most at this point is the quality of the relationships — with clients, with the firm's leadership, with the people I've helped develop over the years. You build something durable here if you invest in it. I've seen projects turn into long-term partnerships, associates grow into managers, an idea from a Friday afternoon become a product in market. That continuity is hard to find in consulting, and it changes the quality of the work you're able to do."
+  },
+  {
+    id: "t-06", name: "Niels Visser", role: "Consultant",
+    department: "AI & Data", tenure: "2 years", color: "c6",
+    quote: "The difference between SparkOptimus and larger firms is simple: when you spot something, you can act on it. I flagged an architectural problem in a client's AI setup, proposed a fix, and we'd implemented it within the same sprint. That speed doesn't happen where every change needs three levels of sign-off.",
+    extra: "I work at the intersection of AI strategy and technical implementation — which is exactly where the hard problems are right now. The clients we work with are sophisticated enough to ask difficult questions, which means you have to be genuinely on top of the field. That pressure is part of what makes it good. You can't coast here. Every client we work with knows what good looks like, and they expect us to go beyond it."
+  }
+];
+
+function initials(name) {
+  var p = name.split(' ');
+  return (p[0][0] + p[p.length - 1][0]).toUpperCase();
+}
+
+function renderCard(t, i) {
+  var ini = initials(t.name);
+  var delay = i % 3;
+  return [
+    '<article class="tes-card tes-card--' + t.color + ' reveal" data-delay="' + delay + '" data-tid="' + t.id + '" role="button" tabindex="0" aria-label="Read full story from ' + t.name + '">',
+    '  <div class="tes-card__front">',
+    '    <div class="tes-card__person">',
+    '      <div class="tes-card__avatar"><image-slot id="tes-photo-' + t.id + '" shape="rect" placeholder="Photo"></image-slot></div>',
+    '      <div class="tes-card__info">',
+    '        <p class="tes-card__name">' + t.name + '</p>',
+    '        <p class="tes-card__meta">' + t.role + '<i class=metadot></i>' + t.department + '</p>',
+    '      </div>',
+    '      <span class="tes-card__tenure">' + t.tenure + '</span>',
+    '    </div>',
+    '    <div class="tes-card__rule"></div>',
+    '    <p class="tes-card__quote">' + t.quote + '</p>',
+    '  </div>',
+    '  <div class="tes-card__footer">',
+    '    Read full story',
+    '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">',
+    '      <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+    '    </svg>',
+    '  </div>',
+    '</article>'
+  ].join('\n');
+}
+
+/* ── Render cards ─────────────────────────────────────── */
+document.getElementById('tesGrid').innerHTML = TESTIMONIALS.map(renderCard).join('\n');
+window.SO.reveal();
+
+/* Safety fallback — forces reveal if IntersectionObserver doesn't fire
+   (iframe sandboxes, low-viewport contexts, etc.) */
+setTimeout(function() {
+  document.querySelectorAll('.reveal:not(.is-in)').forEach(function(el) {
+    el.classList.add('is-in');
+  });
+}, 500);
+
+/* ── Modal logic ──────────────────────────────────────── */
+var overlay   = document.getElementById('tmOverlay');
+var sheet     = document.getElementById('tmSheet');
+var backdrop  = document.getElementById('tmBackdrop');
+var btnClose  = document.getElementById('tmClose');
+var elPortrait = document.getElementById('tmPortrait');
+var elPrimary = document.getElementById('tmQuotePrimary');
+var elExtra   = document.getElementById('tmQuoteExtra');
+var elName    = document.getElementById('tmName');
+var elRole    = document.getElementById('tmRole');
+var elTenure  = document.getElementById('tmTenure');
+
+var prevFocus = null;
+
+function openModal(t) {
+  prevFocus = document.activeElement;
+
+  elPortrait.innerHTML = '<image-slot id="tm-modal-' + t.id + '" shape="rect" placeholder="Photo" style="width:100%;height:100%;display:block;"></image-slot>';
+  elPrimary.textContent  = t.quote;
+  elExtra.textContent    = t.extra;
+  elName.textContent     = t.name;
+  elRole.textContent     = t.role + ' \u00b7 ' + t.department;
+  elTenure.textContent   = t.tenure;
+
+  overlay.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+
+  /* focus the sheet after transition starts */
+  setTimeout(function() { sheet.focus(); }, 80);
+}
+
+function closeModal() {
+  overlay.classList.remove('is-open');
+  document.body.style.overflow = '';
+  if (prevFocus) { prevFocus.focus(); prevFocus = null; }
+}
+
+/* Card clicks */
+document.getElementById('tesGrid').addEventListener('click', function(e) {
+  var card = e.target.closest('[data-tid]');
+  if (!card) return;
+  var tid = card.dataset.tid;
+  var t = TESTIMONIALS.find(function(x) { return x.id === tid; });
+  if (t) openModal(t);
+});
+
+/* Keyboard on cards */
+document.getElementById('tesGrid').addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  var card = e.target.closest('[data-tid]');
+  if (!card) return;
+  e.preventDefault();
+  var tid = card.dataset.tid;
+  var t = TESTIMONIALS.find(function(x) { return x.id === tid; });
+  if (t) openModal(t);
+});
+
+/* Close triggers */
+btnClose.addEventListener('click', closeModal);
+backdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+});
+
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>NS (Dutch Railways) — Co-developing &amp; launching a mobility platform within 6 months — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  .cs-hero { position: relative; min-height: 74vh; display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: var(--so-ink-900); }
+  .cs-hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .cs-hero__bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cs-hero__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(175deg, rgba(6,11,26,0.28) 0%, rgba(6,11,26,0.9) 72%); }
+  .cs-hero__inner { position: relative; z-index: 2; width: 100%; padding-bottom: clamp(48px, 6vw, 80px); padding-top: 140px; }
+  .cs-hero h1 { color: #fff; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.5rem); margin: 24px 0 22px; max-width: 22ch; line-height: 1.1; }
+  .cs-hero__tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cs-hero__stat { display: flex; align-items: baseline; gap: 14px; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.14); flex-wrap: wrap; }
+  .cs-hero__stat-num { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 1rem + 1.8vw, 2.3rem); color: #fff; letter-spacing: -0.03em; line-height: 1.05; }
+  .cs-hero__stat-label { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.42); }
+  .cs-hero__client { display: inline-flex; align-items: center; margin-bottom: 4px; }
+  .cs-hero__logo-badge { display: inline-flex; align-items: center; justify-content: center; padding: 10px 16px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: var(--radius-lg); box-shadow: 0 2px 16px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.15); }
+  .cs-hero__logo-badge img { display: block; width: auto; height: 40px; max-width: 150px; object-fit: contain; }
+  .cs-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: start; }
+  @media (max-width: 860px) { .cs-two-col { grid-template-columns: 1fr; gap: 32px; } }
+  .cs-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--so-cyan-600); margin: 0 0 14px; }
+  .surface-ink .cs-eyebrow { color: var(--so-cyan-400); }
+  .cs-h2 { font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.2rem); margin: 0 0 20px; line-height: 1.18; }
+  .cs-body { font-size: 16px; line-height: 1.75; color: var(--fg-2); margin: 0 0 16px; text-wrap: pretty; }
+  .cs-body:last-child { margin-bottom: 0; }
+  .surface-ink .cs-h2 { color: #fff; }
+  .surface-ink .cs-body { color: var(--so-ink-200); }
+  .cs-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  .cs-list li { display: flex; gap: 14px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: var(--fg-2); }
+  .cs-check { width: 26px; height: 26px; border-radius: 50%; background: var(--so-cyan-500); color: var(--so-ink-900); display: grid; place-items: center; flex-shrink: 0; margin-top: 1px; }
+  .cs-check svg { width: 14px; height: 14px; }
+  .cs-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .quotes--editorial { max-width: 860px; margin: 0 auto; }
+  .quote-card { background: rgba(255,255,255,0.05); border: 1px solid var(--border-on-inverse); border-radius: var(--radius-xl); padding: clamp(16px,2vw,24px) clamp(18px,2.5vw,32px); display: flex; flex-direction: column; width: 100%; box-sizing: border-box; }
+  .quote-card__openquote { font-family: var(--font-display); font-size: 44px; line-height: 0.7; color: var(--so-cyan-500); display: block; margin-bottom: 6px; user-select: none; }
+  .quote-card__q { font-family: var(--font-sans); font-style: italic; font-size: clamp(0.95rem, 0.8rem + 0.55vw, 1.1rem); line-height: 1.6; color: #fff; margin: 0 0 14px; text-wrap: pretty; }
+  .quote-card__who { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); justify-content: space-between; }
+  .quote-card__name { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: #fff; margin: 0 0 2px; }
+  .quote-card__role { font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--so-cyan-400); margin: 0 0 1px; }
+  .quote-card__company-name { font-size: 11px; color: rgba(255,255,255,0.42); margin: 0; }
+  .quote-card__logo { width: 112px; min-width: 112px; height: 44px; background: rgba(255,255,255,0.92); border-radius: 10px; flex: 0 0 auto; overflow: hidden; background-repeat: no-repeat; background-position: center; background-size: 84px 28px; background-origin: content-box; padding: 8px 14px; box-sizing: border-box; }
+  .cs-expert { display: flex; align-items: center; gap: 18px; max-width: 620px; }
+  .cs-expert__img { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; object-position: top center; background: var(--surface-2); flex-shrink: 0; }
+  .cs-expert__name { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0 0 3px; }
+  .cs-expert__role { font-size: 12px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--so-cyan-600); margin: 0; }
+  .cs-source { display: flex; flex-direction: column; gap: 12px; padding: clamp(22px,3vw,32px); border: 1px solid var(--border-1); border-radius: var(--radius-xl); background: var(--surface-1); max-width: 720px; }
+  .cs-source p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--fg-2); }
+  .related-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; gap: 24px; flex-wrap: wrap; }
+  .related-head h2 { font-size: clamp(1.7rem, 1.1rem + 1.8vw, 2.6rem); margin: 0; }
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <meta name="description" content="In the fall of 2017, NS (Dutch Railways) identified an emerging trend of consumers moving towards flexible, sustainable mobility solutions. NS asked SparkOptimus to come up with a strategic response to this trend.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="NS (Dutch Railways) — Co-developing &amp; launching a mobility platform within 6 months">
+<meta property="og:description" content="In the fall of 2017, NS (Dutch Railways) identified an emerging trend of consumers moving towards flexible, sustainable mobility solutions. NS asked SparkOptimus to come up with a strategic response to this trend.">
+<meta property="og:image" content="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/6908cfa382f7c9fea1acec52_Hely1.jpg">
+<link rel="canonical" href="case-a-selection-of-our-cases-ns-dutch-railways.html">
+</head>
+<body data-page="impact">
+<script>window.SO_FORCE_ID="a-selection-of-our-cases-ns-dutch-railways";</script>
+<div id="site-nav-root"></div>
+
+<main>
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"><h1>NS (Dutch Railways) — Co-developing &amp; launching a mobility platform within 6 months</h1><p>In the fall of 2017, NS (Dutch Railways) identified an emerging trend of consumers moving towards flexible, sustainable mobility solutions. NS asked SparkOptimus to come up with a strategic response to this trend.</p></div>
+  <header class="cs-hero" data-screen-label="Case hero">
+    <div class="cs-hero__bg" id="csHeroBg"></div>
+    <div class="cs-hero__scrim"></div>
+    <div class="cs-hero__inner">
+      <div class="container container--full">
+        <a href="cases.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:24px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Back to cases</span>
+        </a>
+        <div class="reveal">
+          <div class="cs-hero__client" id="csLogo"></div>
+          <h1 id="csTitle">Case study</h1>
+          <div class="cs-hero__tags" id="csTags"></div>
+          <div class="cs-hero__stat" id="csStat" style="display:none;">
+            <span class="cs-hero__stat-num" id="csStatNum"></span>
+            <span class="cs-hero__stat-label" id="csStatLabel"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" data-screen-label="What they wanted">
+    <div class="container container--full">
+      <div class="cs-two-col reveal">
+        <div>
+          <p class="cs-eyebrow">What they wanted</p>
+          <h2 class="cs-h2" id="csWantedTitle"></h2>
+          <div id="csWanted"></div>
+        </div>
+        <div style="padding-top:clamp(0px,2vw,56px);">
+          <div class="cs-chips" id="csChips"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface-subtle" id="csDidSection" data-screen-label="What we did" style="display:none;">
+    <div class="container container--full">
+      <div class="cs-two-col reveal">
+        <div>
+          <p class="cs-eyebrow">What we did</p>
+          <h2 class="cs-h2" id="csDidTitle"></h2>
+          <div id="csDid"></div>
+        </div>
+        <div><ul class="cs-list" id="csDidList"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="csAchievedSection" data-screen-label="What we achieved" style="display:none;">
+    <div class="container container--full">
+      <div class="cs-two-col reveal">
+        <div><div class="cs-chips" id="csAchievedChips"></div></div>
+        <div>
+          <p class="cs-eyebrow">What we achieved</p>
+          <h2 class="cs-h2" id="csAchievedTitle"></h2>
+          <div id="csAchieved"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface-ink" id="csQuoteSection" data-screen-label="Quote" style="display:none;">
+    <div class="container">
+      <div class="quotes--editorial reveal">
+        <figure class="quote-card">
+          <span class="quote-card__openquote">&ldquo;</span>
+          <blockquote class="quote-card__q" id="csQuoteText"></blockquote>
+          <div class="quote-card__who">
+            <div>
+              <p class="quote-card__name" id="csQuoteName"></p>
+              <p class="quote-card__role" id="csQuoteRole"></p>
+              <p class="quote-card__company-name" id="csQuoteCompany"></p>
+            </div>
+            <div class="quote-card__logo" id="csQuoteLogo" style="display:none;"></div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="csExpertSection" data-screen-label="Expert" style="display:none;">
+    <div class="container container--full">
+      <div class="reveal">
+        <p class="cs-eyebrow">Your contact for this work</p>
+        <div class="cs-expert" id="csExpert"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" data-screen-label="Related cases">
+    <div class="container container--full">
+      <div class="related-head">
+        <h2 class="reveal">Related work</h2>
+        <a class="arrowlink reveal" data-delay="1" href="cases.html">All cases <span class="arrowmini"></span></a>
+      </div>
+      <div class="so-case-grid so-case-grid--row3" id="csRelated"></div>
+    </div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to make disruption work for your <em>organisation?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost-dark" href="cases.html">All cases</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/cases-data.js"></script>
+<script src="site/scripts/cases-bodies.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+(function () {
+  var CASES = window.SO_CASES || [];
+  var BODIES = window.SO_CASE_BODIES || {};
+  var id = window.SO_FORCE_ID || new URLSearchParams(location.search).get("c") || (CASES[0] && CASES[0].id);
+  var c = CASES.filter(function (x) { return x.id === id; })[0] || CASES[0];
+  if (!c) return;
+  var b = BODIES[c.id] || {};
+  var arrow = window.SO.ico("arrow");
+  var check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  function set(elId, html) { var el = document.getElementById(elId); if (el) el.innerHTML = html; }
+  function paras(arr) { return (arr || []).map(function (p) { return '<p class="cs-body">' + p + '</p>'; }).join(""); }
+  function chips(arr) { return (arr || []).map(function (t) { return '<span class="chip">' + t + '</span>'; }).join(""); }
+
+  document.title = c.client + " — " + c.title.replace(/<[^>]+>/g, "") + " \u00b7 SparkOptimus";
+  var hero = b.hero || c.img || "site/assets/cases-hero-bg.jpg";
+  set("csHeroBg", '<img src="' + hero + '" alt="" loading="eager" decoding="async">');
+  set("csTitle", c.title);
+  if (c.logo && c.logo.img && /^https?:/.test(c.logo.img)) {
+    set("csLogo", '<div class="cs-hero__logo-badge"><img src="' + c.logo.img + '" alt="' + c.client + '" loading="lazy" decoding="async"></div>');
+  } else {
+    set("csLogo", '<div class="cs-hero__logo-badge"><span style="font-family:var(--font-display);font-weight:800;color:var(--so-ink-900);font-size:15px;letter-spacing:0.02em;">' + c.client + '</span></div>');
+  }
+  set("csTags", '<span class="chip chip--on-ink">' + c.svc + '</span><span class="chip chip--on-ink">' + c.sector + '</span>');
+  if (b.stat) {
+    document.getElementById("csStat").style.display = "";
+    set("csStatNum", b.stat.num);
+    set("csStatLabel", b.stat.label);
+  }
+
+  set("csWantedTitle", b.wantedTitle || "The challenge");
+  set("csWanted", paras(b.wanted && b.wanted.length ? b.wanted : [c.blurb]));
+  set("csChips", chips(b.chips || [c.svc, c.sector]));
+
+  if (b.did && b.did.length) {
+    document.getElementById("csDidSection").style.display = "";
+    set("csDidTitle", b.didTitle || "What we did");
+    set("csDid", paras(b.did));
+    set("csDidList", (b.didList || []).map(function (t) {
+      return '<li><span class="cs-check">' + check + '</span><span>' + t + '</span></li>';
+    }).join(""));
+  }
+  if (b.achieved && b.achieved.length) {
+    document.getElementById("csAchievedSection").style.display = "";
+    set("csAchievedTitle", b.achievedTitle || "What we achieved");
+    set("csAchieved", paras(b.achieved));
+    set("csAchievedChips", chips(b.achievedChips || []));
+  }
+  if (b.quote) {
+    document.getElementById("csQuoteSection").style.display = "";
+    set("csQuoteText", b.quote.text);
+    set("csQuoteName", b.quote.name);
+    set("csQuoteRole", b.quote.role);
+    set("csQuoteCompany", b.quote.company || c.client);
+    if (c.logo && c.logo.img && /^https?:/.test(c.logo.img)) {
+      var ql = document.getElementById("csQuoteLogo");
+      ql.style.display = "";
+      ql.style.backgroundImage = 'url("' + c.logo.img + '")';
+      ql.style.backgroundSize = 'contain';
+      ql.setAttribute('role', 'img');
+      ql.setAttribute('aria-label', (b.quote.company || c.client) + ' logo');
+    }
+  }
+  if (b.expert) {
+    document.getElementById("csExpertSection").style.display = "";
+    set("csExpert", (b.expert.img ? '<img class="cs-expert__img" src="' + b.expert.img + '" alt="' + b.expert.name + '" loading="lazy" decoding="async">' : "") +
+      '<div><p class="cs-expert__name">' + b.expert.name + '</p><p class="cs-expert__role">' + b.expert.role + '</p></div>');
+  }
+
+  var rel = CASES.filter(function (x) { return x.id !== c.id && (x.svc === c.svc || x.sector === c.sector); }).slice(0, 3);
+  if (rel.length < 3) rel = rel.concat(CASES.filter(function (x) { return x.id !== c.id && rel.indexOf(x) === -1; })).slice(0, 3);
+  document.getElementById("csRelated").innerHTML = rel.map(function (x, i) {
+    var m = '<image-slot id="csrel-' + i + '" shape="rect" placeholder="Photo" src="' + (x.img || (x.logo && x.logo.img) || "") + '"></image-slot>';
+    return '<a class="so-case reveal" data-delay="' + i + '" href="' + x.href + '">' +
+      '<div class="so-case__media"><span class="so-case__tag">' + x.svc + '</span>' + m + '</div>' +
+      '<div class="so-case__body"><span class="so-case__client">' + x.client + '</span>' +
+      '<span class="so-case__title">' + x.title + '</span>' +
+      '<div class="so-case__meta"><span>' + x.sector + '</span><span class="arrowmini">' + arrow + '</span></div></div></a>';
+  }).join("");
+  document.querySelectorAll(".arrowmini:empty").forEach(function (el) { el.innerHTML = arrow; });
+  window.SO.reveal();
+})();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

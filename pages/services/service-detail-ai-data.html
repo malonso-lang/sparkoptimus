@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>AI & Data Strategy & Transformation — Services<span class="metadot" aria-hidden="true"></span>SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ============================================================
+     SERVICE DETAIL — page-specific styles
+     Shared components (sec-head, creds, quotes, article-grid,
+     experts-grid, quote-card, page-hero__actions, page-hero__tags)
+     are in site.css.
+     ============================================================ */
+
+  /* ---------- CREDENTIALS — margin-top override ---------- */
+  /* site.css defines .creds base; service-detail uses 40px top margin */
+  .creds { margin-top: 40px; }
+
+  /* ---------- INTRO / WHO WE ARE ---------- */
+  .svc-intro { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 64px); align-items: center; }
+  .svc-intro h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.3rem); margin: 16px 0 0; letter-spacing: -0.01em; }
+  .svc-intro h2 em { font-style: normal; color: var(--so-cyan-500); }
+  .svc-intro__body p { font-size: var(--text-md); line-height: 1.7; color: var(--fg-2); margin: 18px 0 0; max-width: none; }
+  .svc-intro__actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 30px; }
+  .svc-intro__media { width: 100%; border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4 / 3; align-self: center; }
+  .svc-intro__media image-slot { width: 100%; height: 100%; --img-radius: 0; }
+  .svc-intro__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .svc-intro { grid-template-columns: 1fr; }
+    .svc-intro__media { margin: 8px 0 0; }
+  }
+
+  @media (max-width: 640px) {
+    /* quote-card open-quote slightly smaller at phone size on this page */
+    .quote-card__openquote { font-size: 36px; }
+  }
+  .svc-intro__body { max-width: none; min-width: 0; }
+  .svc-intro__body p { max-width: none; }
+  .svc-intro__body ul { margin: 18px 0 0; padding-left: 1.15em; }
+  .svc-intro__body li { font-size: var(--text-md); line-height: 1.65; color: var(--fg-2); margin: 10px 0 0; padding-left: 4px; }
+  .svc-intro__body li strong { color: var(--so-ink-900); font-weight: 700; }
+  .quote-card__logo { width: 112px; min-width: 112px; height: 44px; background: rgba(255,255,255,0.92); border-radius: 10px; flex: 0 0 auto; overflow: hidden; background-repeat: no-repeat; background-position: center; background-size: contain; background-origin: content-box; padding: 8px 14px; box-sizing: border-box; }
+  .svc-do { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 4vw, 72px); align-items: start; }
+  @media (max-width: 900px) { .svc-do { grid-template-columns: 1fr; } }
+  .svc-acc { border-top: 1px solid var(--border-1); }
+  .svc-acc__item { border-bottom: 1px solid var(--border-1); }
+  .svc-acc__btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: none; border: 0; padding: 22px 4px; text-align: left; cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem); color: var(--so-ink-900); }
+  .svc-acc__btn:hover { color: var(--so-cyan-700); }
+  .svc-acc__chev { width: 20px; height: 20px; flex: 0 0 auto; transition: transform 240ms cubic-bezier(0.22,1,0.36,1); color: var(--so-ink-400); }
+  .svc-acc__item.is-open .svc-acc__chev { transform: rotate(180deg); color: var(--so-cyan-600); }
+  .svc-acc__panel { overflow: hidden; max-height: 0; transition: max-height 380ms cubic-bezier(0.22,1,0.36,1); }
+  .svc-acc__panel-inner { padding: 0 4px 26px; font-size: var(--text-md); line-height: 1.75; color: var(--fg-2); max-width: 62ch; text-wrap: pretty; }
+  .svc-acc__panel-inner strong { color: var(--so-ink-900); }
+  .svc-do__media { border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-md); background: var(--surface-2); aspect-ratio: 4 / 3; position: sticky; top: 110px; }
+  .svc-do__media img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .svc-do__media.is-diagram { background: #fff; padding: clamp(12px, 1.6vw, 22px); box-sizing: border-box; }
+  .svc-do__media.is-diagram img { object-fit: contain; }
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <meta name="description" content="Future-proof your organisation through digital strategy, AI, sustainability, and transformation services.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Service — SparkOptimus">
+  <meta property="og:description" content="Future-proof your organisation through digital strategy, AI, sustainability, and transformation services.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/services/detail">
+  <meta property="og:image" content="site/assets/services-hero-bg.webp">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Service — SparkOptimus">
+  <meta name="twitter:description" content="Future-proof your organisation through digital strategy, AI, sustainability, and transformation services.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/services/detail">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Service — SparkOptimus",
+    "description": "Detailed overview of a SparkOptimus service line and how we deliver transformation for your organisation.",
+    "url": "https://www.sparkoptimus.com/services/detail",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://www.sparkoptimus.com/services"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Service detail",
+      "item": "https://www.sparkoptimus.com/services/detail"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="services" data-svc-key="ai-data" data-ins-kind="svc" data-ins-val="ai-data">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <header class="page-hero page-hero--photo page-hero--tall" data-screen-label="Service hero">
+    <div class="page-hero__bg"><image-slot id="svc-hero" shape="rect" placeholder="Drop hero photo (Storyblok)" src="site/assets/shared-office-bg.webp"></image-slot></div>
+    <div class="page-hero__scrim"></div>
+    <div class="container container--full page-hero__inner">
+      <a href="services.html" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 24px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Back to services</span>
+      </a>
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1>AI &amp; Data Strategy &amp; Transformation<em>.</em></h1>
+        </div>
+        <div class="reveal" data-delay="1">
+          <p class="page-hero__lead">We help you generate business value from data through an actionable strategy by identifying and implementing (generative) AI use cases and setting up best-practice organizational and technological capabilities to leverage these at scale.</p>
+          <div class="page-hero__actions">
+            <a class="btn btn--primary" href="contact.html">Get in touch</a>
+            <a class="btn btn--ghost-dark" href="#cases">Explore our work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ INTRO / WHO WE ARE ============ -->
+  <section class="section" id="intro" data-screen-label="Who we are">
+    <div class="container container--full">
+      <div class="svc-intro">
+        <div class="svc-intro__body reveal">
+          <h2>Data empowerment, AI excellence: Accelerating business growth with Data &amp; AI</h2>
+          <p>At SparkOptimus, we specialize in navigating the evolving landscape of Data &amp; (Gen) AI, leveraging over a decade of experience in extracting business value from data. As your strategic partner, we focus on identifying and implementing AI use cases, establishing best-practice capabilities, processes, and technology to enable success at scale. Our track record includes working with leading B2B and B2C companies, helping them leverage Data &amp; AI for tangible business benefits, merging our AI knowledge with proven transformational expertise to enhance the customer experience and improve operational processes.</p>
+          <p>In a landscape shaped by evolving technologies and changing customer behaviour, having a dependable strategic partner is crucial. At SparkOptimus, we believe in a collaborative approach: we work closely with you, leveraging our expertise to help you adapt and thrive in the face of AI disruption. Our methodology is not just about providing solutions; it's about co-creating a future where your business excels. We support you in generating business value from Data &amp; AI both by creating actionable strategies but also guiding you with on-the-ground support to get it done. Whether it's identifying and implementing (generative) AI use cases or setting up best-practice organizational and technological capabilities, we ensure your journey is seamless and scalable.</p>
+        </div>
+        <div class="svc-intro__media reveal" data-delay="1">
+          <img id="svcIntroImg" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SELECTION OF CREDENTIALS ============ -->
+  <section class="section--tight surface-subtle" data-screen-label="Credentials">
+    <div class="container container--full">
+      <div class="sec-head sec-head--center reveal" style="margin-bottom: 8px;">
+      </div>
+      <div class="creds reveal" data-delay="1">
+        <div class="creds__track">
+          <span class="creds__logo">bol.</span>
+          <span class="creds__logo">IKEA</span>
+          <span class="creds__logo">Schiphol</span>
+          <span class="creds__logo">HEMA</span>
+          <span class="creds__logo">AkzoNobel</span>
+          <span class="creds__logo">Heineken</span>
+          <span class="creds__logo" aria-hidden="true">bol.</span>
+          <span class="creds__logo" aria-hidden="true">IKEA</span>
+          <span class="creds__logo" aria-hidden="true">Schiphol</span>
+          <span class="creds__logo" aria-hidden="true">HEMA</span>
+          <span class="creds__logo" aria-hidden="true">AkzoNobel</span>
+          <span class="creds__logo" aria-hidden="true">Heineken</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT WE DO (accordion) ============ -->
+  <section class="section" id="services" data-screen-label="What we do">
+    <div class="container container--full">
+      <div class="sec-head sec-head--center reveal">
+        <h2>Our services</h2>
+      </div>
+      <div class="svc-do reveal" data-delay="1">
+        <div class="svc-acc" id="svcAcc"></div>
+        <div class="svc-do__media" id="svcDoMedia"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE CASES ============ -->
+  <section class="section" id="cases" data-screen-label="Signature cases" data-svc-filter="AI & Data">
+    <div class="container container--full">
+      <div class="sec-head">
+        <div class="reveal">
+          <h2>Impact at <em>our clients.</em></h2>
+        </div>
+        <a class="arrowlink reveal" data-delay="1" href="cases.html" id="svcAllCases">All cases <span class="arrowmini"></span></a>
+      </div>
+      <div class="so-case-grid so-case-grid--row3" id="svcCaseGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ QUOTE REEL (dark) ============ -->
+  <section class="section surface-ink" data-screen-label="Client quotes">
+    <div class="container">
+      <div class="quotes quotes--editorial reveal" data-delay="1">
+        <div class="quotes__viewport">
+          <div class="quotes__track" id="quotesTrack">
+
+            <!-- QUOTE 1 -->
+            <figure class="quotes__slide quote-card">
+              <span class="quote-card__openquote">&ldquo;</span>
+              <blockquote class="quote-card__q">They didn't just deliver a strategy deck — they teamed up with us to build and scale it. The combination of strategic depth and getting-it-done is rare, and it showed in the results.</blockquote>
+              <div class="quote-card__who">
+                <div class="quote-card__who-left">
+                  <div>
+                    <p class="quote-card__name">Ron Schneider</p>
+                    <p class="quote-card__role">Head of Consumer Market</p>
+                    <p class="quote-card__company-name">NS Reizigers</p>
+                  </div>
+                </div>
+                <div class="quote-card__logo"><image-slot id="service-detail-ai-data-quote-logo-1" shape="rounded" radius="8" fit="contain" placeholder="Company logo"></image-slot></div>
+              </div>
+            </figure>
+
+            <!-- QUOTE 2 -->
+            <figure class="quotes__slide quote-card">
+              <span class="quote-card__openquote">&ldquo;</span>
+              <blockquote class="quote-card__q">Pragmatic, fast and deeply hands-on. SparkOptimus helped us turn an ambitious digital agenda into a roadmap we could actually execute — and stayed with us to make it real.</blockquote>
+              <div class="quote-card__who">
+                <div class="quote-card__who-left">
+                  <div>
+                    <p class="quote-card__name">Marieke Visser</p>
+                    <p class="quote-card__role">Chief Digital Officer</p>
+                    <p class="quote-card__company-name">Global Retail Group</p>
+                  </div>
+                </div>
+                <div class="quote-card__logo"><image-slot id="service-detail-ai-data-quote-logo-2" shape="rounded" radius="8" fit="contain" placeholder="Company logo"></image-slot></div>
+              </div>
+            </figure>
+
+            <!-- QUOTE 3 -->
+            <figure class="quotes__slide quote-card">
+              <span class="quote-card__openquote">&ldquo;</span>
+              <blockquote class="quote-card__q">They challenge your thinking and then roll up their sleeves alongside your teams. A genuine partner in our digital strategy, from the board room to the front line.</blockquote>
+              <div class="quote-card__who">
+                <div class="quote-card__who-left">
+                  <div>
+                    <p class="quote-card__name">Thomas Bakker</p>
+                    <p class="quote-card__role">Managing Director</p>
+                    <p class="quote-card__company-name">Industrial Holding</p>
+                  </div>
+                </div>
+                <div class="quote-card__logo"><image-slot id="service-detail-ai-data-quote-logo-3" shape="rounded" radius="8" fit="contain" placeholder="Company logo"></image-slot></div>
+              </div>
+            </figure>
+
+          </div>
+        </div>
+        <div class="quotes__nav">
+          <button class="quotes__btn" id="quotesPrev" type="button" aria-label="Previous quote"></button>
+          <button class="quotes__btn" id="quotesNext" type="button" aria-label="Next quote"></button>
+          <div class="quotes__dots" id="quotesDots"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSIGHTS ============ -->
+  <section class="section" data-screen-label="Insights">
+    <div class="container container--full">
+      <div class="sec-head">
+        <div class="reveal">
+          <h2>Our latest insights.</h2>
+        </div>
+        <a class="arrowlink reveal" data-delay="1" href="insights.html" id="svcAllInsights">All insights <span class="arrowmini"></span></a>
+      </div>
+
+      <div class="article-grid" id="svcArticleGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="section surface-teal ctaband" data-screen-label="Service CTA">
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to make <em>disruption</em> work for your organization?</h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Get in touch</a>
+          <a class="btn btn--ghost-dark" href="cases.html">Explore our work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/permalinks.js"></script>
+<script src="site/scripts/site.js"></script>
+<script src="site/scripts/services-content.js"></script>
+<script src="site/scripts/insights-data.js"></script>
+<script src="site/scripts/cases-data.js"></script>
+<script src="site/scripts/cases-bodies.js"></script>
+<script>
+  /* fill arrow + linkedin glyph placeholders */
+  var arrow = window.SO.ico("arrow");
+  document.querySelectorAll(".arrowmini:empty").forEach(function (el) { el.innerHTML = arrow; });
+  var li = window.SO.ico("linkedin");
+  document.querySelectorAll(".expert__li:empty").forEach(function (el) { el.innerHTML = li; });
+
+  /* ----- client quotes from the migrated case dataset (real people + logos) ----- */
+  (function () {
+    var track = document.getElementById("quotesTrack");
+    if (!track || !window.SO_CASES || !window.SO_CASE_BODIES) return;
+    var scope = document.querySelector('[data-svc-filter]') || document.querySelector('[data-sec-filter]');
+    var key = scope && scope.hasAttribute('data-svc-filter') ? 'svc' : 'sector';
+    var val = scope ? scope.getAttribute('data-svc-filter') || scope.getAttribute('data-sec-filter') : '';
+    var seen = {};
+    function pick(list) {
+      return list.filter(function (c) {
+        var b = window.SO_CASE_BODIES[c.id];
+        if (!b || !b.quote || !b.quote.text) return false;
+        var k = b.quote.name + '|' + b.quote.text;
+        if (seen[k]) return false;
+        seen[k] = 1;
+        return true;
+      });
+    }
+    var matched = pick(window.SO_CASES.filter(function (c) { return !val || c[key] === val; }));
+    var rest = pick(window.SO_CASES).filter(function (c) { return matched.indexOf(c) === -1; });
+    var list = matched.concat(rest).slice(0, 3);
+    if (!list.length) return;
+    track.innerHTML = list.map(function (c) {
+      var q = window.SO_CASE_BODIES[c.id].quote;
+      var logo = (c.logo && c.logo.img && /^https?:/.test(c.logo.img))
+        ? '<div class="quote-card__logo" role="img" aria-label="' + (q.company || c.client) + ' logo" style="background-image:url(&quot;' + c.logo.img + '&quot;)"></div>'
+        : '';
+      return '<figure class="quotes__slide quote-card">' +
+        '<span class="quote-card__openquote">&ldquo;</span>' +
+        '<blockquote class="quote-card__q">' + q.text + '</blockquote>' +
+        '<div class="quote-card__who"><div class="quote-card__who-left"><div>' +
+        '<p class="quote-card__name">' + q.name + '</p>' +
+        '<p class="quote-card__role">' + q.role + '</p>' +
+        '<p class="quote-card__company-name">' + (q.company || c.client) + '</p>' +
+        '</div></div>' + logo + '</div></figure>';
+    }).join('');
+  })();
+
+  /* ----- quote reel ----- */
+  (function () {
+    var track = document.getElementById("quotesTrack");
+    if (!track) return;
+    var prevBtn = document.getElementById("quotesPrev");
+    var nextBtn = document.getElementById("quotesNext");
+    var dotsWrap = document.getElementById("quotesDots");
+    var chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+    var chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+    prevBtn.innerHTML = chevL;
+    nextBtn.innerHTML = chevR;
+
+    var count = track.children.length;
+    var idx = 0, timer = null, DELAY = 6500;
+
+    for (var d = 0; d < count; d++) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "quotes__dot" + (d === 0 ? " is-active" : "");
+      dot.setAttribute("aria-label", "Go to quote " + (d + 1));
+      (function (j) { dot.addEventListener("click", function () { go(j); restart(); }); })(d);
+      dotsWrap.appendChild(dot);
+    }
+    var dots = dotsWrap.children;
+
+    function go(n) {
+      idx = (n + count) % count;
+      var viewport = track.parentElement;
+      var slide = track.children[idx];
+      viewport.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' });
+      for (var k = 0; k < dots.length; k++) dots[k].classList.toggle("is-active", k === idx);
+    }
+    function start() { if (count < 2) return; timer = setInterval(function () { go(idx + 1); }, DELAY); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+
+    nextBtn.addEventListener("click", function () { go(idx + 1); restart(); });
+    prevBtn.addEventListener("click", function () { go(idx - 1); restart(); });
+
+    var reel = track.closest(".quotes");
+    reel.addEventListener("mouseenter", stop);
+    reel.addEventListener("mouseleave", start);
+
+    if (!window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+  })();
+
+  /* ----- what we do: accordion + imagery from the services CMS content ----- */
+  (function () {
+    var acc = document.getElementById("svcAcc");
+    var key = document.body.getAttribute("data-svc-key");
+    var data = window.SO_SERVICE_CONTENT && key ? window.SO_SERVICE_CONTENT[key] : null;
+    if (!data) return;
+    var chev = '<svg class="svc-acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+    if (acc) {
+      acc.innerHTML = data.items.map(function (it, i) {
+        return '<div class="svc-acc__item' + (i === 0 ? ' is-open' : '') + '">' +
+          '<button class="svc-acc__btn" type="button" aria-expanded="' + (i === 0) + '"><span>' + it.title + '</span>' + chev + '</button>' +
+          '<div class="svc-acc__panel"><div class="svc-acc__panel-inner">' + it.body + '</div></div>' +
+          '</div>';
+      }).join('');
+      acc.querySelectorAll('.svc-acc__btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = btn.parentNode;
+          var open = item.classList.contains('is-open');
+          acc.querySelectorAll('.svc-acc__item').forEach(function (el) {
+            el.classList.remove('is-open');
+            el.querySelector('.svc-acc__btn').setAttribute('aria-expanded', 'false');
+            el.querySelector('.svc-acc__panel').style.maxHeight = '0px';
+          });
+          if (!open) {
+            item.classList.add('is-open');
+            btn.setAttribute('aria-expanded', 'true');
+            var p = item.querySelector('.svc-acc__panel');
+            p.style.maxHeight = p.querySelector('.svc-acc__panel-inner').scrollHeight + 'px';
+          }
+        });
+      });
+      var first = acc.querySelector('.svc-acc__item.is-open .svc-acc__panel');
+      if (first) first.style.maxHeight = first.querySelector('.svc-acc__panel-inner').scrollHeight + 'px';
+    }
+    var media = document.getElementById("svcDoMedia");
+    if (media && data.whatWeDoImg) {
+      if (data.whatWeDoFit === 'contain') media.classList.add('is-diagram');
+      media.innerHTML = '<img src="' + data.whatWeDoImg + '" alt="" loading="lazy" decoding="async">';
+    }
+    var intro = document.getElementById("svcIntroImg");
+    if (intro && data.introImg) intro.setAttribute('src', data.introImg);
+  })();
+
+  /* ----- latest insights, filtered to this page's topic ----- */
+  (function () {
+    var grid = document.getElementById("svcArticleGrid");
+    if (!grid || !window.SO_ARTICLES) return;
+    var kind = document.body.getAttribute("data-ins-kind");
+    var val = document.body.getAttribute("data-ins-val");
+    var CAT = { 'market-insights':'Market insights', 'best-practices':'Best practices', 'thought-leadership':'Thought leadership', 'how-to':'How to' };
+    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function pretty(d) { var p = String(d).split('/'); return p.length === 3 ? (+p[0]) + ' ' + MONTHS[(+p[1]) - 1] + ' ' + p[2] : d; }
+    var key = kind === 'sec' ? 'sector' : 'service';
+    var matched = val ? window.SO_ARTICLES.filter(function (a) { return a[key] === val; }) : [];
+    var list = matched.concat(window.SO_ARTICLES.filter(function (a) { return matched.indexOf(a) === -1; })).slice(0, 3);
+    grid.innerHTML = list.map(function (a, i) {
+      return '<a class="article reveal"' + (i ? ' data-delay="' + i + '"' : '') + ' href="' + SO_PL('insights', a.id) + '">' +
+        '<div class="article__media"><span class="article__tag">' + (CAT[a.category] || a.category) + '</span>' +
+        '<img src="' + a.image + '" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div>' +
+        '<div class="article__body"><h3 class="article__title">' + a.title + '</h3>' +
+        '<div class="article__meta"><span class="article__author">' + a.author + '</span>' +
+        '<span class="article__date">' + pretty(a.date) + '</span></div></div></a>';
+    }).join('');
+    var all = document.getElementById("svcAllInsights");
+    if (all) all.href = val ? ('insights.html?' + (kind === 'sec' ? 'sector=' : 'service=') + encodeURIComponent(val)) : 'insights.html';
+  })();
+
+  /* ----- signature cases filtered by this service ----- */
+  (function () {
+    var sec = document.querySelector('[data-svc-filter]');
+    var grid = document.getElementById('svcCaseGrid');
+    if (!sec || !grid || !window.SO_CASES) return;
+    var filter = sec.getAttribute('data-svc-filter');
+    var list = window.SO_CASES.filter(function (c) { return !filter || c.svc === filter; }).slice(0, 3);
+    if (!list.length) { sec.style.display = 'none'; return; }
+    grid.innerHTML = list.map(function (c, i) {
+      var L = c.img ? {img:c.img} : c.logo; var media = (L && L.img)
+        ? '<image-slot id="svc-case-' + i + '" shape="rect" placeholder="Photo" src="' + L.img + '"></image-slot>'
+        : (L ? '<div class="logo-tile" style="background:' + L.bg + ';"><b style="color:' + L.c + ';">' + L.t + '</b></div>' : '');
+      return '<a class="so-case reveal" data-delay="' + (i % 3) + '" href="' + c.href + '">' +
+        '<div class="so-case__media"><span class="so-case__tag">' + c.svc + '</span>' + media + '</div>' +
+        '<div class="so-case__body"><span class="so-case__client">' + c.client + '</span>' +
+        '<span class="so-case__title">' + c.title + '</span>' +
+        '<div class="so-case__meta"><span>' + c.sector + '</span><span class="arrowmini">' + arrow + '</span></div></div></a>';
+    }).join('');
+    if (grid.children.length < 3) {
+      grid.classList.add('is-centered');
+      grid.style.setProperty('--case-count', grid.children.length);
+    }
+
+    var all = document.getElementById('svcAllCases');
+    if (all && filter) all.href = 'cases.html?service=' + encodeURIComponent(filter);
+    window.SO.reveal();
+  })();
+
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

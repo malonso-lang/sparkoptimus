@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<meta name="description" content="Petri Hofsté (supervisory board member at Rabobank, Achmea, Fugro and Pon Holdings) talks about responsible leadership and advocates a new approach to education, closing the gap between the need for…">
+<title>Petri Hofst&amp;eacute; (Rabobank) — Responsible leadership and the future of education — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ── HERO ── */
+  .cs-hero {
+    position: relative;
+    background: var(--so-ink-900);
+    color: #fff;
+    overflow: hidden;
+    padding: clamp(100px, 10vw, 160px) 0 clamp(40px, 5vw, 80px);
+  }
+  .cs-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 100% at 85% 0%, rgba(0,217,244,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 10% 100%, rgba(0,217,244,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .cs-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+  .cs-hero__content h1 {
+    font-size: clamp(2.2rem, 1.2rem + 3.5vw, 3.8rem);
+    font-family: var(--font-display);
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .cs-hero__content h1 em {
+    font-style: normal;
+    color: var(--so-cyan-400);
+  }
+  .cs-hero__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .cs-hero__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .cs-hero__meta-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--so-cyan-300);
+  }
+  .cs-hero__meta-value {
+    font-size: 15px;
+    color: var(--so-ink-100);
+  }
+  .cs-hero__cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .cs-hero__cta .platform {
+    padding: 10px 18px;
+    gap: 9px;
+  }
+  .cs-hero__cta .platform span {
+    display: inline;
+  }
+  .cs-hero__cta .platform:hover {
+    background: rgba(255,255,255,0.12);
+  }
+  @media (max-width: 640px) {
+    .cs-hero__cta {
+      gap: 8px;
+    }
+    .cs-hero__cta .platform {
+      padding: 6px 8px !important;
+      gap: 0 !important;
+    }
+    .cs-hero__cta .platform span {
+      display: none;
+    }
+  }
+  .cs-hero__video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--so-ink-700) 0%, var(--so-cyan-900) 100%);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+  }
+  .cs-hero__video::after {
+    content: "▶";
+    font-size: 64px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 240ms var(--ease-out);
+  }
+  .cs-hero__video:hover::after {
+    color: #fff;
+    transform: scale(1.1);
+  }
+
+  /* ── CONTENT ── */
+  .cs-main {
+    display: block;
+    padding: clamp(48px, 6vw, 96px) 0;
+  }
+
+  .cs-section {
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+  .cs-section h2 {
+    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem);
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--fg-1);
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+  }
+  .cs-section p {
+    font-size: 16px;
+    color: var(--fg-2);
+    line-height: 1.8;
+    margin: 0 0 18px 0;
+  }
+  .cs-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── KEY TOPICS ── */
+  .cs-topics {
+    background: var(--so-gray-50);
+    border-radius: var(--radius-xl);
+    padding: clamp(24px, 3vw, 36px);
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+  .cs-topics h3 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--so-cyan-700);
+    margin: 0 0 16px 0;
+  }
+  .cs-topics ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cs-topics li {
+    font-size: 15px;
+    color: var(--fg-2);
+    line-height: 1.6;
+    padding-left: 20px;
+    position: relative;
+  }
+  .cs-topics li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--so-cyan-500);
+    font-weight: 700;
+  }
+
+  /* ── SIDEBAR ── */
+  .cs-sidebar__item {
+    background: var(--so-gray-0);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: all 240ms var(--ease-out);
+  }
+  .cs-sidebar__item:hover {
+    border-color: var(--so-cyan-500);
+    box-shadow: var(--shadow-md);
+  }
+  .cs-sidebar__label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--so-cyan-700);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .cs-sidebar__title {
+    font-size: 16px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--fg-1);
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+  }
+  .cs-sidebar__desc {
+    font-size: 13px;
+    color: var(--fg-3);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .cs-sidebar__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--so-cyan-700);
+    text-decoration: none;
+    margin-top: 12px;
+    transition: gap 140ms var(--ease-out), color 140ms var(--ease-out);
+  }
+  .cs-sidebar__link:hover {
+    color: var(--so-cyan-600);
+    gap: 12px;
+  }
+
+  /* Platform links */
+  .platform-link:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.16);
+  }
+
+  /* ── MEDIA ── */
+  .cs-media {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    margin: clamp(40px, 6vw, 64px) 0;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ── RELATED ── */
+  .cs-related {
+    margin-top: clamp(48px, 6vw, 80px);
+    padding-top: clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--border-1);
+  }
+  .cs-related h2 {
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--fg-1);
+    margin: 0 0 40px 0;
+  }
+  .cs-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .cs-related-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: var(--so-gray-0);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all 240ms var(--ease-out);
+  }
+  .cs-related-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--so-cyan-500);
+    box-shadow: var(--shadow-md);
+  }
+  .cs-related-card__image {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--so-ink-700) 0%, var(--so-cyan-900) 100%);
+  }
+  .cs-related-card__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .cs-related-card__tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--so-cyan-700);
+  }
+  .cs-related-card__title {
+    font-size: 17px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--fg-1);
+    line-height: 1.3;
+    margin: 0;
+  }
+  .cs-related-card__meta {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-1);
+    font-size: 12px;
+    color: var(--fg-3);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .cs-hero__inner {
+      grid-template-columns: 1fr;
+    }
+    .cs-main {
+      grid-template-columns: 1fr;
+    }
+    .cs-main__sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cs-hero h1 {
+      font-size: clamp(1.8rem, 1rem + 2vw, 2.4rem);
+    }
+    .cs-cta {
+      flex-direction: column;
+    }
+    .cs-main {
+      gap: 24px;
+    }
+  }
+  .cs-hero__video { position: relative; overflow: hidden; }
+  .cs-play { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(180deg, rgba(6,11,26,0.15), rgba(6,11,26,0.6)); color: #fff; font-family: inherit; transition: background var(--duration-fast); }
+  .cs-play:hover { background: linear-gradient(180deg, rgba(6,11,26,0.05), rgba(6,11,26,0.5)); }
+  .cs-play__btn { width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,0.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.4); display: grid; place-items: center; color: #fff; padding-left: 4px; transition: transform var(--duration-fast), background var(--duration-fast); }
+  .cs-play:hover .cs-play__btn { transform: scale(1.06); background: rgba(255,255,255,0.26); }
+  .cs-play__lbl { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 1px 12px rgba(0,0,0,0.5); }
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/ceo-stories/detail">
+    <meta property="og:url" content="https://www.sparkoptimus.com/ceo-stories/detail">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CEO Story — SparkOptimus",
+    "description": "A CEO's first-hand account of navigating digital disruption, told in conversation with SparkOptimus.",
+    "url": "https://www.sparkoptimus.com/ceo-stories/detail",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SparkOptimus",
+      "url": "https://www.sparkoptimus.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "CEO Stories",
+      "item": "https://www.sparkoptimus.com/ceo-stories"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Story",
+      "item": "https://www.sparkoptimus.com/ceo-stories/detail"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+<meta property="og:title" content="Petri Hofst&amp;eacute; (Rabobank) — Responsible leadership and the future of education">
+<meta property="og:description" content="Petri Hofsté (supervisory board member at Rabobank, Achmea, Fugro and Pon Holdings) talks about responsible leadership and advocates a new approach to education, closing the gap between the need for…">
+<meta property="og:image" content="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f74b8d49d7cdd41b85d824_ceostories-rabobank-new-thumbnail.png">
+<link rel="canonical" href="ceo-story-petri-hofste.html">
+</head>
+<body data-page="ceo-stories">
+<script>window.SO_FORCE_ID="petri-hofste";</script>
+<div id="site-nav-root"></div>
+
+<main>
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"><h1>Petri Hofst&amp;eacute; (Rabobank) — Responsible leadership and the future of education</h1><p>Petri Hofsté (supervisory board member at Rabobank, Achmea, Fugro and Pon Holdings) talks about responsible leadership and advocates a new approach to education, closing the gap between the need for…</p></div>
+
+  <!-- ============ HERO ============ -->
+  <header class="cs-hero" data-screen-label="CEO Story Hero">
+    <div class="container container--full">
+      <a href="ceo-stories.html" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 32px; transition: color var(--duration-fast);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Back to CEO stories</span>
+      </a>
+      <div class="cs-hero__inner">
+        <div class="cs-hero__content">
+          <h1 class="reveal" id="csTitle"></h1>
+          <div class="cs-hero__meta reveal" data-delay="1">
+            <div class="cs-hero__meta-item">
+              <span class="cs-hero__meta-label">Guest</span>
+              <span class="cs-hero__meta-value" id="csGuest"></span>
+            </div>
+            <div class="cs-hero__meta-item">
+              <span class="cs-hero__meta-label">Interviewed by</span>
+              <span class="cs-hero__meta-value">Alexandra Jankovich, Co-Founder & Managing Partner</span>
+            </div>
+            <div class="cs-hero__meta-item">
+              <span class="cs-hero__meta-label">Published</span>
+              <span class="cs-hero__meta-value" id="csDate"></span>
+            </div>
+          </div>
+          <div class="cs-hero__cta reveal" data-delay="2">
+            <a class="platform" href="https://podcasts.google.com/search/sparkoptimus" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; border-radius: var(--radius-pill); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background var(--duration-fast), border-color var(--duration-fast);">
+              <img loading="lazy" decoding="async" src="uploads/pasted-1781252618986-0.png" alt="" width="18" height="18" style="flex-shrink:0;border-radius:4px;">
+              <span>Google Podcasts</span>
+            </a>
+            <a class="platform" href="https://open.spotify.com/show/sparkoptimus" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; border-radius: var(--radius-pill); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background var(--duration-fast), border-color var(--duration-fast);">
+              <img loading="lazy" decoding="async" src="uploads/pasted-1781249188171-0.png" alt="" width="18" height="18" style="flex-shrink:0;border-radius:50%;">
+              <span>Spotify</span>
+            </a>
+            <a class="platform" href="https://podcasts.apple.com/podcast/sparkoptimus" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; border-radius: var(--radius-pill); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background var(--duration-fast), border-color var(--duration-fast);">
+              <img loading="lazy" decoding="async" src="uploads/pasted-1781249204077-0.png" alt="" width="18" height="18" style="flex-shrink:0;border-radius:4px;">
+              <span>Apple Podcasts</span>
+            </a>
+          </div>
+        </div>
+        <div class="cs-hero__video reveal" data-delay="1" id="csVideo"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <section class="section" style="padding: 128px 0px 0px">
+    <div class="container container--full">
+      <div class="cs-main" style="padding: 0px 0px 9px">
+
+        <!-- Body -->
+        <div class="cs-main__body">
+          <div class="cs-section" id="csIntro"></div>
+          <div class="cs-topics" id="csTopics" style="display:none;">
+            <h3>Key topics in this interview</h3>
+            <ul id="csTopicsList"></ul>
+          </div>
+          <div class="cs-section" id="csSource"></div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RELATED STORIES ============ -->
+  <section class="section" style="padding: 0px 0px 128px">
+    <div class="container container--full">
+      <div class="cs-related">
+        <h2 class="reveal">More CEO stories</h2>
+        <div class="cs-related-grid reveal" data-delay="1" id="csRelated"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Want to transform your organization?</h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Let's talk</a>
+          <a class="btn btn--ghost-dark" href="our-approach.html">Our approach</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/permalinks.js"></script>
+<script src="site/scripts/ceo-stories-data.js"></script>
+<script src="site/scripts/site.js"></script>
+<script src="site/scripts/image-slot.js"></script>
+<script>
+(function () {
+  var EP = window.SO_CEO_STORIES || [];
+  var slug = window.SO_FORCE_ID || new URLSearchParams(location.search).get("e");
+  var e = EP.filter(function (x) { return x.slug === slug; })[0] || EP[0];
+  if (!e) return;
+  function set(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
+  document.title = e.name + " — CEO stories · SparkOptimus";
+  set("csTitle", e.title);
+  set("csGuest", e.name + ", " + e.role + ", " + e.company);
+  set("csDate", e.date);
+  set("csIntro", '<p><strong>' + e.intro + '</strong></p>' + (e.body ? '<p>' + e.body + '</p>' : ''));
+  if (e.topics && e.topics.length) {
+    document.getElementById("csTopics").style.display = "";
+    set("csTopicsList", e.topics.map(function (x) { return '<li>' + x + '</li>'; }).join(""));
+  }
+  var vid = document.getElementById("csVideo");
+  if (vid) {
+    var poster = e.img || (e.youtube ? 'https://i.ytimg.com/vi/' + e.youtube + '/maxresdefault.jpg' : '');
+    if (poster) {
+      vid.style.backgroundImage = 'url("' + poster + '")';
+      vid.style.backgroundSize = 'cover';
+      vid.style.backgroundPosition = 'center';
+    }
+    if (e.youtube) {
+      vid.innerHTML = '<button class="cs-play" type="button" aria-label="Play the interview with ' + e.name + '">' +
+        '<span class="cs-play__btn"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><polygon points="7,4 20,12 7,20" fill="currentColor"/></svg></span>' +
+        '<span class="cs-play__lbl">Watch the full interview</span></button>';
+      vid.querySelector('.cs-play').addEventListener('click', function () {
+        vid.style.backgroundImage = 'none';
+        vid.innerHTML = '<iframe src="https://www.youtube.com/embed/' + e.youtube + '?autoplay=1" title="' + e.name + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:0;display:block;"></iframe>';
+      });
+    }
+  }
+  set("csSource", '<p><a class="arrowlink" href="' + e.source + '" target="_blank" rel="noopener">Watch or listen to the full episode <span class="arrowmini">' + window.SO.ico("arrow") + '</span></a></p>');
+  var rel = EP.filter(function (x) { return x.slug !== e.slug; }).slice(0, 3);
+  document.getElementById("csRelated").innerHTML = rel.map(function (x) {
+    var img = x.img ? ' style="background-image:url(&quot;' + x.img + '&quot;);background-size:cover;background-position:center;"' : '';
+    return '<a class="cs-related-card" href="' + x.href + '">' +
+      '<div class="cs-related-card__image"' + img + '></div>' +
+      '<div class="cs-related-card__body">' +
+      '<span class="cs-related-card__tag">CEO Story</span>' +
+      '<h3 class="cs-related-card__title">' + x.name + ' — ' + x.title + '</h3>' +
+      '<div class="cs-related-card__meta"><span>Alexandra Jankovich</span><span>' + x.company + '</span></div>' +
+      '</div></a>';
+  }).join("");
+  window.SO.reveal();
+})();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

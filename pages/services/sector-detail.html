@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Consumer Goods — Sectors<span class="metadot" aria-hidden="true"></span>SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* ============================================================
+     SECTOR DETAIL — page-specific styles
+     Shared components (sec-head, creds, quotes, article-grid,
+     experts-grid, quote-card, page-hero__actions) are in site.css.
+     ============================================================ */
+
+  /* ---------- CREDENTIALS — margin-top ---------- */
+  /* site.css defines .creds base; sector-detail uses 8px top margin */
+  .creds { margin-top: 8px; }
+
+  /* ---------- QUOTE CARD — sector-detail overrides ---------- */
+  /* site.css sets quote-card__role at 11px; this page uses 10px */
+  .quote-card__role { font-size: 10px; }
+  /* logostrip: defined then hidden — preserved for shadow-DOM image-slot rules */
+  .quote-card__logostrip {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .quote-card__logostrip { display: none; } /* logo is now inline in .quote-card__who */
+  .quote-card__logostrip image-slot {
+    display: block; height: 28px; width: 120px; --img-radius: 0;
+    opacity: 0.55; filter: brightness(0) invert(1);
+  }
+  .quote-card__logostrip image-slot::part(empty) { display: none !important; }
+  .quote-card__logostrip image-slot::part(ring)  { border: none !important; }
+
+  /* ---------- INTRO / WHO WE ARE ---------- */
+  .sec-intro { display: grid; grid-template-columns: 0.42fr 0.58fr; gap: clamp(36px, 5vw, 88px); align-items: start; }
+  .sec-intro h2 { font-size: clamp(1.7rem, 1.2rem + 1.7vw, 2.6rem); margin: 14px 0 0; letter-spacing: -0.01em; }
+  .sec-intro h2 em { font-style: normal; color: var(--so-cyan-500); }
+  .sec-intro__body p { font-size: var(--text-lg); line-height: 1.65; color: var(--fg-2); margin: 0 0 18px; max-width: 60ch; }
+  .sec-intro__body p:last-child { margin-bottom: 0; }
+
+  /* ---------- VERTICALS WE WORK WITH ---------- */
+  .verticals { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(16px, 2vw, 28px); }
+  .vert { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; }
+  .vert__circle {
+    width: clamp(76px, 7vw, 100px); height: clamp(76px, 7vw, 100px);
+    border-radius: 50%; background: var(--so-cyan-50); display: grid; place-items: center;
+    color: var(--so-cyan-600); box-shadow: var(--shadow-xs);
+    transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), background var(--duration-base);
+  }
+  .vert:hover .vert__circle { transform: translateY(-5px); box-shadow: var(--shadow-md); background: var(--so-cyan-100); }
+  .vert__circle svg { width: 42%; height: 42%; }
+  .vert__label { font-family: var(--font-display); font-weight: 600; font-size: 15px; line-height: 1.3; color: var(--fg-1); max-width: 16ch; }
+
+  /* ---------- SERVICES ACCORDION ---------- */
+  .svc-acc { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(36px, 5vw, 80px); align-items: start; }
+  .acc { display: flex; flex-direction: column; }
+  .acc__item { border-top: 1px solid var(--border-1); }
+  .acc__item:last-child { border-bottom: 1px solid var(--border-1); }
+  .acc__head {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    gap: 22px; padding: 26px 6px; background: none; border: 0; cursor: pointer; text-align: left;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.1rem, 0.95rem + 0.55vw, 1.4rem); letter-spacing: -0.01em; color: var(--fg-1);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .acc__head:hover { color: var(--so-cyan-700); }
+  .acc__item.is-open .acc__head { color: var(--so-cyan-600); }
+  .acc__chev {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--so-ink-400); background: var(--bg-subtle);
+    transition: transform var(--duration-base) var(--ease-out), background var(--duration-fast), color var(--duration-fast);
+  }
+  .acc__head:hover .acc__chev { background: var(--so-cyan-50); color: var(--so-cyan-700); }
+  .acc__item.is-open .acc__chev { transform: rotate(180deg); background: var(--so-cyan-500); color: var(--so-ink-900); }
+  .acc__chev svg { width: 18px; height: 18px; }
+  .acc__panel { overflow: hidden; }
+  .acc__panelinner { max-height: 0; overflow: hidden; transition: max-height var(--duration-slow) var(--ease-out); }
+  .acc__panelinner p { font-size: var(--text-md); line-height: 1.68; color: var(--fg-2); margin: 0; padding: 0 6px 28px; max-width: 62ch; }
+  .svc-acc__media { position: sticky; top: 110px; border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4 / 3; width: 100%; }
+  .svc-acc__media image-slot { width: 100%; height: 100%; --img-radius: 0; --img-fit: cover; }
+  .svc-acc__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---------- STATS BAND ---------- */
+  .secstats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+    padding: clamp(28px,3vw,44px) clamp(28px,4vw,56px);
+    background: var(--so-gray-0); border-radius: var(--radius-xl); box-shadow: var(--shadow-md);
+  }
+  .secstats__cell { text-align: center; }
+  .secstats__num {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(2.2rem, 1.4rem + 2.4vw, 3.4rem); line-height: 1;
+    letter-spacing: -0.03em; color: var(--fg-1);
+  }
+  .secstats__num sup { color: var(--so-cyan-500); font-size: 0.5em; top: -0.7em; }
+  .secstats__label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); margin-top: 12px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 1024px) {
+    .sec-intro, .svc-acc { grid-template-columns: 1fr; }
+    .svc-acc__media { position: relative; top: 0; order: -1; }
+    .verticals { grid-template-columns: repeat(3, 1fr); row-gap: 36px; }
+    .secstats { grid-template-columns: repeat(2, 1fr); gap: 36px 20px; }
+  }
+
+  @media (max-width: 640px) {
+    .verticals { grid-template-columns: repeat(2, 1fr); }
+    /* expert name/role font-sizes differ from site.css on this page */
+    .expert__name { font-size: 13px; }
+    .expert__role { font-size: 9px; }
+    .quote-card { padding: 22px 18px; }
+    .quote-card__avatar { width: 56px; height: 56px; }
+  }
+
+  @media (max-width: 420px) {
+    .secstats { grid-template-columns: 1fr; gap: 20px; padding: 22px 20px; }
+  }
+  .quote-card__logo { width: 112px; min-width: 112px; height: 44px; background: rgba(255,255,255,0.92); border-radius: 10px; flex: 0 0 auto; overflow: hidden; background-repeat: no-repeat; background-position: center; background-size: contain; background-origin: content-box; padding: 8px 14px; box-sizing: border-box; }
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <meta name="description" content="Deep sector expertise combined with a pragmatic approach to digital strategy and transformation.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Sector expertise — SparkOptimus">
+  <meta property="og:description" content="Deep sector expertise combined with a pragmatic approach to digital strategy and transformation.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/sectors/detail">
+  <meta property="og:image" content="site/assets/shared-office-bg.webp">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sector expertise — SparkOptimus">
+  <meta name="twitter:description" content="Deep sector expertise combined with a pragmatic approach to digital strategy and transformation.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/sectors/detail">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sector — SparkOptimus",
+    "description": "SparkOptimus sector expertise — how we help industry leaders turn digital and AI disruption into competitive advantage.",
+    "url": "https://www.sparkoptimus.com/sectors/detail",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Sectors",
+      "item": "https://www.sparkoptimus.com/sectors"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Sector detail",
+      "item": "https://www.sparkoptimus.com/sectors/detail"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="sectors" data-ins-kind="sec" data-ins-val="consumer-goods">
+<div id="site-nav-root"></div>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <header class="page-hero page-hero--photo page-hero--tall" data-screen-label="Sector hero">
+    <div class="page-hero__bg"><image-slot id="sd-hero" shape="rect" placeholder="Drop sector hero photo (Storyblok)" src="site/assets/placeholder-case-executive.jpg"></image-slot></div>
+    <div class="page-hero__scrim"></div>
+    <div class="container container--full page-hero__inner">
+      <a href="sectors.html" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 24px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Back to sectors</span>
+      </a>
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1>Consumer Goods<em>.</em></h1>
+        </div>
+        <div class="reveal" data-delay="1">
+          <p class="page-hero__lead">From insight to impact. We craft winning strategies and drive sales in the ever-evolving consumer goods landscape — across every channel, brand, and market.</p>
+          <div class="page-hero__actions">
+            <a class="btn btn--primary" href="contact.html">Get in touch</a>
+            <a class="btn btn--ghost-dark" href="#cases">Explore our work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ INTRO / WHO WE ARE ============ -->
+  <section class="section" id="intro" data-screen-label="Who we are">
+    <div class="container container--full">
+      <div class="sec-intro">
+        <div class="reveal">
+          <h2>From insight to impact: <em>crafting winning strategies and driving sales</em> in the ever-evolving consumer goods landscape</h2>
+        </div>
+        <div class="sec-intro__body reveal" data-delay="1">
+          <p>The consumer goods landscape is shifting faster than ever. Disruptive technologies, evolving consumer demands, and turbulent market conditions are forcing brands to adapt or risk falling behind. At SparkOptimus, we combine cutting-edge solutions with expert execution, tailored to your unique needs. Our approach is hands-on; we don't just devise strategies, we ensure they're implemented effectively and turn potential into success. Beyond immediate solutions, we focus on building your team's capabilities for sustainable growth. Through coaching and knowledge transfer, we prepare you to thrive independently, ensuring our partnership delivers lasting value.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VERTICALS WE WORK WITH ============ -->
+  <section class="section--tight surface-subtle" data-screen-label="Verticals">
+    <div class="container container--full">
+      <div class="sec-head sec-head--center reveal" style="margin-bottom: clamp(36px,4vw,52px);">
+        <h2>Verticals we work with</h2>
+      </div>
+      <div class="verticals reveal" data-delay="1" id="verticals"></div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT WE DO — SERVICES ACCORDION ============ -->
+  <section class="section" id="services" data-screen-label="What we do">
+    <div class="container container--full">
+      <div class="sec-head">
+        <div class="reveal">
+          <h2>Our <em>services.</em></h2>
+        </div>
+      </div>
+      <div class="svc-acc">
+        <div class="acc reveal" id="svcAcc"></div>
+        <div class="svc-acc__media reveal" data-delay="1">
+          <img src="site/assets/shared-por-bg.jpg" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CREDENTIALS MARQUEE ============ -->
+  <section class="section--tight surface-subtle" data-screen-label="Credentials">
+    <div class="container container--full">
+      <div class="sec-head sec-head--center reveal" style="margin-bottom: 8px;">
+      </div>
+      <div class="creds reveal" data-delay="1">
+        <div class="creds__track">
+          <span class="creds__logo">Heineken</span>
+          <span class="creds__logo">Beiersdorf</span>
+          <span class="creds__logo">Carlsberg</span>
+          <span class="creds__logo">JDE</span>
+          <span class="creds__logo">Unilever</span>
+          <span class="creds__logo">Henkel</span>
+          <span class="creds__logo">PVH</span>
+          <span class="creds__logo" aria-hidden="true">Heineken</span>
+          <span class="creds__logo" aria-hidden="true">Beiersdorf</span>
+          <span class="creds__logo" aria-hidden="true">Carlsberg</span>
+          <span class="creds__logo" aria-hidden="true">JDE</span>
+          <span class="creds__logo" aria-hidden="true">Unilever</span>
+          <span class="creds__logo" aria-hidden="true">Henkel</span>
+          <span class="creds__logo" aria-hidden="true">PVH</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE CASES ============ -->
+  <section class="section" id="cases" data-screen-label="Signature cases" data-sec-filter="Consumer Goods">
+    <div class="container container--full">
+      <div class="sec-head">
+        <div class="reveal">
+          <h2>Impact at <em>our clients.</em></h2>
+        </div>
+        <a class="arrowlink reveal" data-delay="1" href="cases.html" id="secAllCases">All cases <span class="arrowmini"></span></a>
+      </div>
+      <div class="so-case-grid so-case-grid--row3" id="secCaseGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ QUOTE REEL (dark) ============ -->
+  <section class="section section--tight surface-ink" data-screen-label="Client quotes">
+    <div class="container">
+      <div class="quotes quotes--editorial reveal" data-delay="1">
+        <div class="quotes__viewport">
+          <div class="quotes__track" id="quotesTrack">
+
+            <!-- QUOTE 1 -->
+            <figure class="quotes__slide quote-card">
+              <span class="quote-card__openquote">&ldquo;</span>
+              <blockquote class="quote-card__q">SparkOptimus' obsession with how to transform the experience of our customers and partners has been instrumental in defining our change agenda, building new capabilities, and transforming our organization.</blockquote>
+              <div class="quote-card__who">
+                <div class="quote-card__who-left">
+                  <div>
+                    <p class="quote-card__name">Frederic Chupin</p>
+                    <p class="quote-card__role">SVP Customer Experience, e-Commerce &amp; Digital Marketing</p>
+                    <p class="quote-card__company-name">Henkel</p>
+                  </div>
+                </div>
+                <div class="quote-card__logo"><image-slot id="sector-detail-quote-logo-1" shape="rounded" radius="8" fit="contain" placeholder="Company logo"></image-slot></div>
+              </div>
+            </figure>
+
+            <!-- QUOTE 2 -->
+            <figure class="quotes__slide quote-card">
+              <span class="quote-card__openquote">&ldquo;</span>
+              <blockquote class="quote-card__q">They didn't just hand us a deck — they teamed up with our brand and digital teams to build the channel strategy and make it real. Pragmatic, fast, and genuinely hands-on.</blockquote>
+              <div class="quote-card__who">
+                <div class="quote-card__who-left">
+                  <div>
+                    <p class="quote-card__name">Marieke Visser</p>
+                    <p class="quote-card__role">Chief Digital Officer</p>
+                    <p class="quote-card__company-name">Global Retail Group</p>
+                  </div>
+                </div>
+                <div class="quote-card__logo"><image-slot id="sector-detail-quote-logo-2" shape="rounded" radius="8" fit="contain" placeholder="Company logo"></image-slot></div>
+              </div>
+            </figure>
+
+            <!-- QUOTE 3 -->
+            <figure class="quotes__slide quote-card">
+              <span class="quote-card__openquote">&ldquo;</span>
+              <blockquote class="quote-card__q">A rare combination of strategic depth and getting-it-done. SparkOptimus helped us turn an ambitious D2C ambition into a roadmap we could execute — and stayed to scale it with us.</blockquote>
+              <div class="quote-card__who">
+                <div class="quote-card__who-left">
+                  <div>
+                    <p class="quote-card__name">Thomas Bakker</p>
+                    <p class="quote-card__role">Managing Director</p>
+                    <p class="quote-card__company-name">Consumer Brands</p>
+                  </div>
+                </div>
+                <div class="quote-card__logo"><image-slot id="sector-detail-quote-logo-3" shape="rounded" radius="8" fit="contain" placeholder="Company logo"></image-slot></div>
+              </div>
+            </figure>
+
+          </div>
+        </div>
+        <div class="quotes__nav">
+          <button class="quotes__btn" id="quotesPrev" type="button" aria-label="Previous quote"></button>
+          <button class="quotes__btn" id="quotesNext" type="button" aria-label="Next quote"></button>
+          <div class="quotes__dots" id="quotesDots"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT OUR EXPERTS ============ -->
+  <section class="section" id="experts" data-screen-label="Contact our experts">
+    <div class="container container--full">
+      <div class="sec-head sec-head--center reveal">
+        <h2>Feel free to contact <em>our experts.</em></h2>
+      </div>
+
+      <div class="experts-grid">
+        <div class="expert reveal">
+          <div class="expert__photo"><image-slot id="sd-exp-1" shape="rect" placeholder="Tom Voskes portrait" src="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64db5ff1c5b39333450584a9__Tom-Voskes-SparkOptimus.webp"></image-slot></div>
+          <div class="expert__body">
+            <div>
+              <p class="expert__name">Tom Voskes</p>
+              <span class="expert__role">Partner</span>
+            </div>
+            <a class="expert__li" href="https://www.linkedin.com/company/sparkoptimus" aria-label="Tom Voskes on LinkedIn"></a>
+          </div>
+        </div>
+        <div class="expert reveal" data-delay="1">
+          <div class="expert__photo"><image-slot id="sd-exp-2" shape="rect" placeholder="Steven Koolen portrait" src="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/664cabb92f679b4efd7d1510_steven.png"></image-slot></div>
+          <div class="expert__body">
+            <div>
+              <p class="expert__name">Steven Koolen</p>
+              <span class="expert__role">Partner</span>
+            </div>
+            <a class="expert__li" href="https://www.linkedin.com/company/sparkoptimus" aria-label="Steven Koolen on LinkedIn"></a>
+          </div>
+        </div>
+        <div class="expert reveal" data-delay="2">
+          <div class="expert__photo"><image-slot id="sd-exp-3" shape="rect" placeholder="Michiel Bos portrait" src="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/67e51292e1f3f83b0af6fda4_650abba0fb3c4fed1715add6_Michiel-Boss-Partner-SparkOptimus-V1.png"></image-slot></div>
+          <div class="expert__body">
+            <div>
+              <p class="expert__name">Michiel Bos</p>
+              <span class="expert__role">Partner</span>
+            </div>
+            <a class="expert__li" href="https://www.linkedin.com/company/sparkoptimus" aria-label="Michiel Bos on LinkedIn"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="section surface-teal ctaband" data-screen-label="Sector CTA">
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2>Ready to accelerate growth in <em>consumer goods?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Get in touch</a>
+          <a class="btn btn--ghost-dark" href="cases.html">Explore our work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/permalinks.js"></script>
+<script src="site/scripts/site.js"></script>
+<script src="site/scripts/insights-data.js"></script>
+<script src="site/scripts/cases-data.js"></script>
+<script src="site/scripts/cases-bodies.js"></script>
+<script>
+  var arrow = window.SO.ico("arrow");
+  document.querySelectorAll(".arrowmini:empty").forEach(function (el) { el.innerHTML = arrow; });
+  var li = window.SO.ico("linkedin");
+  document.querySelectorAll(".expert__li:empty").forEach(function (el) { el.innerHTML = li; });
+
+  /* ----- verticals we work with ----- */
+  var VICON = {
+    fnb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7a3 3 0 0 0 6 0V2"/><path d="M6 2v20"/><path d="M18 2c-1.66 0-3 1.34-3 3v6h6V5c0-1.66-1.34-3-3-3z"/><path d="M18 11v11"/></svg>',
+    beauty: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3l1.5 2.5A4 4 0 0 1 17 12v6a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3v-6a4 4 0 0 1 .5-2.5L9 7z"/><path d="M9 4V2h6v2"/><path d="M7 13h10"/></svg>',
+    durable: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16"/><path d="M8 6h2"/><circle cx="12" cy="15" r="3"/></svg>',
+    health: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/><path d="M3.5 12h4l1.5-3 3 6 1.5-3h4"/></svg>',
+    fashion: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>'
+  };
+  var VERTICALS = [
+    ["Food & Beverage", VICON.fnb],
+    ["Beauty, Personal & Home Care", VICON.beauty],
+    ["Durable Goods", VICON.durable],
+    ["Consumer Health", VICON.health],
+    ["Fashion & Luxury", VICON.fashion]
+  ];
+  document.getElementById("verticals").innerHTML = VERTICALS.map(function (v) {
+    return '<div class="vert"><div class="vert__circle">' + v[1] + '</div><span class="vert__label">' + v[0] + '</span></div>';
+  }).join("");
+
+  /* ----- services accordion ----- */
+  var SERVICES = [
+    ["Accelerate ecomm sales",
+      "Staying ahead in the fast-evolving digital marketplace is crucial. As the industry sees a surge in channel mix diversification, including live commerce and super apps, brands must innovate to maximize reach and conversion in a crowded online space. We help brands harness these trends, optimizing their eCommerce and D2C channels to meet higher customer expectations and leverage hypertargeting opportunities in a cookie-less world. Our strategies are designed to accelerate sales by enhancing digital customer experiences, optimizing conversion rates, and integrating sustainable and healthy product offerings that meet modern consumer demands."],
+    ["Optimize processes & costs with Digital / (Gen)AI",
+      "Optimizing processes and costs while adopting generative AI and connected data is crucial for organisations who want to remain competitive and generate superior insights. Our expert teams can work with you to help you leverage generative AI to streamline operations, from production to supply chain, ensuring your business not only meets but exceeds the evolving B2B customer expectations in online sales channels."],
+    ["Digital assessment",
+      "Understanding where your business stands in the digital transformation journey is critical amidst the shift towards digital ecosystems and the rising adoption of generative AI. Our transformation assessment evaluates your current digital capabilities against the backdrop of industry trends, including the development of digital ecosystems and connected customer propositions. This strategic insight lays the foundation for a transformation roadmap, aimed at reshaping your business to serve customers faster, better and more sustainable."],
+    ["Digitize (indirect) routes-to-market",
+      "The consumer goods industry is witnessing a seismic shift with the emergence of new sales channels. At SparkOptimus, we specialize in digitizing your indirect channels to ensure your products reach your consumers wherever they are. By leveraging the latest trends and technologies, we help you maximize reach and conversion through a diversified channel mix. Our approach not only amplifies your brand presence but also drives sales by tapping into untapped markets and consumer segments, ensuring you stay ahead in the ever-evolving consumer goods landscape."],
+    ["Disruptive innovation",
+      "At the heart of long-term success in the consumer goods sector is the ability to continuously innovate and venture into new territories. Our team of experts have in-depth expertise in disruptive innovation and working with organizations to explore and develop forward-thinking business models and products. Embracing the shifts caused by generative AI, digital ecosystems, and sustainable consumer demands, we help you identify and act on opportunities for disruption. Our venturing services are designed to position your brand as a leader in innovation, tapping into new markets and consumer needs before they become mainstream. By fostering a culture of creativity and bold experimentation, we ensure your brand not only adapts to changes but shapes the future of the industry."]
+  ];
+  var chev = window.SO.ico("chevron");
+  document.getElementById("svcAcc").innerHTML = SERVICES.map(function (s, i) {
+    return '<div class="acc__item">' +
+      '<button class="acc__head" type="button" aria-expanded="false">' +
+        '<span class="acc__titletxt">' + s[0] + '</span>' +
+        '<span class="acc__chev">' + chev + '</span>' +
+      '</button>' +
+      '<div class="acc__panel"><div class="acc__panelinner"><p>' + s[1] + '</p></div></div>' +
+    '</div>';
+  }).join("");
+
+  /* Accordion: JS-driven max-height for smooth open/close at any text length or screen size */
+  function accHeight(inner, open) {
+    inner.style.maxHeight = open ? inner.scrollHeight + "px" : "0";
+  }
+  /* Initialise heights to match is-open state set in markup */
+  document.querySelectorAll("#svcAcc .acc__item").forEach(function (item) {
+    accHeight(item.querySelector(".acc__panelinner"), item.classList.contains("is-open"));
+  });
+  document.querySelectorAll("#svcAcc .acc__head").forEach(function (head) {
+    head.addEventListener("click", function () {
+      var item = head.closest(".acc__item");
+      var open = item.classList.contains("is-open");
+      /* Close all panels */
+      document.querySelectorAll("#svcAcc .acc__item").forEach(function (it) {
+        it.classList.remove("is-open");
+        it.querySelector(".acc__head").setAttribute("aria-expanded", "false");
+        accHeight(it.querySelector(".acc__panelinner"), false);
+      });
+      /* Re-open the clicked panel if it was previously closed */
+      if (!open) {
+        item.classList.add("is-open");
+        head.setAttribute("aria-expanded", "true");
+        accHeight(item.querySelector(".acc__panelinner"), true);
+      }
+    });
+  });
+
+  /* ----- client quotes from the migrated case dataset (real people + logos) ----- */
+  (function () {
+    var track = document.getElementById("quotesTrack");
+    if (!track || !window.SO_CASES || !window.SO_CASE_BODIES) return;
+    var scope = document.querySelector('[data-svc-filter]') || document.querySelector('[data-sec-filter]');
+    var key = scope && scope.hasAttribute('data-svc-filter') ? 'svc' : 'sector';
+    var val = scope ? scope.getAttribute('data-svc-filter') || scope.getAttribute('data-sec-filter') : '';
+    var seen = {};
+    function pick(list) {
+      return list.filter(function (c) {
+        var b = window.SO_CASE_BODIES[c.id];
+        if (!b || !b.quote || !b.quote.text) return false;
+        var k = b.quote.name + '|' + b.quote.text;
+        if (seen[k]) return false;
+        seen[k] = 1;
+        return true;
+      });
+    }
+    var matched = pick(window.SO_CASES.filter(function (c) { return !val || c[key] === val; }));
+    var rest = pick(window.SO_CASES).filter(function (c) { return matched.indexOf(c) === -1; });
+    var list = matched.concat(rest).slice(0, 3);
+    if (!list.length) return;
+    track.innerHTML = list.map(function (c) {
+      var q = window.SO_CASE_BODIES[c.id].quote;
+      var logo = (c.logo && c.logo.img && /^https?:/.test(c.logo.img))
+        ? '<div class="quote-card__logo" role="img" aria-label="' + (q.company || c.client) + ' logo" style="background-image:url(&quot;' + c.logo.img + '&quot;)"></div>'
+        : '';
+      return '<figure class="quotes__slide quote-card">' +
+        '<span class="quote-card__openquote">&ldquo;</span>' +
+        '<blockquote class="quote-card__q">' + q.text + '</blockquote>' +
+        '<div class="quote-card__who"><div class="quote-card__who-left"><div>' +
+        '<p class="quote-card__name">' + q.name + '</p>' +
+        '<p class="quote-card__role">' + q.role + '</p>' +
+        '<p class="quote-card__company-name">' + (q.company || c.client) + '</p>' +
+        '</div></div>' + logo + '</div></figure>';
+    }).join('');
+  })();
+
+  /* ----- quote reel ----- */
+  (function () {
+    var track = document.getElementById("quotesTrack");
+    if (!track) return;
+    var prevBtn = document.getElementById("quotesPrev");
+    var nextBtn = document.getElementById("quotesNext");
+    var dotsWrap = document.getElementById("quotesDots");
+    var chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+    var chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+    prevBtn.innerHTML = chevL;
+    nextBtn.innerHTML = chevR;
+
+    var count = track.children.length;
+    var idx = 0, timer = null, DELAY = 6500;
+
+    for (var d = 0; d < count; d++) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "quotes__dot" + (d === 0 ? " is-active" : "");
+      dot.setAttribute("aria-label", "Go to quote " + (d + 1));
+      (function (j) { dot.addEventListener("click", function () { go(j); restart(); }); })(d);
+      dotsWrap.appendChild(dot);
+    }
+    var dots = dotsWrap.children;
+
+    function go(n) {
+      idx = (n + count) % count;
+      var viewport = track.parentElement;
+      var slide = track.children[idx];
+      viewport.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' });
+      for (var k = 0; k < dots.length; k++) dots[k].classList.toggle("is-active", k === idx);
+    }
+    function start() { if (count < 2) return; timer = setInterval(function () { go(idx + 1); }, DELAY); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+
+    nextBtn.addEventListener("click", function () { go(idx + 1); restart(); });
+    prevBtn.addEventListener("click", function () { go(idx - 1); restart(); });
+
+    var reel = track.closest(".quotes");
+    reel.addEventListener("mouseenter", stop);
+    reel.addEventListener("mouseleave", start);
+
+    if (!window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+  })();
+
+  /* ----- latest insights, filtered to this page's topic ----- */
+  (function () {
+    var grid = document.getElementById("svcArticleGrid");
+    if (!grid || !window.SO_ARTICLES) return;
+    var kind = document.body.getAttribute("data-ins-kind");
+    var val = document.body.getAttribute("data-ins-val");
+    var CAT = { 'market-insights':'Market insights', 'best-practices':'Best practices', 'thought-leadership':'Thought leadership', 'how-to':'How to' };
+    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function pretty(d) { var p = String(d).split('/'); return p.length === 3 ? (+p[0]) + ' ' + MONTHS[(+p[1]) - 1] + ' ' + p[2] : d; }
+    var key = kind === 'sec' ? 'sector' : 'service';
+    var matched = val ? window.SO_ARTICLES.filter(function (a) { return a[key] === val; }) : [];
+    var list = matched.concat(window.SO_ARTICLES.filter(function (a) { return matched.indexOf(a) === -1; })).slice(0, 3);
+    grid.innerHTML = list.map(function (a, i) {
+      return '<a class="article reveal"' + (i ? ' data-delay="' + i + '"' : '') + ' href="' + SO_PL('insights', a.id) + '">' +
+        '<div class="article__media"><span class="article__tag">' + (CAT[a.category] || a.category) + '</span>' +
+        '<img src="' + a.image + '" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div>' +
+        '<div class="article__body"><h3 class="article__title">' + a.title + '</h3>' +
+        '<div class="article__meta"><span class="article__author">' + a.author + '</span>' +
+        '<span class="article__date">' + pretty(a.date) + '</span></div></div></a>';
+    }).join('');
+    var all = document.getElementById("svcAllInsights");
+    if (all) all.href = val ? ('insights.html?' + (kind === 'sec' ? 'sector=' : 'service=') + encodeURIComponent(val)) : 'insights.html';
+  })();
+
+  /* ----- signature cases filtered by this sector ----- */
+  (function () {
+    var sec = document.querySelector('[data-sec-filter]');
+    var grid = document.getElementById('secCaseGrid');
+    if (!sec || !grid || !window.SO_CASES) return;
+    var filter = sec.getAttribute('data-sec-filter');
+    var list = window.SO_CASES.filter(function (c) { return !filter || c.sector === filter; }).slice(0, 3);
+    if (!list.length) { sec.style.display = 'none'; return; }
+    grid.innerHTML = list.map(function (c, i) {
+      var L = c.img ? {img:c.img} : c.logo; var media = (L && L.img)
+        ? '<image-slot id="sd-case-' + i + '" shape="rect" placeholder="Photo" src="' + L.img + '"></image-slot>'
+        : (L ? '<div class="logo-tile" style="background:' + L.bg + ';"><b style="color:' + L.c + ';">' + L.t + '</b></div>' : '');
+      return '<a class="so-case reveal" data-delay="' + (i % 3) + '" href="' + c.href + '">' +
+        '<div class="so-case__media"><span class="so-case__tag">' + c.svc + '</span>' + media + '</div>' +
+        '<div class="so-case__body"><span class="so-case__client">' + c.client + '</span>' +
+        '<span class="so-case__title">' + c.title + '</span>' +
+        '<div class="so-case__meta"><span>' + c.sector + '</span><span class="arrowmini">' + arrow + '</span></div></div></a>';
+    }).join('');
+    if (grid.children.length < 3) {
+      grid.classList.add('is-centered');
+      grid.style.setProperty('--case-count', grid.children.length);
+    }
+
+    var all = document.getElementById('secAllCases');
+    if (all && filter) all.href = 'cases.html?sector=' + encodeURIComponent(filter);
+    window.SO.reveal();
+  })();
+
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>

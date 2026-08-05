@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SparkOptimus — Launch Planning<span class="metadot" aria-hidden="true"></span>16–20 Jun 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0E172A;--ink2:#374151;--ink3:#6B7280;--ink4:#9CA3AF;--cyan:#00D9F4;--cb:rgba(0,217,244,0.09);--bg:#F4F5F7;--card:#fff;--b1:rgba(14,23,42,0.07);--b2:rgba(14,23,42,0.13);--rl:18px;--rm:11px;--rp:999px;--sh:0 2px 10px rgba(14,23,42,0.07);--hi:#EF4444;--hb:#FEF2F2;--me:#F59E0B;--mb:#FFFBEB;--lo:#10B981;--lb:#ECFDF5;--font:'Manrope',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}
+.app{display:flex;height:100vh}
+.sb{width:230px;background:var(--ink);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sb-logo{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-spark{display:flex;align-items:center;gap:7px}
+.sb-dot{width:9px;height:9px;background:var(--cyan);border-radius:50%}
+.sb-name{font-size:13px;font-weight:800;color:#fff}
+.sb-week{font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;font-weight:500}
+.sb-nav{padding:10px 0;flex:1}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:11px;font-weight:700;color:rgba(255,255,255,.42);cursor:pointer;transition:all .14s;border-left:2px solid transparent;text-transform:uppercase;letter-spacing:.07em}
+.ni:hover{color:#fff;background:rgba(255,255,255,.04)}
+.ni.on{color:var(--cyan);border-left-color:var(--cyan);background:rgba(0,217,244,.06)}
+.ni-pip{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ni-ct{font-size:10px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);border-radius:var(--rp);padding:1px 6px;margin-left:auto}
+.ni.on .ni-ct{background:rgba(0,217,244,.15);color:var(--cyan)}
+.sb-pg{padding:16px 20px 22px;border-top:1px solid rgba(255,255,255,.07)}
+.sb-pg-l{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.35);margin-bottom:7px;font-weight:700}
+.sb-pg-b{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:6px}
+.sb-pg-f{height:100%;background:var(--cyan);border-radius:2px;transition:width .4s}
+.sb-pg-n{font-size:11px;color:rgba(255,255,255,.45);font-weight:600}
+.sb-pg-n span{color:var(--cyan);font-weight:800}
+.main{flex:1;overflow-y:auto}
+.ph{padding:28px 36px 20px;border-bottom:1px solid var(--b1);background:var(--card);position:sticky;top:0;z-index:10}
+.ph h1{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.ph p{color:var(--ink3);margin-top:3px;font-size:12.5px}
+.ct{padding:28px 36px}
+.card{background:var(--card);border-radius:var(--rl);padding:22px;box-shadow:var(--sh);border:1px solid var(--b1)}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:var(--rp);font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0}
+.bhi{background:var(--hb);color:var(--hi)}.bme{background:var(--mb);color:var(--me)}.blo{background:var(--lb);color:var(--lo)}
+.cb-box{width:15px;height:15px;border:1.5px solid var(--b2);border-radius:4px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;margin-top:2px}
+.cb-box.on{background:var(--cyan);border-color:var(--cyan)}
+.cb-box.on::after{content:'✓';font-size:8.5px;font-weight:800;color:var(--ink)}
+.sel{font-size:11px;font-family:var(--font);background:var(--bg);border:1px solid var(--b2);border-radius:6px;padding:2px 20px 2px 7px;color:var(--ink2);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5' viewBox='0 0 9 5'%3E%3Cpath d='M0.5 0.5L4.5 4.5L8.5 0.5' stroke='%236B7280' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 5px center;font-weight:600}
+.tr{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--b1)}
+.tr:last-child{border-bottom:none}
+.tr.on .tr-t{text-decoration:line-through;color:var(--ink3)}
+.tr.on .tr-why,.tr.on .tr-chips{opacity:.45}
+.tr-t{font-size:12px;line-height:1.4;color:var(--ink)}
+.tr-why{font-size:10.5px;color:var(--ink3);margin-top:2px;line-height:1.4}
+.tr-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.tr-meta{display:flex;align-items:center;gap:6px;flex-shrink:0;padding-top:1px}
+.wb{display:inline-flex;align-items:center;padding:1px 7px;border-radius:var(--rp);font-size:9.5px;font-weight:700;white-space:nowrap}
+.wb-c{background:var(--cb);color:#0099B8}
+.wb-v{background:#EDE9FE;color:#5B21B6}
+.wb-s{background:var(--lb);color:#065F46}
+.wb-l{background:#F1F5F9;color:#0F172A}
+.pg-tag{font-size:9.5px;color:var(--ink3);background:#F1F5F9;padding:1px 7px;border-radius:var(--rp);font-weight:600}
+.dr{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--b1)}
+.dr:last-child{border-bottom:none}
+.dr.on .dr-t{text-decoration:line-through;color:var(--ink3)}
+.dr-n{width:19px;height:19px;border-radius:50%;background:var(--cb);color:#007A94;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.dr-t{font-size:12px;line-height:1.4}
+.dr-res{font-size:10.5px;color:var(--lo);font-weight:600;margin-top:3px}
+.dr-dl{font-size:9.5px;background:#F1F5F9;color:var(--ink3);padding:2px 6px;border-radius:var(--rp);font-weight:700;flex-shrink:0}
+.ws-card{background:var(--card);border-radius:var(--rl);border:1px solid var(--b1);box-shadow:var(--sh);overflow:hidden;margin-bottom:12px}
+.wsh{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;transition:background .14s}
+.wsh:hover{background:#FAFBFC}
+.wsl{display:flex;align-items:center;gap:10px}
+.ws-dot{width:10px;height:10px;border-radius:50%}
+.ws-nm{font-size:13.5px;font-weight:800}
+.ws-ld{font-size:10px;color:var(--ink3);font-weight:600}
+.wsr{display:flex;align-items:center;gap:10px}
+.ws-cv{font-size:11px;color:var(--ink4);transition:transform .18s}
+.ws-cv.op{transform:rotate(180deg)}
+.ws-bd{padding:0 20px 16px;border-top:1px solid var(--b1)}
+.ws-mp{height:2px;background:var(--b2);border-radius:1px;overflow:hidden;margin:10px 0 14px}
+.ws-mf{height:100%;border-radius:1px;transition:width .4s}
+.rm-wrap{overflow-x:auto;padding-bottom:8px}
+.rm-flow{display:flex;align-items:stretch;gap:0;min-width:1020px}
+.rm-card{flex:1;background:var(--card);border-radius:var(--rl);padding:16px 14px;border:1px solid var(--b1);box-shadow:var(--sh)}
+.rm-arrow{display:flex;align-items:center;padding:0 4px;flex-shrink:0;color:var(--ink4);font-size:18px}
+.rm-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;margin-bottom:8px;color:var(--ink)}
+.rm-nm{font-size:12px;font-weight:800;margin-bottom:1px;line-height:1.3}
+.rm-dt{font-size:9.5px;color:var(--ink3);margin-bottom:8px;font-weight:600}
+.rm-desc{font-size:10.5px;color:var(--ink2);line-height:1.5;margin-bottom:10px}
+.rm-who{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px}
+.rm-chip{font-size:9px;font-weight:700;padding:2px 6px;border-radius:var(--rp);background:var(--cb);color:#007A94}
+.rm-tool{font-size:9px;font-weight:700;padding:2px 7px;border-radius:var(--rp);display:inline-block}
+.rm-out{font-size:10px;color:var(--ink3);margin-top:8px;border-top:1px solid var(--b1);padding-top:8px;line-height:1.4}
+.rm-dep{font-size:9px;font-weight:700;padding:2px 7px;border-radius:var(--rp);background:var(--mb);color:var(--me);margin-top:5px;display:inline-block}
+.ab{background:linear-gradient(135deg,#0E172A 0%,#1b2c50 100%);color:white;border-radius:var(--rl);padding:22px 26px;margin:20px 0}
+.ab-t{font-size:15px;font-weight:800;color:var(--cyan);margin-bottom:6px}
+.ab-i{font-size:12px;line-height:1.6;color:rgba(255,255,255,.7);margin-bottom:16px}
+.ab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ab-item{background:rgba(255,255,255,.06);border-radius:10px;padding:14px}
+.ab-it{font-size:11.5px;font-weight:700;color:var(--cyan);margin-bottom:4px}
+.ab-id{font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.45}
+.pt-bar{display:flex;gap:8px;margin-bottom:20px}
+.ptab{padding:7px 16px;border-radius:var(--rp);font-size:11.5px;font-weight:700;cursor:pointer;border:1.5px solid var(--b2);background:var(--card);color:var(--ink2);transition:all .14s}
+.ptab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cl-wrap{overflow-x:auto;border-radius:var(--rl);box-shadow:var(--sh);background:var(--card);border:1px solid var(--b1)}
+table{width:100%;border-collapse:collapse}
+th{text-align:center;font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:700;padding:10px 6px;border-bottom:2px solid var(--b2);white-space:nowrap;background:var(--card)}
+th:first-child{text-align:left;padding-left:18px;min-width:210px}
+td{text-align:center;padding:8px 6px;border-bottom:1px solid var(--b1)}
+td:first-child{text-align:left;font-size:12px;font-weight:600;padding-left:18px}
+tr:last-child td{border-bottom:none}
+tr:not(.sr):hover td{background:#FAFBFC}
+.sr td{background:#F8F9FB;font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:800;padding:10px 0 5px 18px;border-bottom:1px solid var(--b2)}
+.cl-cb{width:15px;height:15px;border:1.5px solid var(--b2);border-radius:4px;cursor:pointer;margin:0 auto;display:flex;align-items:center;justify-content:center;transition:all .14s}
+.cl-cb.on{background:var(--cyan);border-color:var(--cyan)}
+.cl-cb.on::after{content:'✓';font-size:8px;font-weight:800;color:var(--ink)}
+.dyn{color:var(--ink3)!important;font-style:italic;font-weight:500!important}
+.alert{padding:11px 14px;border-radius:var(--rm);font-size:11.5px;margin-bottom:14px;display:flex;gap:9px;align-items:flex-start;line-height:1.45}
+.aw{background:var(--mb);border:1px solid #FCD34D}
+.ai{background:var(--cb);border:1px solid rgba(0,217,244,.25)}
+.ag{background:var(--lb);border:1px solid rgba(16,185,129,.3)}
+.al-ic{font-size:13px;flex-shrink:0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:var(--card);border-radius:var(--rm);padding:16px 18px;border:1px solid var(--b1)}
+.stat-n{font-size:28px;font-weight:800;line-height:1}
+.stat-l{font-size:10px;color:var(--ink3);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(14,23,42,.1);border-radius:2px}
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const PEOPLE = ['–','Tijmen','Job','Tijn','Eleonore','Ali'];
+
+const PHASES = [
+  {id:'p1',n:1,name:'Finalize designs',dates:'Mon–Tue<i class=metadot></i>16–17 Jun',color:'#00D9F4',
+   desc:'Complete all remaining design work in Claude Design. Blog + board detail pages are built. Fix visual issues. Start writing text for all pages. Tijmen and Job are present both days — all key decisions get locked here.',
+   who:['Tijmen','Job','Eleonore','Tijn'],ws:['Design & UX Polish','Content & Wording'],
+   out:'All page designs look correct. Blog + board detail pages done.',tool:'Claude Design'},
+  {id:'p2',n:2,name:'Astro setup',dates:'Mon–Tue<i class=metadot></i>16–17 Jun',color:'#8B5CF6',
+   desc:'Ali creates the new website (Astro) and connects it to GitHub and Vercel. A staging link goes live — the team can view the empty website structure.',
+   who:['Ali'],ws:['Astro Migration: Phase A–B'],
+   out:'Staging URL on Vercel. Header, footer and page shell working.',tool:'VS Code',
+   dep:'Runs in parallel with Phase 1 — Tijmen + Job available Mon + Tue to unblock decisions'},
+  {id:'p3',n:3,name:'Page migration',dates:'Tue–Thu<i class=metadot></i>17–19 Jun',color:'#F59E0B',
+   desc:'Every HTML page from Claude Design gets rebuilt in Astro. The design stays exactly the same — only the code format changes. Job uses Claude Code (AI coding assistant in VS Code) to convert pages rapidly, with Ali available to advise.',
+   who:['Job'],ws:['Astro Migration: Phase C–D'],
+   out:'All 30+ pages visible on staging. Adding a sector in Storyblok → new page appears automatically.',tool:'VS Code',
+   dep:'Requires Phase 2 complete'},
+  {id:'p4',n:4,name:'Connect content',dates:'Wed–Thu<i class=metadot></i>18–19 Jun',color:'#10B981',
+   desc:'Storyblok gets wired to the Astro pages. From now on, editors can add/edit content without touching code. Forms are connected to HubSpot. All page text is written and reviewed. Note: Tijmen and Job are offline from Wednesday — all decisions and schema locks must be done by end of Tuesday.',
+   who:['Tijn','Eleonore','Ali'],ws:['Storyblok CMS','Content & Wording','Astro Migration: Phase E'],
+   out:'All content comes from Storyblok. Forms send to HubSpot. All text finalized.',tool:'Storyblok + VS Code',
+   dep:'Storyblok schemas must be locked by end of Tue — Tijmen + Job offline from Wed'},
+  {id:'p5',n:5,name:'Test everything',dates:'Thu–Fri<i class=metadot></i>19–20 Jun',color:'#EF4444',
+   desc:'The whole team tests the staging site. Every page on every device, every link, every form. Tijmen signs off on each page before go-live.',
+   who:['Tijn','Eleonore','Ali','Tijmen'],ws:['QA & Testing'],
+   out:'Zero broken links. All forms work. Tijmen has approved all pages.',tool:'Staging URL',
+   dep:'Phase 3 + 4 substantially complete'},
+  {id:'p6',n:6,name:'🚀 Go live',dates:'Fri<i class=metadot></i>20 Jun',color:'#6366F1',
+   desc:'IT changes the DNS (address book of the internet) so sparkoptimus.com points to the new site. The old Webflow site goes offline. The new website is live for the world.',
+   who:['Ali','Tijmen'],ws:['Launch & DNS'],
+   out:'sparkoptimus.com is live on the new Astro website.',tool:'Vercel + IT (DNS)',
+   dep:'All QA passed + Tijmen go/no-go'},
+];
+
+const DECISIONS = [
+  {id:'d1',t:'Should the navigation menu disappear when you scroll down on desktop?',owner:'Tijmen',when:'Mon–Tue'},
+  {id:'d2',t:'Video on mobile phones.',owner:'Tijmen',when:'Resolved',pre:true,res:'✅ Always show the video on mobile. A fix task has been added (WS1 task #21).'},
+  {id:'d3',t:'Which service lines get their own detail page at launch?',owner:'Tijmen',when:'Resolved',pre:true,res:'✅ All 5 service lines get a detail page at launch.'},
+  {id:'d4',t:'Should the "latest insights" section stay on the services strategy page?',owner:'Job',when:'Mon–Tue'},
+  {id:'d5',t:'What happens when there are no upcoming career events — show a message or hide the section?',owner:'Job',when:'Mon–Tue'},
+  {id:'d6',t:'Should blog and insights detail pages use the same template as the case detail page?',owner:'Tijmen',when:'Resolved',pre:true,res:'✅ Use the same template as the current case and blog detail pages.'},
+  {id:'d7',t:'Which forms should send data to HubSpot?',owner:'Tijmen',when:'Resolved',pre:true,res:'✅ All forms: contact, newsletter, event signups and career event signups all connect to HubSpot.'},
+  {id:'d8',t:'How do we handle the domain?',owner:'Tijmen',when:'Resolved',pre:true,res:'✅ Use sparkoptimus.com as the main domain. It replaces the old Webflow site completely.'},
+  {id:'d9',t:'Where else can we add the B-corp logo across the site?',owner:'Tijmen',when:'Mon–Tue'},
+  {id:'d10',t:'Should we convert all images to WebP format (faster loading) before launch, or after?',owner:'Ali',when:'Mon–Tue'},
+  {id:'d11',t:'Who gives final content approval per page, and by what deadline?',owner:'Tijmen',when:'Mon–Tue'},
+  {id:'d12',t:'Are the animated videos (Thuisbezorg and Rotterdam Harbour) required for launch?',owner:'Tijmen',when:'Resolved',pre:true,res:'✅ Yes — both animated videos must be ready for launch. Tasks added to WS1 (#28, #29).'},
+];
+
+const T=(id,p,t,why,wh,pg,who)=>({id,p,t,why,where:wh,page:pg,who});
+
+const WS = [
+  {id:'ws1',name:'Design & UX Polish',color:'#00D9F4',lead:'Eleonore',tasks:[
+    T('1-0a','hi','Tijmen: get feedback from Alexandra on all page designs — plan for Monday','Walk Alexandra through every page in Claude Design and collect her feedback. Note what needs changing before migration starts. This does not need to be a full sign-off yet — just get her eyes on the designs early so any changes can be made while Tijmen and Job are still available.',['c'],'All pages — Claude Design','Tijmen'),
+    T('1-0','hi','Job: check in with Nastasia (recruiter) on Monday about career section design','Nastasia is closest to what job candidates need from the career pages. Get her feedback before finalising the career design. Do this Monday 16 June.',['c'],'Career pages','Job'),
+    T('1-1','hi','Text looks wrong for 1 second when the page loads','The custom font loads a moment after the page. Until it loads, text appears too bold. Looks broken to first-time visitors.',['v'],'All pages','Eleonore'),
+    T('1-2','hi','Footer appears at the top before the homepage content loads','On first visit the footer briefly flashes at the top of the screen before the real content appears. Looks broken.',['c'],'Homepage','Eleonore'),
+    T('1-3','hi','Make sure all icons across the site are SVG format','SVG icons stay sharp on all screen sizes and load faster. Any icons that are still PNG or image files need replacing.',['c'],'All pages','Tijn'),
+    T('1-4','hi','Polish the blog article detail page design','This page was just built today and still needs visual improvements to match the rest of the site.',['c'],'Blog detail','Eleonore'),
+    T('1-5','hi','Polish the board member detail page design','Also built today — needs the same polish to match overall design quality.',['c'],'Board detail','Eleonore'),
+    T('1-6','hi','Finish minor tweaks on the careers and vacancy detail page','Almost done — small remaining fixes to complete this page.',['c'],'Careers / Vacancy detail','Eleonore'),
+    T('1-7','hi','Finish minor tweaks on the books and book detail page','Almost done — small remaining fixes to complete this page.',['c'],'Books / Book detail','Eleonore'),
+    T('1-8','me','Decide and build: should the menu hide when scrolling down on desktop?','Hiding the menu while reading gives more space. Wait for Decision #1 before building.',['v'],'All pages (header)','Ali'),
+    T('1-9','me','Add content to the "Our approach" page — it is mostly empty','Visitors who land on this page see almost nothing right now. It needs text and structure.',['c'],'Our approach','Tijn'),
+    T('1-10','me','Check: does every page end with the green "Get in touch" section?','This call-to-action at the bottom drives leads. Every page should have it consistently.',['c'],'All pages','Tijn'),
+    T('1-11','me','The testimonial pop-up design does not match the rest of the site','The overlay where testimonials appear looks mismatched. Redesign to fit the overall visual style.',['c'],'Multiple pages','Eleonore'),
+    T('1-12','me','The filter dropdown on Cases looks different from the one on Insights','Both pages should use the exact same filter design. Adjust the Cases filter to match Insights.',['c'],'Cases','Eleonore'),
+    T('1-13','me','Events page: add a working filter for past vs upcoming events','Right now visitors cannot separate past from future events. Add a filter button that switches the view.',['c','v'],'Events','Ali'),
+    T('1-14','me','Make the "Apply for a seat" button on the event detail page more prominent','This is the most important action on the page. It should be much more visible so visitors do not miss it.',['c'],'Event detail','Eleonore'),
+    T('1-15','me','Sectors overview: increase font size and make all logos the same size','Text is currently too small to read easily and logos appear in inconsistent sizes — fix both.',['c'],'Sectors overview','Eleonore'),
+    T('1-16','me','Services page: make it clear that the service items are clickable','Visitors do not realise they can click on each service. Add a hover effect, arrow icon or underline.',['c'],'Services','Eleonore'),
+    T('1-17','me','Sector detail: when hovering over a vertical, show a popup with more info','Visitors want to know more about each vertical without leaving the page. A hover popup solves this.',['c'],'Sector detail','Eleonore'),
+    T('1-18','me','Sector detail: make the "our services" section expand automatically on load','Currently this section stays collapsed. It should open on its own so visitors see the services immediately.',['c','v'],'Sector detail','Ali'),
+    T('1-19','me','Contact page: improve the error messages when fields are not filled in','When a visitor forgets to fill in a field, the error message appears in an ugly default style. Redesign it.',['c'],'Contact','Eleonore'),
+    T('1-20','lo','Get all pop-up overlays working (testimonials and others)','The pop-up designs exist but are not yet fully functional. They need to actually open, close and animate.',['v'],'Multiple pages','Ali'),
+    T('1-21','hi','Fix the hero video — it does not play on mobile phones','We decided the video must always show on mobile. Right now it is broken. This is launch-blocking.',['c','v'],'Homepage / Services','Ali'),
+    T('1-22','lo','Legal pages: remove the dark hero section and use a plain text layout','Privacy policy, human rights, environmental and DEI pages still have a dramatic dark hero. Replace with a clean, plain document layout.',['c'],'Privacy / Legal pages','Tijn'),
+    T('1-23','lo','Where else can we add the B-corp logo across the site?','The B-corp certification builds trust with visitors. Identify which additional pages it could appear on.',['c'],'Multiple pages','Tijn'),
+    T('1-24','lo','Career welcome page: find and add relevant photographs','This page has no photos yet. Real photography makes it feel authentic and inviting to job candidates.',['c'],'Career welcome','Eleonore'),
+    T('1-25','lo','Life at SparkOptimus page: find and add relevant photographs','Same situation — the page needs photography to work properly.',['c'],'Life at SparkOptimus','Eleonore'),
+    T('1-26','lo','Careers: improve the culture section and find matching photos for each driver','The culture section needs stronger content. Each culture value should have a matching photo.',['c'],'Careers','Eleonore'),
+    T('1-27','lo','Books "Disruption in action" page: improve the content layout','The content feels unstructured. Improve the visual hierarchy so it is easier to read.',['c'],'Books','Eleonore'),
+    T('1-28','me','Add an animated looping video for the Thuisbezorg image on the services page','Decided at launch. A short looping animation on this image makes the page more engaging.',['c','v'],'Services','Ali'),
+    T('1-29','me','Add an animated looping video for the Rotterdam Harbour image on the services page','Same as above — decided at launch.',['c','v'],'Services','Ali'),
+    T('1-30','me','Check how every page looks in dark mode on a mobile phone','Many phones use dark mode by default. Some pages may look broken (white text on white, etc.). Check and fix.',['c','v'],'All pages','Tijn'),
+    T('1-31','me','Replace the background image on the Services page','The current background image does not fit the visual direction. It needs to be replaced with a better one.',['c'],'Services','Eleonore'),
+    T('1-32','me','Sector page: company logos are loading too slowly','When you open a sector page, the logos take too long to appear. This makes the page look broken while loading.',['v'],'Sector detail','Ali'),
+    T('1-33','me','Sector page mobile: show company logos in a 1-row or 2×2 grid instead of a long vertical list','On mobile, a long column of logos takes too much screen space. A compact grid looks much better.',['c'],'Sector detail','Eleonore'),
+    T('1-34','me','Expert and team portraits on mobile: always show in a grid, not stacked one by one','When portraits stack in a single column on mobile, visitors have to scroll a very long way. Use a grid.',['c'],'Team / Board / Sector pages','Eleonore'),
+  ]},
+  {id:'ws2',name:'Content & Wording',color:'#8B5CF6',lead:'Tijn',tasks:[
+    T('2-1','hi','Write all text for the Homepage','The homepage is the most important page. Every section (hero, services, cases, team, CTA) needs final, approved copy.',['s','c'],'Homepage','Tijn'),
+    T('2-2','hi','Write all text for the Services pages','All 5 service lines need complete text for their overview and detail pages.',['s','c'],'Services + all detail pages','Tijn'),
+    T('2-3','hi','Write all text for the Sector detail pages','Each sector detail page needs its own text. Currently missing or using placeholder text.',['s'],'All sector pages','Tijn'),
+    T('2-4','hi','Write all text for Cases and impact pages','Case studies are a key sales tool. They need polished, final copy before launch.',['s'],'Cases','Tijn'),
+    T('2-5','hi','Write all text for the About pages (approach, team, board)','These pages build trust with potential clients. They need clear, professional copy.',['s','c'],'Approach / Team / Board','Tijn'),
+    T('2-6','hi','Write all text for the Career pages','These pages attract talent. They need inspiring, honest copy that reflects SparkOptimus culture.',['s','c'],'Careers / Vacancies / Welcome / Life at Spark','Tijn'),
+    T('2-6b','me','Check that CEO story, Events, Books and Insight detail page text is complete in Storyblok','This content should already be in Storyblok from the Webflow migration. Open each content type in Storyblok and scan for any stories where fields are empty or missing. Fill in anything that is incomplete.',['s'],'CEO stories / Events / Books / Insights','Tijn'),
+    T('2-6c','hi','Add the full spoken transcript to every CEO story that does not have one yet','Some CEO stories only have a short summary. We want the full spoken text of the interview added underneath. This helps visitors who prefer reading over watching a video, and it helps Google index the content. Open each CEO story in Storyblok → find the transcript field → paste in the full text. Some already have it, check which ones are missing.',['s'],'CEO stories — Storyblok','Tijn'),
+    T('2-7','hi','Tijmen reviews and approves all written text before it goes to staging','All copy needs a final sign-off from Tijmen. Do not move text to staging until Tijmen has approved it.',['–'],'All pages','Tijmen'),
+    T('2-8','me','Write the intro text for the Cases overview page (currently empty)','This page opens without any introduction. It needs a brief headline and intro paragraph.',['c'],'Cases overview','Tijn'),
+    T('2-9','me','Services strategy page: add more body text (currently too sparse)','This page has too little copy. Visitors do not get enough information about what SparkOptimus offers here.',['c'],'Service detail (strategy)','Tijn'),
+    T('2-10','me',"Fix incorrect apostrophes on all pages — AI uses the wrong type (' instead of ')",'AI-generated text often uses straight apostrophes instead of the correct curved ones. Audit and fix on every page.',['v'],'All pages','Tijn'),
+    T('2-11','me','Add a short image description to every photo on every page (alt text)','Alt text helps Google find images and is required for accessibility. Every image needs a short, descriptive label.',['c','s'],'All pages','Tijn'),
+    T('2-12','me','Write a Google title and description for every page (meta tags)','These appear in Google search results. Without them, Google invents them — usually badly. All 30+ pages need these.',['s','v'],'All pages','Tijn'),
+  ]},
+  {id:'ws3',name:'Astro Migration — Job builds, Ali advises',color:'#F59E0B',lead:'Job',tasks:[
+    T('3-0','hi','[Setup] Job: Create GitHub repository and connect to Vercel for automatic deployment','Job creates the GitHub repo (where all code is stored) and links it to Vercel. After this: every code push from Ali auto-deploys to the staging URL. Do this on Monday.',['l'],'Entire website','Job'),
+    T('3-1','hi','[Setup] Create the new Astro website project from the company cloud folder','Job does this in VS Code using Claude Code (the AI coding assistant built into VS Code). Ali is available as an advisor when Job gets stuck — not to do the work himself. Think of this as creating the empty building that all pages will live in.',['v'],'Entire website','Job'),
+    T('3-2','hi','[Setup] Install the Storyblok connector and Vercel connector (npm install)','These are add-ons that let Astro talk to Storyblok (for content) and Vercel (for hosting). Like installing apps on a phone.',['v'],'Entire website','Job'),
+    T('3-3','hi','[Setup] Configure Astro to use Storyblok and Vercel (astro.config.mjs)','One configuration file tells Astro where to get its content and where to publish. Without this the website does not know where to look for anything.',['v'],'Entire website','Job'),
+    T('3-4','hi','[Setup] Add the Storyblok access keys (secret tokens) to the project (.env file)','These are like passwords that allow Astro to read content from Storyblok. Stored securely and never made public.',['v'],'Entire website','Job'),
+    T('3-5','hi','[Setup] Copy design styles, images, icons and logos from Claude Design into Astro','The new Astro site needs all the same visual assets. This step copies fonts, colours, images and icons across.',['v'],'Entire website','Job'),
+    T('3-6','hi','[Setup] Push to GitHub → confirm staging website appears on Vercel → share link with team','First milestone: a link the whole team can visit to see progress. Every code save automatically updates the staging site.',['v','l'],'Entire website','Job'),
+    T('3-7','hi','[Components] Build the header and navigation in Astro — sector + service dropdowns come from Storyblok','Currently: the sector and service names in the navigation dropdown are typed manually in the HTML. In Astro: the header fetches all Sectors and all Services from Storyblok at build time and renders the dropdown from that live list. This means: add \"Healthcare\" as a sector in Storyblok → it automatically appears in the navigation dropdown on every page on next rebuild. No code change needed ever again.',['v','s'],'All pages (header)','Job'),
+    T('3-8','hi','[Components] Build the footer in Astro','Like the header, the footer is reused on every page. Build it once, use it everywhere.',['v'],'All pages (footer)','Job'),
+    T('3-9','hi','[Components] Create the page wrapper (shell that every page uses — BaseLayout.astro)','Every page needs the same structure: the right HTML setup, SEO meta tags, header and footer. This wrapper provides that automatically.',['v'],'All pages','Job'),
+    T('3-9b','hi','[Shared blocks] Build the green CTA section as a shared component (CTASection.astro)','This green get-in-touch section appears at the bottom of every page. Job builds it once in VS Code using Claude Code — paste in the HTML from Claude Design and ask Claude Code to convert it to an Astro component. Then all 30+ pages use it automatically. Start here before any pages.',['v'],'All pages (bottom CTA)','Job'),
+    T('3-9c','hi','[Shared blocks] Build all other shared section components: HeroSection, LogoRow, InsightCard, CaseCard, QuoteBlock','Find every section that appears on more than one page. Open the corresponding HTML file in Claude Design, copy the relevant HTML block, and ask Claude Code in VS Code to convert it to an Astro component. Do this for every repeated block before starting individual pages.',['v'],'Multiple pages','Job'),
+    T('3-9d','hi','⭐  Page lock rule: once a page is handed to Job for migration, its design is frozen','Before converting a page, confirm the design is finalised. Any change after migration requires re-doing the work. Keep a simple shared list: ✅ = locked and in migration scope. Changes after lock go on a post-launch list.',['c'],'All pages','Tijmen'),
+    T('3-6b','me','[Setup] Confirm Storyblok access tokens are added to Vercel environment variables','The .env file only works on the local computer. Vercel also needs the Storyblok tokens to build the live staging site. Check in Vercel → Project Settings → Environment Variables that both the preview and public Storyblok tokens are there. Without this, the staging site cannot fetch any content.',['l'],'Entire website','Job'),
+    T('3-10','hi','[Pages] Convert homepage to Astro — replace every hardcoded section with a live Storyblok fetch','The homepage has 5+ sections that are currently typed manually in the HTML. In Astro each section fetches its content from Storyblok at build time. What this means in practice: (1) Services block: fetch all stories from the Services folder in Storyblok → render. (2) Client logos: fetch from Client logos folder → render. (3) Featured cases: fetch Cases where featured=true → render 3 cards. (4) Our experts: fetch Team members → render. (5) Quote: fetch from Testimonials → render. Ali uses Claude Code for speed. Requires 4-14 to be done first.',['v','s'],'Homepage','Job'),
+    T('3-11','hi','[Pages] Convert Services overview page to Astro — list of services comes from Storyblok','Currently: service names and descriptions are typed in the HTML. In Astro: fetch all Services from Storyblok → render. Add a new service in Storyblok → it appears on this page automatically on next rebuild.',['v','s'],'Services overview','Job'),
+    T('3-12','hi','[Pages] Convert Sectors overview page to Astro — sector logos and names come from Storyblok','Same principle. The sector logos that currently load slowly (see WS1 task) will be replaced with optimised Storyblok-hosted images.',['v','s'],'Sectors overview','Job'),
+    T('3-13','hi','[Pages] Convert Cases overview page to Astro — filter bar powered by Storyblok tags','This is where hardcoded → Storyblok is most visible. Today: filter buttons are typed manually in the HTML and clicking them just shows/hides hardcoded cards. In Astro: (1) Astro fetches all cases from Storyblok at build time including their sector + service tags. (2) Filter buttons are generated automatically from the real tags that exist. (3) Clicking a filter shows/hides cards using JavaScript. Result: add a new case in Storyblok with tag \"AI & Data\" → it appears in the cases list AND \"AI & Data\" filter button appears automatically. Also convert Insights overview page with the same filter logic.',['v','s'],'Cases / Insights','Job'),
+    T('3-14','hi','[Pages] Convert Blog, Books and Events overview pages to Astro',''  ,['v'],'Blog / Books / Events','Job'),
+    T('3-15','hi','[Pages] Convert Our approach, Team and Board overview pages to Astro',''  ,['v'],'Approach / Team / Board','Job'),
+    T('3-16','hi','[Pages] Convert Careers, Vacancies and Contact pages to Astro',''  ,['v'],'Careers / Contact','Job'),
+    T('3-17','hi','[Pages] Convert Welcome, Life at Spark, CEO stories, Career events and Newsletter to Astro',''  ,['v'],'Multiple pages','Job'),
+    T('3-18','hi','[Pages] Convert all legal pages (privacy, rights, environment, DEI) to Astro',''  ,['v'],'Legal pages','Job'),
+    T('3-18b','me','Build the 404 page not found page in Astro (404.astro)','When someone visits a URL that does not exist, they should see a clean branded SparkOptimus page instead of a generic browser error.',['v'],'404.astro','Job'),
+    T('3-18c','me','Install the Astro sitemap plugin for auto-generated sitemaps (@astrojs/sitemap)','This plugin creates a fresh, accurate sitemap on every rebuild. The current static sitemap.xml in Claude Design becomes outdated as soon as pages are added via Storyblok — replace it.',['v'],'sitemap.xml','Job'),
+    T('3-19','hi','[Dynamic] Build the Sector detail template — one template creates all sector pages automatically','This is the key feature: one template file + content in Storyblok = one page per sector, auto-generated. Add a sector in Storyblok → a new URL appears on the website. No code needed.',['v','s'],'Sector detail [slug]','Job'),
+    T('3-20','hi','[Dynamic] Build the Service detail template — same auto-generation for services','Same principle as sectors.',['v','s'],'Service detail [slug]','Job'),
+    T('3-21','hi','[Dynamic] Build the Case detail template','Same principle.',['v','s'],'Case detail [slug]','Job'),
+    T('3-22','hi','[Dynamic] Build the Insight and Blog detail templates','Same principle.',['v','s'],'Insight / Blog detail [slug]','Job'),
+    T('3-23','hi','[Dynamic] Build the Event and Book detail templates','Same principle.',['v','s'],'Event / Book detail [slug]','Job'),
+    T('3-24','hi','[Dynamic] Build the Team and Board person detail templates','Same principle.',['v','s'],'Team / Board person [slug]','Job'),
+    T('3-25','hi','[Dynamic] Build the Vacancy detail template','Same principle.',['v','s'],'Vacancy detail [slug]','Job'),
+    T('3-26','me','[Dynamic] Build the CEO story and Career event detail templates','Same principle.',['v','s'],'CEO story / Career event [slug]','Job'),
+    T('3-27','hi','[Forms] Connect the Contact form to HubSpot','When someone submits the contact form, their data must arrive in HubSpot so the team can follow up.',['v'],'Contact','Job'),
+    T('3-28','hi','[Forms] Connect the Newsletter signup to HubSpot','Same — signup submissions must land in HubSpot automatically.',['v'],'Newsletter','Job'),
+    T('3-29','me','[Forms] Connect Event and Career event signup forms to HubSpot','Same for both event signup forms.',['v'],'Events / Career events','Job'),
+  ]},
+  {id:'ws4',name:'Storyblok CMS',color:'#10B981',lead:'Job',tasks:[
+    T('4-0','hi','Lock the content structure (schema) for CEO stories — title, person, company, quote, date, slug','CEO stories appear on their own page and in the header/nav. Schema must be locked before Job builds the dynamic template.',['s'],'CEO stories','Job'),
+    T('4-1','hi','Check what content from the old Webflow site arrived correctly in Storyblok','We moved content from the old website to Storyblok. Check what arrived correctly and what is still missing before starting to fill gaps.',['s'],'All content types','Tijn'),
+    T('4-2','hi','Lock the fields for Services — including: title, description, icon, slug','Right now all service info is hardcoded (typed directly into the HTML). Once locked, Ali will replace that hardcoded HTML with a fetch from Storyblok. The slug is critical — it becomes the URL (e.g. /services/digital-strategy). After this: adding a new service in Storyblok auto-creates its page AND adds it to the homepage services block AND the navigation dropdown. No code needed.',['s'],'Services + Homepage + Nav','Job'),
+    T('4-3','hi','Lock the fields for Sectors — including: title, description, logo, client logos, slug. Also add: which services does this sector use? (reference field)','Same as services. The \"which services\" reference field is what powers the filter on the Cases page: visitor filters by \"Digital Strategy\" → only cases tagged with that service appear. Without this field the filter cannot work.',['s'],'Sectors + Nav + Cases filter','Job'),
+    T('4-4','hi','Lock the fields for Cases — must include: title, summary, image, sector (reference), service (reference), slug, featured? (yes/no)','The two reference fields (sector + service) are what power the filter bars on the Cases overview page. Hardcoded today: the filter buttons are typed manually in the HTML. In Astro: Storyblok builds the filter options automatically from the tags on cases. Featured cases also appear on the homepage — that is driven by the featured? checkbox.',['s'],'Cases + Cases filter + Homepage','Job'),
+    T('4-5','hi','Lock the fields for Insights — must include: title, type (article/podcast/video), service (reference), image, slug','The type and service fields power the filter bar on the Insights page. Currently hardcoded in HTML. In Astro: filter options are generated automatically from the actual content in Storyblok.',['s'],'Insights + Insights filter','Job'),
+    T('4-6','hi','Lock the fields for Blogs — title, author, date, image, summary, body text, slug','Used for the Blog overview page and each Blog detail page.',['s'],'Blog','Job'),
+    T('4-7','hi','Lock the fields for Books — title, subtitle, image, download link, slug','Used for Books overview and detail pages.',['s'],'Books','Job'),
+    T('4-8','hi','Lock the fields for Events — title, date, location, type (online/in-person), service (reference), image, slug, signup link','The date and type fields power the Past / Upcoming filter on the Events page (currently hardcoded). The service reference enables \"filter by service\" if needed later.',['s'],'Events + Events filter','Job'),
+    T('4-9','hi','Lock the fields for Team members — name, title, photo, bio, LinkedIn, slug','Each team member gets their own URL. The team overview page auto-generates from this list in Storyblok — add a person → they appear on the page.',['s'],'Team','Job'),
+    T('4-10','hi','Lock the fields for Board members — name, title, photo, bio, LinkedIn, slug','Same as team members.',['s'],'Board','Job'),
+    T('4-11','me','Lock the fields for Career events + set up an empty-state fallback (per Decision #5)','Same principle. When no career events are published in Storyblok, the page shows a message instead of a broken empty section.',['s'],'Career events','Job'),
+    T('4-12','hi','Lock the fields for Client logos — company name, logo image, (optional) link','These appear on the homepage \"trusted by\" row and on sector pages. Currently hardcoded in the HTML. In Astro: Storyblok fetches all logos and renders them. Add a new client logo in Storyblok → it appears on the homepage automatically.',['s'],'Homepage / Sectors','Job'),
+    T('4-13','hi','Lock the fields for Testimonials and Quotes — quote text, person name, title, company, photo','Currently hardcoded in each page\"s HTML individually. In Astro: testimonials live in Storyblok once and any page can reference them. Change a quote once → it updates everywhere it appears.',['s'],'Multiple pages','Job'),
+    T('4-14','hi','Map out every hardcoded section on the Homepage and decide which Storyblok source feeds it','The homepage is the most complex page to wire up. Every section that is currently typed manually in the HTML needs a Storyblok source assigned. List: (1) Services block → Services content type. (2) Client logos row → Client logos content type. (3) Featured cases → Cases where featured=true. (4) Our experts → Team members. (5) Homepage quote → Testimonials. Job must map every section before Ali starts the homepage migration.',['s'],'Homepage','Job'),
+    T('4-15','hi','Set up automatic website rebuild when content is published in Storyblok','When someone publishes a new case study in Storyblok, the website should automatically update. This uses a "webhook" — a signal Storyblok sends to Vercel to trigger a rebuild. In Storyblok: Settings → Webhooks → add the Vercel deploy hook URL → set trigger to "Story published".',['s','l'],'Entire website','Job'),
+    T('4-15b','lo','Confirm the webhook is working correctly after any major Storyblok changes','The webhook was already set up and tested. If the team ever changes Storyblok settings or the Vercel project, re-test it: publish a dummy story in Storyblok → wait 60 seconds → confirm the staging URL updated.',['s','l'],'Entire website','Tijn'),
+    T('4-15c','me','Set up Storyblok preview mode so editors can see content before publishing','Editors should be able to preview how a page looks with their new content before making it live. Requires a preview token and a preview URL configured in Storyblok settings.',['s'],'All content types','Job'),
+    T('4-16','hi','Fill in all content that was missing from the Webflow export','Some content was never in Webflow or did not migrate correctly. Add it manually in Storyblok.',['s'],'All content types','Tijn'),
+    T('4-17','me','Test: can Tijn and Eleonore edit and publish content without needing Ali?','The CMS must be usable by non-developers. If anything feels too technical, simplify it before launch.',['s'],'All content types','Job'),
+  ]},
+  {id:'ws5',name:'QA & Testing',color:'#EF4444',lead:'Tijn',tasks:[
+    T('5-1','hi','Click every link on every page — confirm no links lead to a broken page (404 error)','Broken links hurt visitor trust and Google rankings. Zero broken links are allowed on launch.',['l'],'All pages','Tijn'),
+    T('5-2','hi','Test the Contact form: fill it in and confirm the message arrives in HubSpot','Submit a real test entry and check it appears correctly in HubSpot.',['l'],'Contact','Tijn'),
+    T('5-3','hi','Test the Newsletter signup: confirm it arrives in HubSpot','Same process — actually submit and verify.',['l'],'Newsletter','Tijn'),
+    T('5-4','hi','Test the Event signup form: confirm it works and data arrives in HubSpot','Same.',['l'],'Events','Tijn'),
+    T('5-5','hi','Test the Career event signup form: confirm it works and data arrives in HubSpot','Same.',['l'],'Career events','Tijn'),
+    T('5-6','hi','Test every page on an iPhone (Safari browser)','A large share of visitors use iPhones. The site must look and work correctly on iOS Safari.',['l'],'All pages','Eleonore'),
+    T('5-7','hi','Test every page on Android (Chrome browser)','Android Chrome is the other major mobile browser. Test both.',['l'],'All pages','Tijn'),
+    T('5-8','hi','Test on desktop: Chrome + Firefox + Safari','Each browser renders the site slightly differently. All three must be checked.',['l'],'All pages','Tijn'),
+    T('5-9','me','Test the search function on mobile and desktop','Search is a key way visitors find content. Confirm it returns results and works on all devices.',['l'],'All pages (search)','Tijn'),
+    T('5-10','me','Test that videos play correctly on mobile phones','We decided videos must always show on mobile. Confirm they actually play without issues on a real phone.',['l'],'Homepage / Services','Tijn'),
+    T('5-11','me','Confirm all images have an alt text description for Google','Check that every image on every page has a meaningful alt text label.',['l'],'All pages','Tijn'),
+    T('5-12','me','Confirm all pages have a Google title and description (meta tags)','Check all 30+ pages in the browser to confirm these appear correctly.',['l'],'All pages','Tijn'),
+    T('5-13','hi','Tijmen: review and sign off on every page on the staging site — use the Page QA tab','Final approval before go-live. Tijmen visits each page in the checklist and ticks it off.',['l'],'All pages','Tijmen'),
+    T('5-14','hi','Test that all old Webflow URLs redirect correctly to the new site (301 redirects)','Go through the old sitemap and visit 10–15 key old URLs. Each should land on the correct new page, not a 404. This protects Google rankings.',['l'],'All old URLs','Tijn'),
+    T('5-15','me','Run a basic page speed check on the homepage and 2–3 key pages','Use PageSpeed Insights (free Google tool). The site should score above 70 on mobile. Slow pages hurt Google rankings and lose visitors.',['l'],'Homepage / Services / Cases','Tijn'),
+    T('5-16','hi','GDPR check: confirm a cookie consent banner is in place before launch','SparkOptimus is Dutch. GDPR law requires a cookie consent banner before any tracking (HubSpot, analytics) runs. Without it the site is non-compliant on day one. This is launch-blocking.',['l'],'Entire website','Job'),
+  ]},
+  {id:'ws6',name:'Launch & DNS',color:'#6366F1',lead:'Ali',tasks:[
+    T('6-1','hi','Thu: Contact IT to change where sparkoptimus.com points (DNS change)','Currently sparkoptimus.com shows the old Webflow site. IT needs to redirect it to the new Vercel site. Takes a few hours. Do this on Thursday.',['l'],'sparkoptimus.com','Ali'),
+    T('6-2','hi','Add sparkoptimus.com as the domain inside the Vercel settings','Vercel needs to know it should respond to this domain name. Takes 2 minutes in the Vercel dashboard.',['l'],'Entire website','Ali'),
+    T('6-3','hi','Decide: www.sparkoptimus.com or just sparkoptimus.com as the main address?','Visitors should end up on the same URL whether they type www or not. Pick which is the main one — the other redirects automatically.',['l'],'Entire website','Ali'),
+    T('6-4','hi','Confirm the security padlock (SSL certificate) is active on the live site','Vercel creates this automatically. Confirm it is working — without it, browsers warn visitors the site is "not secure."',['l'],'Entire website','Ali'),
+    T('6-4b','hi','⭐  Alexandra: final sign-off on the live staging site before DNS switch','Alexandra reviews the staging site and gives her final approval. This is the formal gate before going live. Without her sign-off, do not switch the DNS.',['l'],'All pages — staging','Tijmen'),
+    T('6-5','hi','Tijmen: final go / no-go decision before switching the DNS','After Alexandra approves, Tijmen gives the final green light. Both must say yes before the DNS switches.',['–'],'–','Tijmen'),
+    T('6-6','hi','Switch the DNS — sparkoptimus.com now shows the new website','This is the moment the new site goes live for the world. The old Webflow site goes offline. This step is irreversible.',['l'],'sparkoptimus.com','Ali'),
+    T('6-7','hi','Monitor the live website for 2 hours after launch','Things can break right after a DNS switch. Check every main page loads correctly on the real domain.',['l'],'All pages','Tijn'),
+    T('6-7b','hi','Set up 301 redirects from old Webflow URLs to new Astro URLs','Google has indexed the old Webflow site. Without redirects, all existing search rankings disappear overnight. Export the old URL list, map each to its new URL, and configure redirects in Vercel (vercel.json).',['l'],'All old URLs to new','Ali'),
+    T('6-8','me','Confirm Google can find the new site (check sitemap.xml + robots.txt)','These files tell Google which pages to index. Without them, Google may take much longer to find the new site.',['l'],'sparkoptimus.com','Tijn'),
+    T('6-9','me','Submit the new sitemap to Google Search Console after launch','After going live, go to Google Search Console → Sitemaps → submit sparkoptimus.com/sitemap.xml. This tells Google to immediately crawl and index the new site instead of waiting weeks.',['l'],'Google Search Console','Tijn'),
+    T('6-10','me','Cancel or archive the old Webflow site after confirming the new site is live','Once the DNS has switched and the new site is confirmed working, the old Webflow site should be taken offline or set to redirect. Keep it alive for max 48h as a backup.',['l'],'Webflow','Tijmen'),
+    T('6-11','lo','Tracking: MixPanel and analytics setup — plan for the week after launch','Tracking implementation was deliberately moved to week 2. Note it here so it is not forgotten. Assign to Ali for the week after launch.',['l'],'Entire website','Ali'),
+  ]},
+];
+
+const CL_D=[{id:'design',l:'Design'},{id:'mobile',l:'Mobile'},{id:'wording',l:'Wording'},{id:'links',l:'Links'},{id:'seo',l:'SEO'},{id:'alts',l:'Alt texts'},{id:'reviewed',l:'Tijmen ✓'}];
+const CL_S=[{id:'loads',l:'Loads'},{id:'cms',l:'CMS live'},{id:'routing',l:'Routes'},{id:'mobile2',l:'Mobile'},{id:'forms',l:'Forms'},{id:'links2',l:'Links'},{id:'signoff',l:'Sign-off'}];
+
+const PGS=[
+  {id:'home',n:'Homepage'},{id:'services',n:'Services overview'},{id:'sectors',n:'Sectors overview'},
+  {id:'cases',n:'Cases overview'},{id:'insights',n:'Insights overview'},{id:'blog',n:'Blog overview'},
+  {id:'books',n:'Books overview'},{id:'events',n:'Events overview'},{id:'career-ev',n:'Career events'},
+  {id:'ceo',n:'CEO stories'},{id:'approach',n:'Our approach'},{id:'team',n:'Team overview'},
+  {id:'board',n:'Board overview'},{id:'careers',n:'Careers'},{id:'vacancies',n:'Vacancies'},
+  {id:'contact',n:'Contact'},{id:'welcome',n:'Welcome'},{id:'life-at-spark',n:'Life at SparkOptimus'},
+  {id:'newsletter',n:'Newsletter'},{id:'privacy',n:'Privacy statement'},
+  {id:'labour',n:'Human & labour rights'},{id:'env',n:'Environmental policy'},{id:'dei',n:'DEI commitment'},
+];
+const PGD=[
+  {id:'dservice',n:'Service detail [slug]'},{id:'dsector',n:'Sector detail [slug]'},
+  {id:'dcase',n:'Case detail [slug]'},{id:'dinsight',n:'Insight detail [slug]'},
+  {id:'dblog',n:'Blog detail [slug]'},{id:'dbook',n:'Book detail [slug]'},
+  {id:'devent',n:'Event detail [slug]'},{id:'dteam',n:'Team person [slug]'},
+  {id:'dboard',n:'Board person [slug]'},{id:'dvacancy',n:'Vacancy detail [slug]'},
+  {id:'dceo',n:'CEO story detail [slug]'},{id:'dcareer',n:'Career event detail [slug]'},
+];
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const {useState,useCallback} = React;
+const LS='so-plan-v3';
+
+const WB_MAP={c:['wb wb-c','Claude Design'],v:['wb wb-v','VS Code'],s:['wb wb-s','Storyblok'],l:['wb wb-l','Vercel']};
+
+function load(){
+  const seed={};
+  DECISIONS.forEach(d=>{if(d.pre)seed[d.id]={done:true}});
+  try{const r=localStorage.getItem(LS);const saved=r?JSON.parse(r):{};return{...seed,...saved};}
+  catch{return seed;}
+}
+
+function Cb({on,toggle}){return <div className={`cb-box ${on?'on':''}`} onClick={toggle}/>;}
+function PSel({val,onChange}){return <select className="sel" value={val||'–'} onChange={e=>onChange(e.target.value)}>{PEOPLE.map(p=><option key={p}>{p}</option>)}</select>;}
+function Pri({p}){const m={hi:['bhi','HIGH'],me:['bme','MED'],lo:['blo','LOW']};const[c,l]=m[p]||['bdone','–'];return <span className={`badge ${c}`}>{l}</span>;}
+function WB({type}){const[cls,lbl]=WB_MAP[type]||[];return lbl?<span className={cls}>{lbl}</span>:null;}
+
+function Sidebar({tab,setTab,done,total}){
+  const pct=total?Math.round(done/total*100):0;
+  const nav=[
+    {id:'roadmap',label:'Roadmap',color:'#00D9F4',ct:null},
+    {id:'decisions',label:'Key Decisions',color:'#F59E0B',ct:DECISIONS.length},
+    {id:'workstreams',label:'Workstreams',color:'#8B5CF6',ct:WS.length},
+    {id:'checklist',label:'Page QA',color:'#10B981',ct:PGS.length+PGD.length},
+  ];
+  return(
+    <div className="sb">
+      <div className="sb-logo">
+        <div className="sb-spark"><div className="sb-dot"/><span className="sb-name">SparkOptimus</span></div>
+        <div className="sb-week">Launch Planning<i class=metadot></i>16–20 Jun 2026</div>
+      </div>
+      <div className="sb-nav">
+        {nav.map(n=>(
+          <div key={n.id} className={`ni ${tab===n.id?'on':''}`} onClick={()=>setTab(n.id)}>
+            <div className="ni-pip" style={{background:tab===n.id?n.color:'rgba(255,255,255,0.2)'}}/>
+            {n.label}
+            {n.ct!==null&&<span className="ni-ct">{n.ct}</span>}
+          </div>
+        ))}
+      </div>
+      <div className="sb-pg">
+        <div className="sb-pg-l">Overall progress</div>
+        <div className="sb-pg-b"><div className="sb-pg-f" style={{width:pct+'%'}}/></div>
+        <div className="sb-pg-n"><span>{done}</span> / {total} tasks ({pct}%)</div>
+      </div>
+    </div>
+  );
+}
+
+const TOOL_STYLE={
+  'Claude Design':['wb wb-c'],'VS Code':['wb wb-v'],'Storyblok':['wb wb-s'],
+  'Vercel':['wb wb-l'],'Staging URL':['wb wb-l'],'VS Code + Storyblok':['wb wb-v'],
+  'Storyblok + VS Code':['wb wb-v'],'Vercel + IT (DNS)':['wb wb-l']
+};
+
+function RoadmapTab(){
+  return(
+    <div>
+      <div className="ph"><h1>Project roadmap</h1><p>From Claude Design to a live website on sparkoptimus.com — 6 phases, one week.</p></div>
+      <div className="ct">
+        <div className="ab">
+          <div className="ab-t">⚡ What are we actually doing this week?</div>
+          <div className="ab-i">Right now, everything lives in Claude Design — a prototyping tool, not a real website. This week we convert it into a proper, published website. Here is what each tool does:</div>
+          <div className="ab-grid">
+            <div className="ab-item"><div className="ab-it">Claude Design</div><div className="ab-id">Where we designed the site. HTML files, not a real website yet. This is where we are now.</div></div>
+            <div className="ab-item"><div className="ab-it">VS Code + Astro</div><div className="ab-id">The code editor where Job builds the real website, with Ali as advisor. Astro is the framework that turns our designs into fast, proper website pages.</div></div>
+            <div className="ab-item"><div className="ab-it">Storyblok</div><div className="ab-id">The content manager. Editors add sectors, cases, team members etc. here — and pages appear on the website automatically.</div></div>
+            <div className="ab-item"><div className="ab-it">Vercel + GitHub</div><div className="ab-id">Where the website is hosted and stored. Every code save automatically deploys to a staging URL. We flip a switch on Friday to go live.</div></div>
+          </div>
+        </div>
+        <div className="rm-wrap">
+          <div className="rm-flow">
+            {PHASES.map((ph,i)=>{
+              const[cls]=TOOL_STYLE[ph.tool]||['wb wb-l'];
+              return(
+                <React.Fragment key={ph.id}>
+                  <div className="rm-card" style={{borderTop:`3px solid ${ph.color}`}}>
+                    <div className="rm-num" style={{background:ph.color}}>{ph.n}</div>
+                    <div className="rm-nm">{ph.name}</div>
+                    <div className="rm-dt">{ph.dates}</div>
+                    <div className="rm-desc">{ph.desc}</div>
+
+                    <span className={cls} style={{fontSize:9}}>{ph.tool}</span>
+                    {ph.dep&&<div className="rm-dep">Needs: {ph.dep}</div>}
+                    <div className="rm-out">✓ {ph.out}</div>
+                  </div>
+                  {i<PHASES.length-1&&<div className="rm-arrow">→</div>}
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </div>
+        <div style={{marginTop:20}} className="alert ai">
+          <span className="al-ic">🔄</span>
+          <div>
+            <strong>The big switch — Phase 2 to Phase 3:</strong> This is the most important transition. Up to Phase 2, everything is still in Claude Design (prototype). In Phase 3, Ali takes those HTML files and rebuilds each page in Astro. He uses Claude Code (an AI assistant in VS Code) to convert pages rapidly — the design looks identical but is now proper website code. After Phase 3, the staging URL is the source of truth, not Claude Design.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+function DecisionsTab({st,onToggle}){
+  const done=DECISIONS.filter(d=>st[d.id]?.done).length;
+  const open=DECISIONS.filter(d=>!st[d.id]?.done).length;
+  return(
+    <div>
+      <div className="ph"><h1>Key decisions</h1><p>All open decisions must be locked on <strong>Monday 16 and Tuesday 17 June</strong> — last days Tijmen and Job are available. {done}/{DECISIONS.length} resolved.</p></div>
+      <div className="ct">
+        {open>0&&<div className="alert aw"><span className="al-ic">⚠️</span><span>There are still <strong>{open} open decisions</strong>. Each one blocks work downstream. If a decision cannot be made, assign a default and document it — do not leave it blank.</span></div>}
+        <div className="card">
+          {DECISIONS.map((d,i)=>{
+            const on=!!st[d.id]?.done;
+            return(
+              <div key={d.id} className={`dr ${on?'on':''}`}>
+                <Cb on={on} toggle={()=>onToggle(d.id)}/>
+                <div className="dr-n">{i+1}</div>
+                <div style={{flex:1}}>
+                  <div className="dr-t">{d.t}</div>
+                  {d.res&&<div className="dr-res">{d.res}</div>}
+                </div>
+                <span className="dr-dl">{d.when}</span>
+                <span style={{fontSize:11,color:'var(--ink3)',fontWeight:600,flexShrink:0}}>{d.owner}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WorkstreamsTab({st,onToggle,onPerson,onLead,leads}){
+  const allT=WS.flatMap(w=>w.tasks);
+  const done=allT.filter(t=>st[t.id]?.done).length;
+  const [open,setOpen]=useState({ws1:true});
+  const tog=id=>setOpen(o=>({...o,[id]:!o[id]}));
+  return(
+    <div>
+      <div className="ph"><h1>Workstreams</h1><p>{WS.length} workstreams<i class=metadot></i>{allT.length} tasks. {done}/{allT.length} done.</p></div>
+      <div className="ct">
+        {WS.map(ws=>{
+          const tasks=ws.tasks;
+          const done=tasks.filter(t=>st[t.id]?.done).length;
+          const pct=Math.round(done/tasks.length*100);
+          const isOpen=!!open[ws.id];
+          return(
+            <div key={ws.id} className="ws-card">
+              <div className="wsh" onClick={()=>tog(ws.id)}>
+                <div className="wsl">
+                  <div className="ws-dot" style={{background:ws.color}}/>
+                  <div>
+                    <div className="ws-nm">{ws.name}</div>
+                    <div className="ws-ld" style={{display:'flex',alignItems:'center',gap:4}}>
+                      <span style={{color:'var(--ink3)',fontSize:10,fontWeight:600,flexShrink:0}}>Lead:</span>
+                      <select className="sel" style={{fontSize:10,padding:'1px 18px 1px 5px'}} value={leads[ws.id]||ws.lead} onClick={e=>e.stopPropagation()} onChange={e=>{e.stopPropagation();onLead(ws.id,e.target.value);}}>
+                        {PEOPLE.filter(p=>p!=='–').map(p=><option key={p}>{p}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="wsr">
+                  <span style={{fontSize:10.5,color:'var(--ink3)',fontWeight:600}}>{done}/{tasks.length}</span>
+                  <div style={{width:56,height:4,background:'var(--b2)',borderRadius:2,overflow:'hidden'}}>
+                    <div style={{height:'100%',width:pct+'%',background:ws.color,borderRadius:2,transition:'width .4s'}}/>
+                  </div>
+                  <span className={`ws-cv ${isOpen?'op':''}`}>▼</span>
+                </div>
+              </div>
+              {isOpen&&(
+                <div className="ws-bd">
+                  <div className="ws-mp"><div className="ws-mf" style={{width:pct+'%',background:ws.color}}/></div>
+                  {tasks.map(task=>{
+                    const on=!!st[task.id]?.done;
+                    const who=st[task.id]?.who||task.who||'–';
+                    return(
+                      <div key={task.id} className={`tr ${on?'on':''}`}>
+                        <Cb on={on} toggle={()=>onToggle(task.id)}/>
+                        <div style={{flex:1}}>
+                          <div className="tr-t">{task.t}</div>
+                          {task.why&&<div className="tr-why">{task.why}</div>}
+                          <div className="tr-chips">
+                            {task.where?.filter(w=>w!=='–').map(w=><WB key={w} type={w}/>)}
+                            {task.page&&task.page!=='–'&&<span className="pg-tag">📄 {task.page}</span>}
+                          </div>
+                        </div>
+                        <div className="tr-meta">
+                          <Pri p={task.p}/>
+                          <PSel val={who} onChange={v=>onPerson(task.id,v)}/>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ChecklistTab({st,onCL}){
+  const [phase,setPhase]=useState('design');
+  const cols=phase==='design'?CL_D:CL_S;
+  const allPages=[...PGS,...PGD];
+  const totalCells=allPages.length*cols.length;
+  const doneCells=allPages.reduce((acc,pg)=>acc+cols.filter(c=>!!st[`${pg.id}_${phase}_${c.id}`]).length,0);
+  const pct=Math.round(doneCells/totalCells*100);
+  function PRow({pg,dyn}){
+    return(
+      <tr>
+        <td className={dyn?'dyn':''}>{pg.n}{dyn&&<span style={{fontSize:9.5,color:'var(--ink4)',marginLeft:4}}>[auto-generated]</span>}</td>
+        {cols.map(c=>{const key=`${pg.id}_${phase}_${c.id}`;const on=!!st[key];return<td key={c.id}><div className={`cl-cb ${on?'on':''}`} onClick={()=>onCL(key)}/></td>;})}
+      </tr>
+    );
+  }
+  return(
+    <div>
+      <div className="ph"><h1>Page QA checklist</h1><p>Two phases: Phase 1 = Claude Design<i class=metadot></i>Phase 2 = Staging on Vercel. {doneCells}/{totalCells} checks done ({pct}%)</p></div>
+      <div className="ct">
+        <div className="pt-bar">
+          <div className={`ptab ${phase==='design'?'on':''}`} onClick={()=>setPhase('design')}>Phase 1 — Claude Design</div>
+          <div className={`ptab ${phase==='staging'?'on':''}`} onClick={()=>setPhase('staging')}>Phase 2 — Staging (Vercel)</div>
+        </div>
+        {phase==='staging'&&<div className="alert ai" style={{marginBottom:16}}><span className="al-ic">ℹ️</span><span>Use this after Job has migrated pages to Astro (target: Wednesday–Thursday). "CMS live" means the page is pulling content from Storyblok correctly. "Sign-off" means Tijmen has approved this specific page.</span></div>}
+        <div className="cl-wrap">
+          <table>
+            <thead><tr><th>Page</th>{cols.map(c=><th key={c.id}>{c.l}</th>)}</tr></thead>
+            <tbody>
+              <tr className="sr"><td colSpan={cols.length+1}>Static pages</td></tr>
+              {PGS.map(pg=><PRow key={pg.id} pg={pg}/>)}
+              <tr className="sr"><td colSpan={cols.length+1}>Dynamic page templates</td></tr>
+              {PGD.map(pg=><PRow key={pg.id} pg={pg} dyn/>)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App(){
+  const [tab,setTab]=useState('roadmap');
+  const [st,setSt]=useState(load);
+  const save=useCallback(upd=>{setSt(prev=>{const next=typeof upd==='function'?upd(prev):upd;try{localStorage.setItem(LS,JSON.stringify(next));}catch{}return next;});},[]);
+  const toggleTask=id=>save(s=>({...s,[id]:{...s[id],done:!s[id]?.done}}));
+  const setPerson=(id,v)=>save(s=>({...s,[id]:{...s[id],who:v}}));
+  const toggleDec=id=>save(s=>({...s,[id]:{...s[id],done:!s[id]?.done}}));
+  const toggleCL=key=>save(s=>({...s,[key]:!s[key]}));
+  const defLeads=()=>{const d={};WS.forEach(w=>{d[w.id]=w.lead;});return d;};
+  const [leads,setLeads]=useState(()=>{try{const r=localStorage.getItem(LS+'_leads');return r?JSON.parse(r):defLeads();}catch{return defLeads();}});
+  const setLead=(wsId,val)=>{setLeads(prev=>{const next={...prev,[wsId]:val};try{localStorage.setItem(LS+'_leads',JSON.stringify(next));}catch{}return next;});};
+  const allT=WS.flatMap(w=>w.tasks);
+  const total=allT.length+DECISIONS.length;
+  const done=allT.filter(t=>st[t.id]?.done).length+DECISIONS.filter(d=>st[d.id]?.done).length;
+  return(
+    <div className="app">
+      <Sidebar tab={tab} setTab={setTab} done={done} total={total}/>
+      <div className="main">
+        {tab==='roadmap'&&<RoadmapTab/>}
+        {tab==='decisions'&&<DecisionsTab st={st} onToggle={toggleDec}/>}
+        {tab==='workstreams'&&<WorkstreamsTab st={st} onToggle={toggleTask} onPerson={setPerson} onLead={setLead} leads={leads}/>}}
+        {tab==='checklist'&&<ChecklistTab st={st} onCL={toggleCL}/>}
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

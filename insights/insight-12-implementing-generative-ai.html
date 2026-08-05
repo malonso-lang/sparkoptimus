@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Implementing Generative AI — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+<link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+<link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+
+/* ============================================================
+   INSIGHTS DETAIL — universal article template
+   ============================================================ */
+
+/* Reading column */
+.art {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* article body sections sit close together — the reading flow is continuous */
+#artBody > .section { padding-top: clamp(32px, 3.4vw, 48px); padding-bottom: clamp(32px, 3.4vw, 48px); }
+#artBody > .section:first-child { padding-top: clamp(40px, 4vw, 60px); }
+#artBody > .section h2 { margin-top: 0; }
+
+.art p {
+  font-size: var(--text-lg);
+  line-height: 1.74;
+  color: var(--fg-2);
+  margin: 0 0 22px;
+}
+
+.art p:last-child { margin-bottom: 0; }
+
+.art h2 {
+  font-size: clamp(1.4rem, 1.05rem + 1.1vw, 1.95rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-1);
+  margin: 0 0 18px;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.art h2 em { font-style: normal; color: var(--so-cyan-500); }
+
+.art h3 {
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--fg-1);
+  margin: clamp(32px, 3vw, 44px) 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.art ul {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.art ul li {
+  font-size: var(--text-lg);
+  line-height: 1.68;
+  color: var(--fg-2);
+  padding-left: 20px;
+  position: relative;
+}
+
+.art ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 8px;
+  height: 2px;
+  background: var(--so-cyan-500);
+  border-radius: 2px;
+}
+
+/* Pull quote */
+.art__quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+  line-height: 1.55;
+  color: var(--fg-1);
+  margin: clamp(28px, 3vw, 40px) 0;
+  padding-left: clamp(20px, 2.5vw, 32px);
+  border-left: 3px solid var(--so-cyan-500);
+}
+
+/* Case example */
+.art__example {
+  background: var(--so-gray-0);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 2.5vw, 28px);
+  margin: 20px 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.art__example p {
+  font-size: var(--text-md) !important;
+  color: var(--fg-2) !important;
+  margin: 0 !important;
+  line-height: 1.68 !important;
+}
+
+/* On dark surface */
+.surface-ink .art p       { color: var(--so-ink-200); }
+.surface-ink .art h2      { color: #fff; }
+.surface-ink .art h3      { color: #fff; }
+.surface-ink .art ul li   { color: var(--so-ink-200); }
+.surface-ink .art__quote  { color: #fff; border-left-color: var(--so-cyan-400); }
+
+/* Stats strip */
+.ins-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-1);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.ins-stat {
+  background: var(--so-gray-0);
+  padding: clamp(24px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ins-stat__num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 1.4rem + 1.8vw, 3rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--fg-1);
+}
+
+.ins-stat__label {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--fg-3);
+}
+
+/* Authors */
+.ins-authors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.ins-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ins-author__av {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--so-ink-900);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ins-author__name { font-size: 15px; font-weight: 700; color: var(--fg-1); display: block; }
+.ins-author__role { font-size: 13px; color: var(--fg-3); display: block; }
+
+/* Share */
+.ins-share {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-1);
+}
+
+.ins-share-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-2);
+  background: var(--so-gray-0);
+  display: grid;
+  place-items: center;
+  color: var(--fg-3);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.ins-share-btn svg { width: 16px; height: 16px; }
+.ins-share-btn:hover { border-color: var(--so-cyan-400); color: var(--so-cyan-600); }
+
+/* Related cards — exact ins-card style from insights page */
+.ins-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(22px, 2.5vw, 32px);
+}
+
+.ins-card {
+  background: var(--so-gray-0);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-1);
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out),
+              border-color var(--duration-base);
+}
+
+.ins-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+
+.ins-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--so-ink-800);
+  flex-shrink: 0;
+}
+
+.ins-card__media image-slot { width: 100%; height: 100%; --img-radius: 0; transition: transform 0.55s var(--ease-out); }
+.ins-card:hover .ins-card__media image-slot { transform: scale(1.04); }
+
+.ins-card__badge {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  background: rgba(6,11,26,0.82);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  z-index: 1;
+}
+
+.ins-card__body { padding: 26px 28px 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+
+.ins-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  line-height: 1.3;
+  color: var(--fg-1);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.ins-card__foot {
+  padding: 16px 28px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  border-top: 1px solid var(--border-1);
+}
+
+.ins-card__avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--so-cyan-500); color: var(--so-ink-900);
+  font-family: var(--font-display); font-weight: 800; font-size: 13px;
+  display: grid; place-items: center; flex-shrink: 0;
+}
+
+.ins-card__author-name { font-size: 13px; font-weight: 700; color: var(--fg-1); line-height: 1.2; }
+.ins-card__author-date { font-size: 12px; color: var(--fg-3); margin-top: 2px; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .ins-related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .ins-related-grid { grid-template-columns: 1fr; }
+}
+
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+<meta name="description" content="In our previous articles we discussed how to identify the impact Generative AI will have on your business and its potential use cases across the different business functions. Today we’ll get pragmatic: How do you get started with Generative AI?">
+<meta property="og:title" content="Digital sovereignty: how to control the dependencies that matter — Insights<span class="metadot" aria-hidden="true"></span>SparkOptimus">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/6a169b192f306b9b4a44903c_beautiful-shot-historic-binnenhof-castle-netherlands%20(1).jpg">
+<meta property="og:site_name" content="SparkOptimus">
+<meta property="og:title" content="Implementing Generative AI">
+<meta property="og:description" content="In our previous articles we discussed how to identify the impact Generative AI will have on your business and its potential use cases across the different business functions. Today we’ll get pragmatic: How do you get started with Generative AI?">
+<meta property="og:image" content="https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/6565ec9988a004c586e97ae8_Article%20banner%20-%20Generative%20AI%20and%20the%20future%20of%20work.jpg">
+<link rel="canonical" href="insight-12-implementing-generative-ai.html">
+</head>
+<body data-page="insights">
+
+<script>window.SO_FORCE_ID=12;</script>
+<div id="site-nav-root"></div>
+
+<main>
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"><h1>Implementing Generative AI</h1><p>In our previous articles we discussed how to identify the impact Generative AI will have on your business and its potential use cases across the different business functions. Today we’ll get pragmatic: How do you get started with Generative AI?</p></div>
+
+  <header class="page-hero page-hero--photo page-hero--tall" data-screen-label="Article hero">
+    <div class="page-hero__bg"><img id="artHeroImg" src="site/assets/insights-featured-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    <div class="page-hero__scrim"></div>
+    <div class="container container--full page-hero__inner">
+      <a href="insights.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:24px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        Back to insights
+      </a>
+      <div class="page-hero__split">
+        <div class="reveal"><h1 id="artTitle">Insight</h1></div>
+        <div class="reveal" data-delay="1">
+          <p class="page-hero__lead" id="artLead"></p>
+          <p style="margin-top:20px;font-size:14px;color:rgba(255,255,255,0.5);" id="artMeta"></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="artBody"></div>
+
+  <section class="section--tight surface-subtle" data-screen-label="Authors">
+    <div class="container container--full">
+      <div class="art">
+        <div class="ins-authors reveal" id="artAuthors"></div>
+        <div class="ins-share reveal">
+          <a class="ins-share-btn" id="shareLinkedIn" href="#" title="Share on LinkedIn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg>
+          </a>
+          <a class="ins-share-btn" href="#" title="Copy link" id="copyLinkBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+          </a>
+          <a class="ins-share-btn" id="shareMail" href="#" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-screen-label="Related insights">
+    <div class="container container--full">
+      <div class="sec-head reveal" style="margin-bottom:clamp(28px,3vw,44px);">
+        <div><h2>Related insights</h2></div>
+        <a class="arrowlink" href="insights.html">
+          All insights
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      </div>
+      <div class="ins-related-grid" id="artRelated"></div>
+    </div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA">
+    <div class="ctaband__orb"></div>
+    <div class="container container--full">
+      <div class="ctaband__inner reveal">
+        <h2 id="artCta">Ready to make disruption work for your <em>organisation?</em></h2>
+        <div class="ctaband__actions">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost-dark" href="services.html">Our services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/insights-data.js"></script>
+<script src="site/scripts/insights-bodies.js"></script>
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/permalinks.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+(function () {
+  var CAT = { 'market-insights':'Market insights', 'best-practices':'Best practices', 'thought-leadership':'Thought leadership', 'how-to':'How to' };
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function prettyDate(d) {
+    var p = String(d).split('/');
+    if (p.length !== 3) return d;
+    return parseInt(p[0], 10) + ' ' + MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[2];
+  }
+  function initials(name) {
+    return String(name).replace(/&amp;/g, '&').split(/[\s&]+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase();
+  }
+  function esc(s) { return String(s).replace(/</g, '&lt;'); }
+
+  var list = window.SO_ARTICLES || [];
+  var bodies = window.SO_ARTICLE_BODIES || {};
+  var q = new URLSearchParams(location.search);
+  var id = parseInt(window.SO_FORCE_ID || q.get('a'), 10);
+  var art = list.filter(function (x) { return x.id === id; })[0] || list[0];
+  if (!art) return;
+  var body = bodies[art.id] || null;
+
+  document.title = art.title.replace(/&amp;/g, '&') + ' — SparkOptimus';
+  document.getElementById('artTitle').innerHTML = art.title;
+  document.getElementById('artLead').innerHTML = (body && body.lead && body.lead[0]) ? body.lead[0] : art.excerpt;
+  document.getElementById('artMeta').innerHTML = art.author + '<i class=metadot></i>' + prettyDate(art.date) +
+    (body && body.readTime ? '<i class=metadot></i>' + body.readTime : '') +
+    '<i class=metadot></i>' + (CAT[art.category] || art.category);
+  var heroImg = document.getElementById('artHeroImg');
+  heroImg.src = (body && body.hero) ? body.hero : art.image;
+  heroImg.alt = art.title.replace(/<[^>]*>/g, '');
+
+  function renderBlocks(blocks) {
+    return blocks.map(function (b) {
+      if (b.t === 'p') return '<p>' + b.v + '</p>';
+      if (b.t === 'h3') return '<h3>' + b.v + '</h3>';
+      if (b.t === 'quote') return '<p class="art__quote">"' + b.v + '"</p>';
+      if (b.t === 'example') return '<div class="art__example"><p>' + b.v + '</p></div>';
+      if (b.t === 'ul') return '<ul>' + b.v.map(function (li) { return '<li>' + li + '</li>'; }).join('') + '</ul>';
+      return '';
+    }).join('');
+  }
+
+  var surfaces = ['', 'surface-subtle', 'surface-ink'];
+  var out = '';
+  if (body) {
+    out += '<section class="section" data-screen-label="Intro"><div class="container container--full"><div class="art reveal">' +
+      renderBlocks(body.intro || []) + '</div></div></section>';
+    (body.sections || []).forEach(function (sec, i) {
+      var surface = surfaces[(i + 1) % surfaces.length];
+      out += '<section class="section ' + surface + '" data-screen-label="' + esc(sec.h2).replace(/<[^>]*>/g, '') + '"><div class="container container--full"><div class="art reveal">' +
+        '<h2>' + sec.h2 + '</h2>' + renderBlocks(sec.blocks) + '</div></div></section>';
+    });
+  } else {
+    out += '<section class="section" data-screen-label="Intro"><div class="container container--full"><div class="art reveal">' +
+      '<p>' + art.excerpt + '</p>' +
+      '</div></div></section>';
+  }
+  document.getElementById('artBody').innerHTML = out;
+
+  var authors = (body && body.authors) ? body.authors : [{ name: art.author, role: 'SparkOptimus Team' }];
+  document.getElementById('artAuthors').innerHTML = authors.map(function (a) {
+    return '<div class="ins-author"><div class="ins-author__av">' + initials(a.name) + '</div>' +
+      '<div><span class="ins-author__name">' + a.name + '</span>' +
+      '<span class="ins-author__role">' + a.role + '</span></div></div>';
+  }).join('');
+
+  if (body && body.cta) document.getElementById('artCta').innerHTML = body.cta;
+
+  var url = location.href;
+  document.getElementById('shareLinkedIn').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url);
+  document.getElementById('shareMail').href = 'mailto:?subject=' + encodeURIComponent(art.title.replace(/<[^>]*>/g, '')) + '&body=' + encodeURIComponent(url);
+
+  var pool = list.filter(function (x) { return x.id !== art.id; });
+  var same = pool.filter(function (x) { return x.service === art.service; });
+  var rel = same.concat(pool.filter(function (x) { return same.indexOf(x) === -1; })).slice(0, 3);
+  document.getElementById('artRelated').innerHTML = rel.map(function (r, i) {
+    return '<a class="ins-card reveal"' + (i ? ' data-delay="' + i + '"' : '') + ' href="' + SO_PL('insights', r.id) + '">' +
+      '<div class="ins-card__media"><image-slot shape="rect" src="' + r.image + '" placeholder="Insight image"></image-slot>' +
+      '<span class="ins-card__badge">' + (CAT[r.category] || r.category) + '</span></div>' +
+      '<div class="ins-card__body"><h3 class="ins-card__title">' + r.title + '</h3></div>' +
+      '<div class="ins-card__foot"><div class="ins-card__avatar">' + initials(r.author) + '</div>' +
+      '<div><div class="ins-card__author-name">' + r.author + '</div>' +
+      '<div class="ins-card__author-date">' + prettyDate(r.date) + '</div></div></div></a>';
+  }).join('');
+
+  var copyBtn = document.getElementById('copyLinkBtn');
+  copyBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(location.href).then(function () {
+        copyBtn.title = 'Copied!';
+        setTimeout(function () { copyBtn.title = 'Copy link'; }, 2000);
+      });
+    }
+  });
+
+  if (window.SO && typeof window.SO.initReveal === 'function') window.SO.initReveal();
+  document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+})();
+</script>
+</body>
+</html>

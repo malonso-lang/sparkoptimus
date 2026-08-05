@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Our sectors — SparkOptimus</title>
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+  /* Row */
+  .sec-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(24px,5vw,72px);
+    align-items: center;
+    padding: clamp(36px,4vw,56px) 0;
+    border-top: 1px solid var(--border-1);
+    position: relative;
+  }
+  .sec-row:first-child { border-top: none; padding-top: 0; }
+  .sec-row:last-child { border-bottom: 1px solid var(--border-1); }
+
+  /* Title link */
+  .sec-row__title {
+    display: inline-block;
+    font-size: clamp(1.7rem, 1.3rem + 1.5vw, 3rem);
+    font-weight: 400;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+    color: inherit;
+    text-decoration: none;
+  }
+  .sec-row__title:hover { color: var(--so-cyan-700); }
+
+  .sec-row p { font-size: var(--text-md); color: var(--fg-2); margin: 0 0 20px; max-width: 52ch; }
+  .sec-row__actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .sec-hero h1 { color: #fff; font-size: clamp(2.2rem,1.5rem + 2.6vw,4.4rem); font-weight: 800; margin: 14px 0 0; }
+
+  /* Right column */
+  .sec-row__right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .sec-row__caseslabel {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  /* Logo grid */
+  .sec-row__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .sec-row__logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-lg);
+    padding: 10px 16px;
+    height: 56px;
+    min-width: 88px;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.18s var(--ease-out),
+                box-shadow 0.18s var(--ease-out),
+                border-color 0.18s var(--ease-out);
+  }
+  .sec-row__logo:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    border-color: var(--so-cyan-300);
+  }
+  .sec-row__logo img {
+    height: 28px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    position: relative;
+    z-index: 1;
+  }
+  .sec-row__logo::after {
+    content: 'View case →';
+    position: absolute;
+    bottom: -100%;
+    left: 0; right: 0;
+    background: var(--so-cyan-100);
+    color: var(--so-ink-700);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 4px 0;
+    transition: bottom 0.18s var(--ease-out);
+  }
+  .sec-row__logo:hover::after { bottom: 0; }
+
+  /* .btn--outline-cyan — moved to site.css */
+
+  @media (max-width: 900px) {
+    .sec-row { grid-template-columns: 1fr; gap: 20px; }
+  }
+  @media (max-width: 640px) {
+    .sec-filters { gap: 12px; }
+  }
+</style>
+  <meta name="description" content="SparkOptimus works across industries including retail, consumer goods, financial services, energy, and more. We help sector leaders turn digital and AI disruption into advantage.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Sectors — SparkOptimus">
+  <meta property="og:description" content="We work across five focus sectors: consumer goods & retail, financial services, energy & utilities, industrial goods & services, and private equity.">
+  <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.sparkoptimus.com/sectors">
+  <meta property="og:image" content="site/assets/shared-office-bg.webp">
+  <meta property="og:site_name" content="SparkOptimus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sectors — SparkOptimus">
+  <meta name="twitter:description" content="We work across five focus sectors: consumer goods & retail, financial services, energy & utilities, industrial goods & services, and private equity.">
+  <link rel="canonical" href="https://www.sparkoptimus.com/sectors">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sectors — SparkOptimus",
+    "description": "SparkOptimus works across retail, consumer goods, financial services, energy, and more. Industry-specific digital transformation expertise.",
+    "url": "https://www.sparkoptimus.com/sectors",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Sectors",
+      "item": "https://www.sparkoptimus.com/sectors"
+    }
+    ]
+  }
+  </script>
+</head>
+<body data-page="sectors">
+<div id="site-nav-root"></div>
+
+<main>
+  <header class="page-hero page-hero--photo page-hero--tall sec-hero" data-screen-label="Sectors hero">
+    <div class="page-hero__bg"><image-slot id="sec-hero" shape="rect" placeholder="Sector hero photo" src="site/assets/placeholder-case-logistics.webp"></image-slot></div>
+    <div class="page-hero__scrim"></div>
+    <div class="container container--full page-hero__inner">
+      <div class="page-hero__split">
+        <div class="reveal">
+          <h1>Our sectors<em>.</em></h1>
+        </div>
+        <p class="page-hero__lead reveal" data-delay="2">To help you translate new technologies into opportunities for your business, we cater to the consumer goods, energy &amp; utilities, financial services, private equity and industrial goods &amp; services sectors.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container container--full" id="secList"></div>
+  </section>
+
+  <section class="section surface-teal ctaband" data-screen-label="CTA" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 16px;max-width:20ch;">Work in your sector? <em>Let's talk.</em></h2>
+        <p style="color:rgba(255,255,255,0.8);max-width:46ch;margin:0 auto 28px;">We combine deep sector knowledge with digital execution.</p>
+        <div class="ctaband__actions" style="justify-content:center;">
+          <a class="btn btn--primary" href="contact.html">Get in touch</a>
+          <a class="btn btn--ghost-dark" href="cases.html">View all cases</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/image-slot.js"></script>
+<script src="site/scripts/site.js"></script>
+<script>
+  var L = "site/assets/company logos/";
+
+  var SECTORS = [
+    {
+      title: "Consumer Goods",
+      href: "sector-detail.html",
+      desc: "Unlock growth in consumer goods. SparkOptimus combines deep industry expertise with cutting-edge solutions. We deliver results across market entry, data analysis, and process optimization, empowering your brand for sustainable success.",
+      logos: [
+        { src: L + "Heineken_N.V.-Logo.wine.png",   name: "Heineken",     href: "case-hema.html" },
+        { src: L + "Nestlé.svg.png",                 name: "Nestlé",       href: "case-hema.html" },
+        { src: L + "Albert-Heijn-Emblem.png",        name: "Albert Heijn", href: "case-hema.html" },
+        { src: L + "Ikea_logo.svg.png",              name: "IKEA",         href: "case-hema.html" }
+      ]
+    },
+    {
+      title: "Energy & Utilities",
+      href: "sector-detail-energy.html",
+      desc: "SparkOptimus helps energy & utility companies navigate their sustainability transformation. We deliver solutions for regulatory compliance, digital transformation, and customer-centric innovation, empowering you to thrive in a changing market. Partner with us to achieve sustainable growth and a competitive edge.",
+      logos: [
+        { src: L + "Eneco_logo.svg.png",             name: "Eneco",        href: "case-hema.html" }
+      ]
+    },
+    {
+      title: "Financial Services",
+      href: "sector-detail-financial.html",
+      desc: "Solve complex challenges in financial services. SparkOptimus delivers data-driven solutions for process optimization, customer journeys, and sustainable practices. Leverage our expertise in AI, disruptive propositions, and partnerships. We help you grow, navigate ESG, and gain a competitive edge.",
+      logos: [
+        { src: L + "ING_Groep_Logo.svg",            name: "ING",          href: "case-hema.html" },
+        { src: L + "DLL_Group_logo.svg.png",         name: "DLL Group",    href: "case-hema.html" },
+        { src: L + "nieuw_logo_voor_leaseplan.png",  name: "LeasePlan",    href: "case-hema.html" }
+      ]
+    },
+    {
+      title: "Industrial Goods & Services",
+      href: "sector-detail-industrial.html",
+      desc: "SparkOptimus empowers businesses to navigate industry challenges with innovative solutions. We deliver data-driven solutions for B2B ecommerce, digital aftermarket strategies, and connected ecosystem development. Boost your sales, reach new customers, and improve efficiency with our expertise in AI, partnerships, and digital transformation.",
+      logos: [
+        { src: L + "AkzoNobel_Logo.svg.png",                          name: "AkzoNobel", href: "case-hema.html" },
+        { src: L + "Henkel-Logo.svg.png",                             name: "Henkel",    href: "case-hema.html" },
+        { src: L + "64e4e2019beb28d11fe70822_08.-Logo_Van-Oord.png",  name: "Van Oord",  href: "case-hema.html" }
+      ]
+    },
+    {
+      title: "Private Equity",
+      href: "sector-detail-pe.html",
+      desc: "Our Private Equity services help organizations seize investment opportunities in a rapidly changing world. We guide you through every stage of the deal cycle, empowering informed decisions that maximize returns, while our strategic guidance propels your investment organization forward.",
+      logos: [
+        { src: L + "3i-Logo.svg.png",                name: "3i",           href: "case-hema.html" },
+        { src: L + "NPM_Capital_Logo.png",           name: "NPM Capital",  href: "case-hema.html" }
+      ]
+    }
+  ];
+
+  var arrow = window.SO.ico("arrow");
+
+  function logoHTML(logos) {
+    if (!logos || logos.length === 0) return "";
+    return '<div class="sec-row__logos">' +
+      logos.map(function(l) {
+        return '<a class="sec-row__logo" href="' + l.href + '" title="' + l.name + '">' +
+          '<img src="' + l.src + '" alt="' + l.name + '" loading="lazy">' +
+          '</a>';
+      }).join("") +
+    '</div>';
+  }
+
+  document.getElementById("secList").innerHTML = SECTORS.map(function(s, i) {
+    return '<div class="sec-row reveal">' +
+      '<div>' +
+        '<a class="sec-row__title" href="' + s.href + '">' + s.title + '</a>' +
+        '<p>' + s.desc + '</p>' +
+        '<div class="sec-row__actions">' +
+          '<a class="btn btn--outline-cyan btn--sm" href="' + s.href + '">View sector</a>' +
+          '<a class="arrowlink" href="cases.html">View all cases <span class="arrowmini">' + arrow + '</span></a>' +
+        '</div>' +
+      '</div>' +
+      '<div class="sec-row__right">' +
+        '<span class="sec-row__caseslabel">Example client work</span>' +
+        logoHTML(s.logos) +
+      '</div>' +
+    '</div>';
+  }).join("");
+
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>
