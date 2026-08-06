@@ -5,11 +5,11 @@ const { useState, useRef, useEffect, memo } = React;
    WHAT WE DO  (light) — intro statement + two service columns
 -----------------------------------------------------------------*/
 const BIZ = [
-{ icon: "monitor-smartphone", label: "Digital Strategy & Transformation" },
-{ icon: "brain-circuit", label: "AI & Data Strategy & Transformation" },
-{ icon: "leaf", label: "Sustainability Strategy & Transformation" },
-{ icon: "link-2", label: "Mergers and Acquisitions" },
-{ icon: "rocket", label: "Ventures and Scale-ups" }];
+{ icon: "monitor-smartphone", label: "Digital Strategy & Transformation", href: "pages/services/service-detail.html" },
+{ icon: "brain-circuit", label: "AI & Data Strategy & Transformation", href: "pages/services/service-detail-ai-data.html" },
+{ icon: "leaf", label: "Sustainability Strategy & Transformation", href: "pages/services/service-detail-sustainability.html" },
+{ icon: "link-2", label: "Mergers and Acquisitions", href: "pages/services/service-detail-ma.html" },
+{ icon: "rocket", label: "Ventures and Scale-ups", href: "pages/services/service-detail-ventures.html" }];
 
 
 const SOC = [
@@ -35,7 +35,7 @@ function ServiceList({ accent, items }) {
       </h3>
       <div style={{ marginTop: 18, borderTop: "1px solid var(--border-1)" }}>
         {items.map((it) =>
-        <a key={it.label} href="services.html" style={{
+        <a key={it.label} href={it.href} style={{
           display: "flex", alignItems: "center", gap: 18, padding: "20px 6px",
           borderBottom: "1px solid var(--border-1)", textDecoration: "none",
           transition: "padding-left 240ms var(--ease-out)"
