@@ -2,8 +2,8 @@
 window.SO_SERVICE_CONTENT = {
   "digital": {
     source: "https://www.sparkoptimus.com/services/digital-strategy-transformation",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/659e789c01096561dfe9998f_sparkoptimus-digital-strategy-transformation-03-V2.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/659e738a346ba1a12557f89d_sparkoptimus-digital-strategy-transformation-04.jpg",
+    introImg: "site/assets/remote/659e789c01096561dfe9998f_sparkoptimus-digital-strategy-transformation-03-V2.jpg",
+    whatWeDoImg: "site/assets/remote/659e738a346ba1a12557f89d_sparkoptimus-digital-strategy-transformation-04.jpg",
     items: [
       { title: "Strategy in a digitizing world", body: "Transforming your business in the ever-evolving digital landscape requires a robust strategy. Our team of experts will partner with you to plan and execute your digital transformation journey, enabling you to identify immediate improvements and use cases, explore new opportunities in the digital landscape, and prepare your organization for future disruptive changes. We will translate these insights into a comprehensive capability building plan, and help you create a compelling digital future for your business through long-term vision development." },
       { title: "Global digital transformation", body: "Our Global Digital Transformation service empowers businesses to leverage technology in reshaping processes, culture, and customer experiences, adapting to the ever-changing demands of the digital era. With our expertise and agility, we cultivate an innovative culture that encourages the development and implementation of new ideas, products, or services using digital technologies. Our primary focus is on understanding and fulfilling customer needs through digital channels, personalized experiences, and heightened customer engagement." },
@@ -12,8 +12,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "ma": {
     source: "https://www.sparkoptimus.com/services/mergers-and-acquisitions",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/651bf4b6e9ed224cac439cf3_mergers-acquisitions-V8%20(1).jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/651be223570cbe8735799cd3_mergers-acquisitions-V3.jpg",
+    introImg: "site/assets/remote/651bf4b6e9ed224cac439cf3_mergers-acquisitions-V8-1-.jpg",
+    whatWeDoImg: "site/assets/remote/651be223570cbe8735799cd3_mergers-acquisitions-V3.jpg",
     items: [
       { title: "Pre-deal services", body: "<strong>M&amp;A Market Scan:</strong> using our hands-on business building experience and sector expertise, we provide a comprehensive market landscape assessment to identify promising investment opportunities and potential risks.<br><strong>Pre-DD Micro-Services:</strong> micro-level investigations that validate key business assumptions and market dynamics before you engage in full-scale due diligence.<br><strong>Sector Strategy:</strong> align your investment focus with market opportunities through in-depth, disruption-proof sector analyses." },
       { title: "Due diligence services", body: "<strong>Commercial Due Diligence:</strong> a rigorous evaluation of target companies that uncovers latent risks and opportunities &mdash; market position, competitive advantage and growth potential &mdash; grounded in the dimensions that define success in a digital-first world.<br><strong>Tech Due Diligence:</strong> we scrutinize the technical capabilities and architecture of targets to ensure they align with your investment thesis and long-term growth objectives.<br><strong>Value Creation Plan:</strong> once key levers for growth and profitability are identified, we formulate a tactical plan for value enhancement across short and long-term goals." },
@@ -22,8 +22,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "ai-data": {
     source: "https://www.sparkoptimus.com/services/ai-and-data",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/655390e53ad03682a9495d36_matti-01-V2.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/6569e5e4b9dfcf8293036ac0_AI-Data%20strategy-V2.png", whatWeDoFit: "contain",
+    introImg: "site/assets/remote/655390e53ad03682a9495d36_matti-01-V2.jpg",
+    whatWeDoImg: "site/assets/remote/6569e5e4b9dfcf8293036ac0_AI-Data-strategy-V2.png", whatWeDoFit: "contain",
     items: [
       { title: "AI &amp; Data strategy", body: "Our team of experts will partner with you to design a scalable AI strategy, identifying what an AI- and data-driven future could look like for your business. We translate this future outlook into a realistic approach to start realizing business value as soon as possible, while setting your organization up for scale. We specialize in crafting AI &amp; data strategies that set your business up for sustainable success." },
       { title: "AI &amp; Data transformation", body: "Kickstart your AI &amp; data transformation with our proven approach. We set your organization up to test and learn at scale by establishing one or more Business Labs &mdash; small-scale test environments where use cases can be tested at speed with low risk. Once business value is proven, we support scale-up throughout the entire organization. Simultaneously, we prepare your organization for data and AI use at scale by setting up enabling capabilities, processes, organization structure and technology landscape." },
@@ -32,8 +32,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "ventures": {
     source: "https://www.sparkoptimus.com/services/ventures-scale-ups",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65ccbbcf83a9ac704bef1725_ventures-03.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65cce07258ba1b5714d3816d_growth-strategy.jpg",
+    introImg: "site/assets/remote/65ccbbcf83a9ac704bef1725_ventures-03.jpg",
+    whatWeDoImg: "site/assets/remote/65cce07258ba1b5714d3816d_growth-strategy.jpg",
     items: [
       { title: "Growth strategy &amp; validation", body: "We work with companies to unlock disruptive innovation and validate high-potential ventures. Through a blend of customer validation, design thinking and prototype development, we identify untapped strengths in your existing portfolio and generate bold new growth ideas.<br><strong>Portfolio scan:</strong> a scan of your innovation initiatives, identifying strengths and weaknesses per initiative and across the portfolio.<br><strong>Idea generation:</strong> unearth hidden gems and brainstorm breakthrough ventures through customer validation, design sprints and low-fi prototypes.<br><strong>Rapid prototyping:</strong> turn promising concepts into tangible experiences using MVPs and digital prototypes, gathering rapid feedback." },
       { title: "Venture building &amp; scaling", body: "We have helped innovative corporate ventures become market leaders &mdash; Beerwulf, Zigzag and Velroq among them &mdash; guiding entrepreneurs from emerging concept to thriving business.<br><strong>Design for long-term value creation:</strong> a winning proposition aligned with your corporate goals and strategy, supported by a clear investment case.<br><strong>Developing your venture:</strong> as your strategic partner we balance short-term wins with long-term growth, with 1,000+ projects informing our best practices.<br><strong>Scaling for impact:</strong> we don't stop at launch &mdash; we help optimize operations, expand reach and achieve sustainable growth." },
@@ -43,7 +43,7 @@ window.SO_SERVICE_CONTENT = {
   "sustainability": {
     source: "https://www.sparkoptimus.com/services/sustainability",
     introImg: "site/assets/remote/65815e459d6b2c5499affb09_sustainability-V2.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65817cac9ef6cd04fc20bb54_sustainability-sparkoptimus-03%20(1).jpg",
+    whatWeDoImg: "site/assets/remote/65817cac9ef6cd04fc20bb54_sustainability-sparkoptimus-03-1-.jpg",
     items: [
       { title: "Sustainability strategy &amp; plan", body: "Do you feel like there are many ideas around sustainability in your organization but don't know where to start? Our comprehensive one-week sustainability scan serves as your roadmap, pinpointing areas for rapid transformation. You'll receive a prioritized list of potential initiatives, a maturity assessment of key enablers, and guidance to kickstart promising endeavours. This scan forms the foundation for a pragmatic sustainability strategy and plan, aligning your vision with your current state and objectives." },
       { title: "Sustainability business transformation", body: "Are you struggling to implement impactful sustainability initiatives? Do your customers resist change? We help accelerate your sustainability efforts and prove their value &mdash; environmentally and financially. Our hands-on approach identifies key success factors, tackles challenges effectively and aligns stakeholders across departments. Real change is about people &mdash; 80% of it, in fact. We start with a pilot in a specific business area, testing and refining the model until it is ready for widespread adoption, then scale it organization-wide." },
@@ -52,8 +52,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "consumer": {
     source: "https://www.sparkoptimus.com/sectors/consumer-goods",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65eb20f7218d0c75cb711b70_creative-online-shopping-concept.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/6672a9fc08ea7ce20b00c8b8_Accelerate-ecomm-sales-V1.jpg",
+    introImg: "site/assets/remote/65eb20f7218d0c75cb711b70_creative-online-shopping-concept.jpg",
+    whatWeDoImg: "site/assets/remote/6672a9fc08ea7ce20b00c8b8_Accelerate-ecomm-sales-V1.jpg",
     items: [
       { title: "Accelerate ecomm sales", body: "Staying ahead in the fast-evolving digital marketplace is crucial. As the industry sees a surge in channel mix diversification &mdash; including live commerce and super apps &mdash; brands must innovate to maximize reach and conversion in a crowded online space. We help brands harness these trends, optimizing eCommerce and D2C channels to meet higher customer expectations and leverage hypertargeting opportunities in a cookie-less world, accelerating sales through better digital experiences, higher conversion and sustainable product offerings." },
       { title: "Optimize processes &amp; costs with Digital / (Gen) AI", body: "Optimizing processes and costs while adopting generative AI and connected data is crucial for organisations that want to remain competitive and generate superior insights. Our expert teams work with you to leverage generative AI and streamline operations, from production to supply chain, ensuring your business not only meets but exceeds evolving B2B customer expectations in online sales channels." },
@@ -64,8 +64,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "energy": {
     source: "https://www.sparkoptimus.com/sectors/energy-utilities",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65afd85df66c466b4c82aad7_energy-utilities-v4.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65afd946bbaf8a2f7756b140_Navigating-global-energy-transformation.jpg",
+    introImg: "site/assets/remote/65afd85df66c466b4c82aad7_energy-utilities-v4.jpg",
+    whatWeDoImg: "site/assets/remote/65afd946bbaf8a2f7756b140_Navigating-global-energy-transformation.jpg",
     items: [
       { title: "Navigating the global energy transformation", body: "As customers increasingly explore renewable energy options amid the broader shift towards decarbonization, governmental policies and incentives further drive this transformation. Recent clients embraced sustainable disruption, aligning ambitions with enterprise fit and potential impact. We assist in regulatory compliance and ESG reporting, defining sustainable commerce strategies, and transforming into sustainable and commercial businesses by executing quick wins and scaling strategies." },
       { title: "Digital &amp; sustainable business strategy", body: "<strong>Defining a business-wide strategy:</strong> focused on customer needs, we are a preferred partner for business-wide digital commercial strategies in the dynamic Energy &amp; Utility sector, scanning your organization, customers, industry and markets to identify and prioritize growth opportunities.<br><strong>Transform into a (digital) innovative organization:</strong> agile methodologies that reduce costs and foster continuous innovation, using a test-and-learn approach to prove value before scaling.<br><strong>Building a connected ecosystem:</strong> as manufacturers engage end-users directly and new competition emerges in generation and storage, we help build or accelerate new propositions and establish partnerships." },
@@ -76,8 +76,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "finance": {
     source: "https://www.sparkoptimus.com/sectors/financial-services",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65e9c7c9fcc589525b366631_financialservices.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65ead1d27c1c38dcfeb748ed_process-optimization.jpg",
+    introImg: "site/assets/remote/65e9c7c9fcc589525b366631_financialservices.jpg",
+    whatWeDoImg: "site/assets/remote/65ead1d27c1c38dcfeb748ed_process-optimization.jpg",
     items: [
       { title: "Process &amp; cost optimization using Digital and (Gen) AI", body: "<strong>Optimize front- and back-office processes:</strong> stay ahead in digital and (generative) AI with a comprehensive value scan. We identify and prioritize value cases, create actionable pilot plans, and leverage our expertise to monetize them.<br><strong>Optimize &amp; harmonize propositions across business units:</strong> whether transitioning to a centralized business or a modular architecture, we have reduced client complexity by 50% by mapping and harmonizing services and pricing across business units." },
       { title: "Building a digital (commercial) mature organization", body: "<strong>Digitizing the E2E customer journey:</strong> in financial services, end-to-end journeys are pivotal for commercial success as buying cycles are event-driven and customers hold multiple products. We shape these cross-product journeys by segmenting and valuing customers and setting data-driven improvement plans in motion.<br><strong>Kickstart commercial transformation:</strong> a well-defined journey boosts cross-sell and upsell. We guide the transformation with a comprehensive plan and digital pilot teams.<br><strong>Transform into an agile-at-scale organization:</strong> agile methods that reduce costs and instil continuous innovation, with a test-and-learn approach to prove value before scaling." },
@@ -88,8 +88,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "industrial": {
     source: "https://www.sparkoptimus.com/sectors/industrials",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65a7e3c7e7a80bc3b69e160b_sparkoptimus-sectors-industrials.jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/65ae6a495e0d3a6660e64612_B2B-ECOMMERCE.jpg",
+    introImg: "site/assets/remote/65a7e3c7e7a80bc3b69e160b_sparkoptimus-sectors-industrials.jpg",
+    whatWeDoImg: "site/assets/remote/65ae6a495e0d3a6660e64612_B2B-ECOMMERCE.jpg",
     items: [
       { title: "B2B ecommerce", body: "<strong>Accelerating B2B ecommerce:</strong> boost your B2B ecommerce business for accelerated top-line growth. Our experts guide you through setup and acceleration &mdash; understanding your needs, providing strategic insight, analysing market trends, and developing and executing B2B growth plans.<br><strong>Winning &amp; growing large customers:</strong> unlock a potential ~500% boost in key account leads with account-based growth strategies. For a global leading manufacturer we established a digital collaboration model that gave distributors better insight and services, increasing distributorship and strengthening relationships." },
       { title: "Digital-first ventures for aftermarket", body: "E-commerce serves as a gateway for manufacturers and distributors to explore the aftermarket, unlocking valuable customer pools and data. Launching new propositions outside the core business allows cost-effective value validation and rapid test-and-learn cycles. We helped a global machinery manufacturer enter the spare parts aftermarket under a new brand &mdash; delivering significant value and growth, plus crucial insight into customers and parts prone to long-term wear." },
@@ -100,8 +100,8 @@ window.SO_SERVICE_CONTENT = {
   },
   "pe": {
     source: "https://www.sparkoptimus.com/services/mergers-and-acquisitions",
-    introImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/651bf4b6e9ed224cac439cf3_mergers-acquisitions-V8%20(1).jpg",
-    whatWeDoImg: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/651be223570cbe8735799cd3_mergers-acquisitions-V3.jpg",
+    introImg: "site/assets/remote/651bf4b6e9ed224cac439cf3_mergers-acquisitions-V8-1-.jpg",
+    whatWeDoImg: "site/assets/remote/651be223570cbe8735799cd3_mergers-acquisitions-V3.jpg",
     items: [
       { title: "Pre-deal services", body: "<strong>M&amp;A Market Scan:</strong> a comprehensive market landscape assessment that identifies promising investment opportunities and potential risks.<br><strong>Pre-DD Micro-Services:</strong> micro-level investigations that validate key business assumptions and market dynamics before full-scale due diligence.<br><strong>Sector Strategy:</strong> align your investment focus with market opportunities through disruption-proof sector analyses." },
       { title: "Due diligence services", body: "<strong>Commercial Due Diligence:</strong> a rigorous evaluation of targets covering market position, competitive advantage and growth potential, grounded in what defines success in a digital-first world.<br><strong>Tech Due Diligence:</strong> scrutiny of technical capabilities and architecture against your investment thesis.<br><strong>Value Creation Plan:</strong> a tactical plan for value enhancement across short and long-term goals." },

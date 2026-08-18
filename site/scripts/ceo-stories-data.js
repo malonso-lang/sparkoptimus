@@ -4,7 +4,7 @@ window.SO_CEO_STORIES = [
     slug: "ceo-as-tempelman-eneco", init: "AT", name: "As Tempelman", role: "CEO", company: "Eneco",
     title: "Balancing profit and planet through digital transformation",
     date: "17 Sep 2024",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/66ab7ba6614f747f57db4529_CEO%20stories%20new%20thumbnails%20-%20Eneco.png",
+    img: "site/assets/remote/66ab7ba6614f747f57db4529_CEO-stories-new-thumbnails-Eneco.png",
     youtube: "BWJMsIqxuN4",
     listen: "https://open.spotify.com/episode/2f2MZKSesDdk4OMS4U2jYR",
     intro: "Alexandra Jankovich sits down with As Tempelman, CEO of Eneco. The two leaders discuss Eneco's ambitious journey towards sustainability, the transformative role of digital innovation, and the company's commitment to fostering a greener future.",
@@ -21,7 +21,7 @@ window.SO_CEO_STORIES = [
     slug: "prabha-parameswaran-colgate-palmolive", init: "PP", name: "Prabha Parameswaran", role: "Group President, Growth &amp; Strategy", company: "Colgate-Palmolive",
     title: "Driving digital transformation for sustainable impact",
     date: "4 Sep 2023",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f57b9b02c95b7eb06eafc0_CEO-stories-Colgate.png",
+    img: "site/assets/remote/64f57b9b02c95b7eb06eafc0_CEO-stories-Colgate.png",
     youtube: "9CyaD_Ta714",
     listen: "https://open.spotify.com/episode/7cUiorW1bcvJWi6zvKZYtL",
     intro: "Alexandra Jankovich sits down with Prabha Parameswaran, Group President of Growth and Strategy at Colgate-Palmolive &mdash; a values-driven Fortune 500 executive with 25+ years of leading and growing businesses across emerging and developed markets.",
@@ -37,7 +37,7 @@ window.SO_CEO_STORIES = [
     slug: "herna-verhagen-and-jennifer-crites", init: "HV", name: "Herna Verhagen &amp; Jennifer Crites", role: "CEO &amp; CIO", company: "PostNL",
     title: "What's driving the success of digital transformation at PostNL",
     date: "31 May 2023",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f5e400dd05446a8a81267c_ceostories-PostNL-new-thumbnail.png",
+    img: "site/assets/remote/64f5e400dd05446a8a81267c_ceostories-PostNL-new-thumbnail.png",
     youtube: "PxjAzrNJFQI",
     listen: "https://open.spotify.com/episode/3cSZaVl6FO6PydiAR1EC6z",
     topics: [
@@ -53,7 +53,7 @@ window.SO_CEO_STORIES = [
     slug: "carsten-knobel", init: "CK", name: "Carsten Knobel", role: "CEO", company: "Henkel",
     title: "Taking Henkel's Purposeful Growth agenda to the next level",
     date: "16 Jun 2022",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f5e61e4deca58dcfae44aa_ceostories-Henkel-new-thumbnail.png",
+    img: "site/assets/remote/64f5e61e4deca58dcfae44aa_ceostories-Henkel-new-thumbnail.png",
     youtube: "BAze_lmGHaA",
     listen: "https://open.spotify.com/episode/52XOiLpA4Q5wTd4ElBqnLQ",
     topics: [
@@ -70,7 +70,7 @@ window.SO_CEO_STORIES = [
     slug: "nancy-mckinstry", init: "NM", name: "Nancy McKinstry", role: "CEO", company: "Wolters Kluwer",
     title: "18 years at the top &mdash; from print to digital",
     date: "9 Feb 2022",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f5ea4faffecf3567905de6_ceostories-Wolters-Kluwer-new-thumbnail.png",
+    img: "site/assets/remote/64f5ea4faffecf3567905de6_ceostories-Wolters-Kluwer-new-thumbnail.png",
     youtube: "4dBvLtSaV1c",
     listen: "https://open.spotify.com/episode/1FeQRbx93lRpE9nYsh8lCS",
     topics: [
@@ -85,7 +85,7 @@ window.SO_CEO_STORIES = [
     slug: "mark-schneider", init: "MS", name: "Mark Schneider", role: "CEO", company: "Nestl&eacute;",
     title: "The best of digital is yet to come",
     date: "30 Jun 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f7407cf52a45b34f743543_ceostories-nestle-new-thumbnail.png",
+    img: "site/assets/remote/64f7407cf52a45b34f743543_ceostories-nestle-new-thumbnail.png",
     youtube: "wpnyyVQ5-eM",
     listen: "https://open.spotify.com/episode/6vmWyxrLo3kebAOwsPhfy1",
     topics: [
@@ -102,7 +102,7 @@ window.SO_CEO_STORIES = [
     slug: "jitse-groen", init: "JG", name: "Jitse Groen", role: "Founder &amp; CEO", company: "Just Eat Takeaway",
     title: "How to conquer new markets",
     date: "15 Jun 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f7422aa55b06ed2f48ab2a_ceostories-JustEat-new-thumbnail.png",
+    img: "site/assets/remote/64f7422aa55b06ed2f48ab2a_ceostories-JustEat-new-thumbnail.png",
     youtube: "3m3Ui7Rn5Zg",
     listen: "https://open.spotify.com/episode/1iTyA3521Yw7RLvvd2ks1H",
     topics: [
@@ -119,7 +119,7 @@ window.SO_CEO_STORIES = [
     slug: "jean-francois-van-boxmeer", init: "JB", name: "Jean-Fran&ccedil;ois van Boxmeer", role: "Former CEO", company: "Heineken",
     title: "Leading digital as one of the world's largest brewers",
     date: "19 Apr 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f743da93590dcf58b370c1_ceostories-Heineken-new-thumbnail.png",
+    img: "site/assets/remote/64f743da93590dcf58b370c1_ceostories-Heineken-new-thumbnail.png",
     youtube: "_yejMJmRJI0",
     listen: "https://open.spotify.com/episode/5hZC8s6rv2F2FCsHxH2sbD",
     topics: [
@@ -136,7 +136,7 @@ window.SO_CEO_STORIES = [
     slug: "hanneke-faber", init: "HF", name: "Hanneke Faber", role: "President Global Foods &amp; Refreshment", company: "Unilever",
     title: "Getting out on the edge to win markets and do good",
     date: "18 Mar 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f744f30f2a8beae7344772_ceostories-Unilever-new-thumbnail.png",
+    img: "site/assets/remote/64f744f30f2a8beae7344772_ceostories-Unilever-new-thumbnail.png",
     youtube: "QgOSegGxDbQ",
     listen: "https://open.spotify.com/episode/0BIRV7Cxc65XwUd9EjKZ1O",
     topics: [
@@ -153,7 +153,7 @@ window.SO_CEO_STORIES = [
     slug: "eddie-perdok", init: "EP", name: "Eddie Perdok", role: "CEO", company: "Kramp",
     title: "From 0 to 95% online &mdash; tripling turnover in ten years",
     date: "18 Feb 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f745d52762cc0f2dc2bda1_ceostories-Kramp-new-thumbnail.png",
+    img: "site/assets/remote/64f745d52762cc0f2dc2bda1_ceostories-Kramp-new-thumbnail.png",
     youtube: "Qflp0teFTpQ",
     listen: "https://open.spotify.com/episode/7M1d2bAG3MT8RTMLIeeMK9",
     topics: [
@@ -170,7 +170,7 @@ window.SO_CEO_STORIES = [
     slug: "daniel-ropers", init: "DR", name: "Daniel Ropers", role: "Co-founder &amp; former CEO", company: "bol.com",
     title: "SparkOptimus' first project &mdash; growing bol.com",
     date: "4 Feb 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f746da30976afa27c0041f_ceostories-bol-new-thumbnail.png",
+    img: "site/assets/remote/64f746da30976afa27c0041f_ceostories-bol-new-thumbnail.png",
     youtube: "WZawMPhCIzM",
     listen: "https://open.spotify.com/episode/2KRWvhxLmPYoQb7wfKlG4d",
     topics: [
@@ -186,7 +186,7 @@ window.SO_CEO_STORIES = [
     slug: "pieter-van-der-does", init: "PD", name: "Pieter van der Does", role: "Co-founder &amp; CEO", company: "Adyen",
     title: "Offering clients a subscription to innovation",
     date: "19 Jan 2021",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f74785f512315d45ded47f_ceostories-adyen-new-thumbnail.png",
+    img: "site/assets/remote/64f74785f512315d45ded47f_ceostories-adyen-new-thumbnail.png",
     youtube: "9jEzAYj7wpE",
     listen: "https://open.spotify.com/episode/6qTOWfJcDEHHyPlM0QytGW",
     topics: [
@@ -203,7 +203,7 @@ window.SO_CEO_STORIES = [
     slug: "joris-beckers", init: "JB", name: "Joris Beckers", role: "Co-founder", company: "Picnic",
     title: "How data powers the online supermarket",
     date: "2 Dec 2020",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f749166adbc9e9943df4de_ceostories-picnic-new-thumbnail.png",
+    img: "site/assets/remote/64f749166adbc9e9943df4de_ceostories-picnic-new-thumbnail.png",
     youtube: "cnV6vlUb5bI",
     listen: "https://open.spotify.com/episode/0rkFz0WbbZqcQqwlQ4MNQW",
     topics: [
@@ -220,7 +220,7 @@ window.SO_CEO_STORIES = [
     slug: "petri-hofste", init: "PH", name: "Petri Hofst&eacute;", role: "Supervisory board member", company: "Rabobank",
     title: "Responsible leadership and the future of education",
     date: "16 Oct 2020",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f74b8d49d7cdd41b85d824_ceostories-rabobank-new-thumbnail.png",
+    img: "site/assets/remote/64f74b8d49d7cdd41b85d824_ceostories-rabobank-new-thumbnail.png",
     youtube: "80Itjf_LqAc",
     topics: [
       "Business resilience in the face of a crisis or economic slowdown",
@@ -236,7 +236,7 @@ window.SO_CEO_STORIES = [
     slug: "andre-hoffmann", init: "AH", name: "Andr&eacute; Hoffmann", role: "Vice-Chairman of the Board", company: "Roche Holding Ltd",
     title: "Measuring the impact business has beyond financial flows",
     date: "16 Oct 2020",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f74ae26adbc9e9943f579a_ceostories-roche-new-thumbnail.png",
+    img: "site/assets/remote/64f74ae26adbc9e9943f579a_ceostories-roche-new-thumbnail.png",
     youtube: "UlnvVSOQwUw",
     topics: [
       "Lessons on leadership from within a family business",
@@ -252,7 +252,7 @@ window.SO_CEO_STORIES = [
     slug: "benoit-coquart", init: "BC", name: "Beno&icirc;t Coquart", role: "CEO", company: "Legrand",
     title: "Staying relevant by being technology-agnostic",
     date: "16 Oct 2020",
-    img: "https://cdn.prod.website-files.com/64c8db4525075f4f57f9539a/64f74a1b8eff251ee3acaa71_ceostories-legrand-new-thumbnail.png",
+    img: "site/assets/remote/64f74a1b8eff251ee3acaa71_ceostories-legrand-new-thumbnail.png",
     youtube: "e2ZPQ5DPzZU",
     topics: [
       "How to stay relevant to the customer",

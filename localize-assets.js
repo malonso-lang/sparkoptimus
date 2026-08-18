@@ -25,14 +25,21 @@ for (const [url, name] of manifest) {
 }
 console.log('mapped ' + map.size + ' downloaded assets (' + missing + ' not on disk, left remote)');
 
-function targets() {
-  const out = [];
-  for (const f of fs.readdirSync('.')) if (f.endsWith('.html')) out.push(f);
-  for (const d of ['site/scripts', 'site/styles']) {
-    if (!fs.existsSync(d)) continue;
-    for (const f of fs.readdirSync(d)) if (/\.(js|css)$/.test(f)) out.push(path.join(d, f));
+const SKIP_DIRS = new Set(['.git', 'node_modules', 'site/assets/remote']);
+
+function walk(dir, out) {
+  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, f.name);
+    const rel = p.split(path.sep).join('/');
+    if (SKIP_DIRS.has(rel) || SKIP_DIRS.has(f.name)) continue;
+    if (f.isDirectory()) walk(p, out);
+    else if (/\.(html|js|css)$/.test(f.name)) out.push(p);
   }
   return out;
+}
+
+function targets() {
+  return walk('.', []);
 }
 
 let touched = 0, swaps = 0;
