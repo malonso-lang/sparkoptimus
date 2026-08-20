@@ -264,6 +264,7 @@
 .home-notice__eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
 .home-notice__dot{width:7px;height:7px;border-radius:999px;background:var(--so-cyan-500,#00D9F4);flex:none}
 .home-notice__lead{font-family:var(--font-display);font-weight:500;font-size:clamp(17px,.55vw + 15px,20px);line-height:1.45;letter-spacing:-.005em;margin:0;max-width:52ch;text-wrap:pretty;color:#fff}
+.home-notice__lead .nowrap{white-space:nowrap}
 .home-notice__body{display:grid;gap:14px;max-width:70ch;font-size:clamp(13.5px,.25vw + 13px,15px);line-height:1.7;font-weight:400;color:#fff;text-wrap:pretty}
 .home-notice__body p{margin:0;color:#fff}
 .home-notice,.home-notice *{opacity:1}
@@ -282,7 +283,7 @@
 <section class="home-notice" id="homeNotice" aria-label="Announcement">
   <div class="home-notice__inner">
     <div class="home-notice__eyebrow"><span class="home-notice__dot"></span>Announcement</div>
-    <p class="home-notice__lead">Today, we are excited to announce that the SparkOptimus team will join EY Parthenon NL from September 1 onward.</p>
+    <p class="home-notice__lead">Today, we are excited to announce that the SparkOptimus team will join <span class="nowrap">EY-Parthenon NL</span> from September 1 onward.</p>
     <a class="home-notice__toggle" href="contact.html"><span>Read more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
   </div>
 </section>
