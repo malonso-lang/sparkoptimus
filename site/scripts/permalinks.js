@@ -228,11 +228,125 @@ window.SO_PERMALINK = {
  }
 };
 
+window.SO_PERMALINK_SLUG = {
+ "blog": {
+  "1": "thirsty-for-digital-disruption",
+  "2": "international-womens-day-at-sparkoptimus-2025",
+  "3": "sparking-change-a-year-of-b-corp",
+  "4": "our-holiday-reading-list-2024",
+  "5": "sparkoptimus-year-of-impact-2024",
+  "6": "preparing-for-2025-csrd-strategies-to-save-time-and-money",
+  "7": "unsgsa-queen-maxima-champions-financial-health",
+  "8": "sparkoptimus-7th-emerce100-win",
+  "9": "how-sparkoptimus-is-building-a-better-future-as-b-corp",
+  "10": "sparkoptimus-bcorp",
+  "11": "international-womens-day-2024",
+  "12": "christmas-reading-list",
+  "13": "ceostories-podcast",
+  "14": "tales-from-the-trenches",
+  "15": "welcome-to-the-team-9-new-sparkies-join-us",
+  "16": "coffee-change",
+  "17": "press-release-new-book-reveals-top-mistakes-made-by-managers-going-digital",
+  "18": "a-warm-welcome-to-our-september-starters",
+  "19": "the-next-step-on-our-journey-towards-net-zero",
+  "20": "paving-the-way-for-future-growth-promotions-at-sparkoptimus",
+  "21": "1-digital-consultant-in-emerce100-for-the-fifth-time",
+  "22": "refugeehelp-com-is-live",
+  "23": "new-year-new-sparkies-welcome",
+  "24": "catching-up-with-sparkoptimus-alumni",
+  "25": "diversity-day-alexandra-jankovich-among-most-inspiring-women-in-tech",
+  "26": "sparkoptiweekend-2021-sharing-learnings-fun-growing-together",
+  "27": "sparkoptimus-welcomes-5-new-team-members",
+  "28": "all-fun-and-games-at-the-sparkoptimus-sports-day",
+  "29": "welcome-to-the-team",
+  "30": "dont-put-a-digital-expert-in-charge-of-your-digital-transformation",
+  "31": "learn-the-data-way-improving-education-with-data",
+  "32": "harnessing-the-power-of-disruption-for-ngos-sos-kinderdorpen",
+  "33": "how-to-transform-your-organization-for-digital-success-in-these-times-leveraging-the-momentum-of-drastically-changing-routines",
+  "34": "how-to-start-boosting-direct-to-consumer-sales-today-even-without-a-d2c-platform",
+  "35": "how-the-covid-19-outbreak-incubates-disruptive-thinking-three-levels-to-design-the-future-of-your-business",
+  "36": "how-to-become-an-ai-driven-digital-business-introducing-our-virtual-ai-masterclass",
+  "37": "how-to-virtualize-your-b2b-sales-engine-to-keep-your-salesforce-working-effectively-from-home",
+  "38": "behind-the-scenes-at-koningsdag-thuis",
+  "39": "why-your-future-online-b2b-platform-is-needed-now-how-to-start-scale-and-not-miss-out",
+  "40": "sparkoptimus-writes-history-celebrating-koningsdag-thuis-digitally-with-the-royal-family",
+  "41": "sparkoptimus-co-organizes-koningsdag-thuis-a-fully-digital-kings-day",
+  "42": "1-digital-consultant-in-emerce100-for-the-fourth-time",
+  "43": "how-to-govern-digital-initiatives-for-maximum-impact-7-key-principles",
+  "44": "how-our-new-digital-first-routines-are-increasing-the-urgency-of-digitization",
+  "45": "keeping-the-spark-spirit-alive-during-a-crisis",
+  "46": "sharing-our-tips-for-fully-virtual-workshops",
+  "47": "working-from-home-tips",
+  "48": "ces-2020-women-in-tech-power-break-taking-our-10-recommendations-to-make-disruption-work-in-the-next-decade-global",
+  "49": "ces-2020-disruption-dinner-french-and-dutch-leaders-discuss-how-to-make-disruption-work",
+  "50": "impact-for-all-through-diversity",
+  "51": "ai-and-retail-past-present-future",
+  "52": "the-next-women-boardroom-session-at-sparkoptimus",
+  "53": "ces-unveiled-amsterdam-women-in-tech-power-break-sparkoptimus-launches-10-recommendations-to-make-disruption-work-in-the-next-decade",
+  "54": "point-of-view-article-doing-data",
+  "55": "sparkoptimus-partners-with-leading-business-universities",
+  "56": "sparkoptimus-and-the-young-pianist-foundation",
+  "57": "sparkoptimus-around-the-world",
+  "58": "we-are-really-proud-to-be-no-1-in-e-business-services-for-the-third-time",
+  "59": "sparkoptimus-at-imd-business-school-lausanne",
+  "60": "what-impact-does-my-donation-have",
+  "61": "new-digital-ventures-ahead",
+  "62": "growth-hacking-ai-how-to-make-it-work",
+  "63": "machine-learning-sink-or-swim",
+  "64": "project-march-sparkoptimus",
+  "65": "alexandra-jankovich-speaker-at-thenextwomen100-event",
+  "66": "make-disruption-work-book-launch-a-resounding-success",
+  "67": "sparkoptimus-presents-digital-at-imd",
+  "68": "emerce-eretail-europe",
+  "69": "new-pro-bono-initiative-social-kicked-off-in-rotterdam",
+  "70": "digital-frontrunners-of-2017"
+ },
+ "insights": {
+  "1": "digital-sovereignty-how-to-control-the-dependencies-that-matter",
+  "2": "sustainable-innovation-new-business-models-for-a-circular-economy",
+  "3": "private-equity-m-a-evaluating-a-targets-growth-potential-in-the-digital-age",
+  "4": "the-c-suite-blueprint-for-successful-digital-transformation",
+  "5": "top-strategies-for-implementing-generative-ai-in-consumer-good",
+  "6": "10-must-have-criteria-for-digital-transformation-success",
+  "7": "10-ways-generative-ai-is-delivering-real-value-to-the-industrial-sector",
+  "8": "10-best-practices-for-seamless-digital-customer-experiences",
+  "9": "10-practical-generative-ai-use-cases-energy-utilities",
+  "10": "10-proven-generative-ai-use-cases-cpg",
+  "11": "10-generative-ai-use-cases-financial-services",
+  "12": "implementing-generative-ai",
+  "13": "how-to-build-the-team-for-your-venture",
+  "14": "generative-ai-use-cases",
+  "15": "introduction-to-generative-ai",
+  "16": "how-to-govern-corporate-ventures",
+  "17": "common-pitfalls-in-corporate-venturing",
+  "18": "how-to-scale-a-corporate-venture",
+  "19": "how-to-build-a-venture",
+  "20": "when-to-build-a-corporate-venture-and-when-not-to",
+  "21": "bringing-investors-and-digital-disruptors-together",
+  "22": "how-online-first-players-succeeded",
+  "23": "introduction-to-corporate-venturing",
+  "24": "should-your-global-firm-centralize-digital-operations",
+  "25": "how-to-transform-your-organization-for-digital-success-during-a-crisis",
+  "26": "how-to-start-boosting-direct-to-consumer-sales-today",
+  "27": "how-to-become-an-ai-driven-digital-business",
+  "28": "how-to-virtualize-b2b-sales-to-ensure-effective-working-from-home",
+  "29": "how-to-start-and-scale-that-future-online-b2b-platform-now",
+  "30": "how-to-design-the-post-covid-future-of-your-business-on-three-levels",
+  "31": "how-to-govern-digital-initiatives-for-maximum-impact-7-key-principles",
+  "32": "how-our-new-digital-first-routines-add-urgency-to-digitization",
+  "33": "dont-put-a-digital-expert-in-charge-of-your-digital-transformation"
+ }
+};
+
 window.SO_PL = function (kind, id) {
+  if (kind === "cases") return "cases/" + id;
+  if (kind === "ceo") return "ceo-stories/" + id;
+  var slugMap = window.SO_PERMALINK_SLUG && window.SO_PERMALINK_SLUG[kind];
+  if (kind === "blog" && slugMap && slugMap[id]) return "blog/" + slugMap[id];
+  if (kind === "insights" && slugMap && slugMap[id]) return "digital-know-how/" + slugMap[id];
   var FOLDER = { insights: "insights/", blog: "blog/", cases: "cases/", ceo: "ceo-stories/" };
-  var prefix = FOLDER[kind] || "";
   var m = window.SO_PERMALINK && window.SO_PERMALINK[kind];
-  if (m && m[id]) return prefix + m[id].replace(/\.html$/, "");
+  if (m && m[id]) return FOLDER[kind] + m[id].replace(/\.html$/, "");
   var q = { insights: "insights-detail.html?a=", blog: "blog-detail.html?p=", cases: "case-detail.html?c=", ceo: "ceo-story-detail.html?e=" };
-  return prefix + q[kind] + id;
+  return FOLDER[kind] + q[kind] + id;
 };

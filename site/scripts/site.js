@@ -94,11 +94,11 @@
   var NAV = [
     { label: "Our approach", href: "/our-approach", key: "approach" },
     { label: "Services", href: "/services", key: "services", menu: [
-      { label: "Digital Strategy & Transformation", href: "/services/digital-strategy" },
-      { label: "AI & Data Strategy & Transformation", href: "/services/ai-data-strategy" },
+      { label: "Digital Strategy & Transformation", href: "/services/digital-strategy-transformation" },
+      { label: "AI & Data Strategy & Transformation", href: "/services/ai-and-data" },
       { label: "Sustainability Strategy & Transformation", href: "/services/sustainability" },
-      { label: "Mergers and Acquisitions", href: "/services/mergers-acquisitions" },
-      { label: "Ventures and Scale-ups", href: "/services/ventures" }
+      { label: "Mergers and Acquisitions", href: "/services/mergers-and-acquisitions" },
+      { label: "Ventures and Scale-ups", href: "/services/ventures-scale-ups" }
     ]},
     { label: "Sectors", href: "/sectors", key: "sectors", groups: [
       { title: "", items: [
@@ -107,8 +107,9 @@
         { label: "Financial Services", href: "/sectors/financial-services", ic: "bank" }
       ]},
       { title: "", items: [
-        { label: "Industrial Goods & Services", href: "/sectors/industrial-goods-services", ic: "factory" },
-        { label: "Private Equity", href: "/sectors/private-equity", ic: "pe" }
+        { label: "Industrial Goods & Services", href: "/sectors/industrials", ic: "factory" },
+        { label: "Private Equity", href: "/sectors/private", ic: "pe" },
+        { label: "Retail", href: "/sectors/retail", ic: "cart" }
       ]}
     ]},
     { label: "Impact", key: "impact", href: "/cases", cols: 2, menu: [

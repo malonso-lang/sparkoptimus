@@ -2,36 +2,553 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/blog", "destination": "/blog/blog.html" },
-    { "source": "/board", "destination": "/pages/about/board.html" },
-    { "source": "/books", "destination": "/pages/books/books.html" },
-    { "source": "/career-events", "destination": "/pages/careers/career-events.html" },
-    { "source": "/careers", "destination": "/pages/careers/careers.html" },
-    { "source": "/cases", "destination": "/cases/cases.html" },
-    { "source": "/ceo-stories", "destination": "/ceo-stories/ceo-stories.html" },
-    { "source": "/contact", "destination": "/pages/about/contact.html" },
-    { "source": "/dei-commitment", "destination": "/pages/about/dei-commitment.html" },
-    { "source": "/employee-testimonials", "destination": "/pages/about/employee-testimonials.html" },
-    { "source": "/environmental-policy", "destination": "/pages/about/environmental-policy.html" },
-    { "source": "/human-labour-rights", "destination": "/pages/about/human-labour-rights.html" },
-    { "source": "/insights", "destination": "/insights/insights.html" },
-    { "source": "/life-at-sparkoptimus", "destination": "/pages/about/life-at-sparkoptimus.html" },
-    { "source": "/our-approach", "destination": "/pages/about/our-approach.html" },
-    { "source": "/privacy-statement", "destination": "/pages/about/privacy-statement.html" },
-    { "source": "/sectors", "destination": "/pages/services/sectors.html" },
-    { "source": "/services", "destination": "/pages/services/services.html" },
-    { "source": "/team", "destination": "/pages/about/team.html" },
-    { "source": "/team/tom-voskes", "destination": "/pages/about/team-tom-voskes.html" },
-    { "source": "/vacancies", "destination": "/pages/careers/vacancies.html" },
-    { "source": "/services/digital-strategy", "destination": "/pages/services/service-detail.html" },
-    { "source": "/services/ai-data-strategy", "destination": "/pages/services/service-detail-ai-data.html" },
-    { "source": "/services/sustainability", "destination": "/pages/services/service-detail-sustainability.html" },
-    { "source": "/services/mergers-acquisitions", "destination": "/pages/services/service-detail-ma.html" },
-    { "source": "/services/ventures", "destination": "/pages/services/service-detail-ventures.html" },
-    { "source": "/sectors/consumer-goods", "destination": "/pages/services/sector-detail.html" },
-    { "source": "/sectors/energy-utilities", "destination": "/pages/services/sector-detail-energy.html" },
-    { "source": "/sectors/financial-services", "destination": "/pages/services/sector-detail-financial.html" },
-    { "source": "/sectors/industrial-goods-services", "destination": "/pages/services/sector-detail-industrial.html" },
-    { "source": "/sectors/private-equity", "destination": "/pages/services/sector-detail-pe.html" }
+    {
+      "source": "/blog",
+      "destination": "/blog/blog.html"
+    },
+    {
+      "source": "/board",
+      "destination": "/pages/about/board.html"
+    },
+    {
+      "source": "/books",
+      "destination": "/pages/books/books.html"
+    },
+    {
+      "source": "/career-events",
+      "destination": "/pages/careers/career-events.html"
+    },
+    {
+      "source": "/careers",
+      "destination": "/pages/careers/careers.html"
+    },
+    {
+      "source": "/cases",
+      "destination": "/cases/cases.html"
+    },
+    {
+      "source": "/ceo-stories",
+      "destination": "/ceo-stories/ceo-stories.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/pages/about/contact.html"
+    },
+    {
+      "source": "/dei-commitment",
+      "destination": "/pages/about/dei-commitment.html"
+    },
+    {
+      "source": "/employee-testimonials",
+      "destination": "/pages/about/employee-testimonials.html"
+    },
+    {
+      "source": "/environmental-policy",
+      "destination": "/pages/about/environmental-policy.html"
+    },
+    {
+      "source": "/human-labour-rights",
+      "destination": "/pages/about/human-labour-rights.html"
+    },
+    {
+      "source": "/insights",
+      "destination": "/insights/insights.html"
+    },
+    {
+      "source": "/life-at-sparkoptimus",
+      "destination": "/pages/about/life-at-sparkoptimus.html"
+    },
+    {
+      "source": "/our-approach",
+      "destination": "/pages/about/our-approach.html"
+    },
+    {
+      "source": "/privacy-statement",
+      "destination": "/pages/about/privacy-statement.html"
+    },
+    {
+      "source": "/sectors",
+      "destination": "/pages/services/sectors.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/pages/services/services.html"
+    },
+    {
+      "source": "/team",
+      "destination": "/pages/about/team.html"
+    },
+    {
+      "source": "/vacancies",
+      "destination": "/pages/careers/vacancies.html"
+    },
+    {
+      "source": "/cases/:slug",
+      "destination": "/cases/case-:slug.html"
+    },
+    {
+      "source": "/ceo-stories/:slug",
+      "destination": "/ceo-stories/ceo-story-:slug.html"
+    },
+    {
+      "source": "/team/:slug",
+      "destination": "/pages/about/team-:slug.html"
+    },
+    {
+      "source": "/services/digital-strategy-transformation",
+      "destination": "/pages/services/service-detail.html"
+    },
+    {
+      "source": "/services/ai-and-data",
+      "destination": "/pages/services/service-detail-ai-data.html"
+    },
+    {
+      "source": "/services/sustainability",
+      "destination": "/pages/services/service-detail-sustainability.html"
+    },
+    {
+      "source": "/services/mergers-and-acquisitions",
+      "destination": "/pages/services/service-detail-ma.html"
+    },
+    {
+      "source": "/services/ventures-scale-ups",
+      "destination": "/pages/services/service-detail-ventures.html"
+    },
+    {
+      "source": "/sectors/consumer-goods",
+      "destination": "/pages/services/sector-detail.html"
+    },
+    {
+      "source": "/sectors/energy-utilities",
+      "destination": "/pages/services/sector-detail-energy.html"
+    },
+    {
+      "source": "/sectors/financial-services",
+      "destination": "/pages/services/sector-detail-financial.html"
+    },
+    {
+      "source": "/sectors/industrials",
+      "destination": "/pages/services/sector-detail-industrial.html"
+    },
+    {
+      "source": "/sectors/private",
+      "destination": "/pages/services/sector-detail-pe.html"
+    },
+    {
+      "source": "/sectors/retail",
+      "destination": "/pages/services/sector-detail-retail.html"
+    },
+    {
+      "source": "/blog/thirsty-for-digital-disruption",
+      "destination": "/blog/blog-1-thirsty-for-disruption.html"
+    },
+    {
+      "source": "/blog/international-womens-day-at-sparkoptimus-2025",
+      "destination": "/blog/blog-2-international-women-s-day-at-sparkoptimus-empowering-women-driving-pro.html"
+    },
+    {
+      "source": "/blog/sparking-change-a-year-of-b-corp",
+      "destination": "/blog/blog-3-sparking-change-a-year-of-b-corp.html"
+    },
+    {
+      "source": "/blog/our-holiday-reading-list-2024",
+      "destination": "/blog/blog-4-essential-insights-of-the-season-our-holiday-reading-list.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-year-of-impact-2024",
+      "destination": "/blog/blog-5-a-year-of-impact-sparkoptimus-highlights-from-2024.html"
+    },
+    {
+      "source": "/blog/preparing-for-2025-csrd-strategies-to-save-time-and-money",
+      "destination": "/blog/blog-6-preparing-for-2025-csrd-strategies-to-save-time-and-money.html"
+    },
+    {
+      "source": "/blog/unsgsa-queen-maxima-champions-financial-health",
+      "destination": "/blog/blog-7-unsgsa-queen-m-xima-champions-financial-health-at-sparkoptimus-financi.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-7th-emerce100-win",
+      "destination": "/blog/blog-8-sparkoptimus-wins-emerce100-top-spot-for-the-7th-time.html"
+    },
+    {
+      "source": "/blog/how-sparkoptimus-is-building-a-better-future-as-b-corp",
+      "destination": "/blog/blog-9-how-sparkoptimus-is-building-a-better-future-as-a-b-corp.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-bcorp",
+      "destination": "/blog/blog-10-sparking-positive-change-sparkoptimus-becomes-b-corp.html"
+    },
+    {
+      "source": "/blog/international-womens-day-2024",
+      "destination": "/blog/blog-11-inspiring-inclusion-celebrating-the-women-of-sparkoptimus-on-internati.html"
+    },
+    {
+      "source": "/blog/christmas-reading-list",
+      "destination": "/blog/blog-12-unwrap-emerging-trends-and-insights-our-holiday-reading-list.html"
+    },
+    {
+      "source": "/blog/ceostories-podcast",
+      "destination": "/blog/blog-13-sparkoptimus-has-launched-ceo-stories-podcast.html"
+    },
+    {
+      "source": "/blog/tales-from-the-trenches",
+      "destination": "/blog/blog-14-tales-from-the-trenches-the-personal-side-of-corporate-ventures.html"
+    },
+    {
+      "source": "/blog/welcome-to-the-team-9-new-sparkies-join-us",
+      "destination": "/blog/blog-15-welcome-to-the-team-9-new-sparkies-join-us.html"
+    },
+    {
+      "source": "/blog/coffee-change",
+      "destination": "/blog/blog-16-coffee-change.html"
+    },
+    {
+      "source": "/blog/press-release-new-book-reveals-top-mistakes-made-by-managers-going-digital",
+      "destination": "/blog/blog-17-press-release-new-book-reveals-top-mistakes-made-by-managers-going-dig.html"
+    },
+    {
+      "source": "/blog/a-warm-welcome-to-our-september-starters",
+      "destination": "/blog/blog-18-a-warm-welcome-to-our-september-starters.html"
+    },
+    {
+      "source": "/blog/the-next-step-on-our-journey-towards-net-zero",
+      "destination": "/blog/blog-19-the-next-step-on-our-journey-towards-net-zero.html"
+    },
+    {
+      "source": "/blog/paving-the-way-for-future-growth-promotions-at-sparkoptimus",
+      "destination": "/blog/blog-20-paving-the-way-for-future-growth-promotions-at-sparkoptimus.html"
+    },
+    {
+      "source": "/blog/1-digital-consultant-in-emerce100-for-the-fifth-time",
+      "destination": "/blog/blog-21-1-digital-consultant-in-emerce100-for-the-fifth-time.html"
+    },
+    {
+      "source": "/blog/refugeehelp-com-is-live",
+      "destination": "/blog/blog-22-refugeehelp-com-is-live.html"
+    },
+    {
+      "source": "/blog/new-year-new-sparkies-welcome",
+      "destination": "/blog/blog-23-new-year-new-sparkies-welcome.html"
+    },
+    {
+      "source": "/blog/catching-up-with-sparkoptimus-alumni",
+      "destination": "/blog/blog-24-catching-up-with-sparkoptimus-alumni.html"
+    },
+    {
+      "source": "/blog/diversity-day-alexandra-jankovich-among-most-inspiring-women-in-tech",
+      "destination": "/blog/blog-25-diversity-day-alexandra-jankovich-among-most-inspiring-women-in-tech.html"
+    },
+    {
+      "source": "/blog/sparkoptiweekend-2021-sharing-learnings-fun-growing-together",
+      "destination": "/blog/blog-26-sparkoptiweekend-2021-sharing-learnings-fun-growing-together.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-welcomes-5-new-team-members",
+      "destination": "/blog/blog-27-sparkoptimus-welcomes-5-new-team-members.html"
+    },
+    {
+      "source": "/blog/all-fun-and-games-at-the-sparkoptimus-sports-day",
+      "destination": "/blog/blog-28-all-fun-and-games-at-the-sparkoptimus-sports-day.html"
+    },
+    {
+      "source": "/blog/welcome-to-the-team",
+      "destination": "/blog/blog-29-welcome-to-the-team.html"
+    },
+    {
+      "source": "/blog/dont-put-a-digital-expert-in-charge-of-your-digital-transformation",
+      "destination": "/blog/blog-30-don-t-put-a-digital-expert-in-charge-of-your-digital-transformation.html"
+    },
+    {
+      "source": "/blog/learn-the-data-way-improving-education-with-data",
+      "destination": "/blog/blog-31-learn-the-data-way-improving-education-with-data.html"
+    },
+    {
+      "source": "/blog/harnessing-the-power-of-disruption-for-ngos-sos-kinderdorpen",
+      "destination": "/blog/blog-32-harnessing-the-power-of-disruption-for-ngos-sos-kinderdorpen.html"
+    },
+    {
+      "source": "/blog/how-to-transform-your-organization-for-digital-success-in-these-times-leveraging-the-momentum-of-drastically-changing-routines",
+      "destination": "/blog/blog-33-how-to-transform-your-organization-for-digital-success-in-these-times-.html"
+    },
+    {
+      "source": "/blog/how-to-start-boosting-direct-to-consumer-sales-today-even-without-a-d2c-platform",
+      "destination": "/blog/blog-34-how-to-start-boosting-direct-to-consumer-sales-today-even-without-a-d2.html"
+    },
+    {
+      "source": "/blog/how-the-covid-19-outbreak-incubates-disruptive-thinking-three-levels-to-design-the-future-of-your-business",
+      "destination": "/blog/blog-35-how-the-covid-19-outbreak-incubates-disruptive-thinking-three-levels-t.html"
+    },
+    {
+      "source": "/blog/how-to-become-an-ai-driven-digital-business-introducing-our-virtual-ai-masterclass",
+      "destination": "/blog/blog-36-how-to-become-an-ai-driven-digital-business-introducing-our-virtual-ai.html"
+    },
+    {
+      "source": "/blog/how-to-virtualize-your-b2b-sales-engine-to-keep-your-salesforce-working-effectively-from-home",
+      "destination": "/blog/blog-37-how-to-virtualize-your-b2b-sales-engine-to-keep-your-salesforce-workin.html"
+    },
+    {
+      "source": "/blog/behind-the-scenes-at-koningsdag-thuis",
+      "destination": "/blog/blog-38-behind-the-scenes-at-koningsdag-thuis-building-a-nationwide-online-sha.html"
+    },
+    {
+      "source": "/blog/why-your-future-online-b2b-platform-is-needed-now-how-to-start-scale-and-not-miss-out",
+      "destination": "/blog/blog-39-why-your-future-online-b2b-platform-is-needed-now-how-to-start-scale-a.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-writes-history-celebrating-koningsdag-thuis-digitally-with-the-royal-family",
+      "destination": "/blog/blog-40-sparkoptimus-writes-history-celebrating-koningsdag-thuis-digitally-wit.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-co-organizes-koningsdag-thuis-a-fully-digital-kings-day",
+      "destination": "/blog/blog-41-sparkoptimus-co-organizes-koningsdag-thuis-a-fully-digital-king-s-day.html"
+    },
+    {
+      "source": "/blog/1-digital-consultant-in-emerce100-for-the-fourth-time",
+      "destination": "/blog/blog-42-1-digital-consultant-in-emerce100-for-the-fourth-time.html"
+    },
+    {
+      "source": "/blog/how-to-govern-digital-initiatives-for-maximum-impact-7-key-principles",
+      "destination": "/blog/blog-43-how-to-govern-digital-initiatives-for-maximum-impact-7-key-principles.html"
+    },
+    {
+      "source": "/blog/how-our-new-digital-first-routines-are-increasing-the-urgency-of-digitization",
+      "destination": "/blog/blog-44-how-our-new-digital-first-routines-are-increasing-the-urgency-of-digit.html"
+    },
+    {
+      "source": "/blog/keeping-the-spark-spirit-alive-during-a-crisis",
+      "destination": "/blog/blog-45-keeping-the-spark-spirit-alive-during-a-crisis.html"
+    },
+    {
+      "source": "/blog/sharing-our-tips-for-fully-virtual-workshops",
+      "destination": "/blog/blog-46-sharing-our-tips-for-fully-virtual-workshops.html"
+    },
+    {
+      "source": "/blog/working-from-home-tips",
+      "destination": "/blog/blog-47-working-from-home-tips.html"
+    },
+    {
+      "source": "/blog/ces-2020-women-in-tech-power-break-taking-our-10-recommendations-to-make-disruption-work-in-the-next-decade-global",
+      "destination": "/blog/blog-48-ces-2020-women-in-tech-power-break-taking-our-10-recommendations-to-ma.html"
+    },
+    {
+      "source": "/blog/ces-2020-disruption-dinner-french-and-dutch-leaders-discuss-how-to-make-disruption-work",
+      "destination": "/blog/blog-49-ces-2020-disruption-dinner-french-and-dutch-leaders-discuss-how-to-mak.html"
+    },
+    {
+      "source": "/blog/impact-for-all-through-diversity",
+      "destination": "/blog/blog-50-impact-for-all-through-diversity.html"
+    },
+    {
+      "source": "/blog/ai-and-retail-past-present-future",
+      "destination": "/blog/blog-51-ai-and-retail-past-present-future.html"
+    },
+    {
+      "source": "/blog/the-next-women-boardroom-session-at-sparkoptimus",
+      "destination": "/blog/blog-52-the-next-women-boardroom-session-at-sparkoptimus.html"
+    },
+    {
+      "source": "/blog/ces-unveiled-amsterdam-women-in-tech-power-break-sparkoptimus-launches-10-recommendations-to-make-disruption-work-in-the-next-decade",
+      "destination": "/blog/blog-53-ces-unveiled-amsterdam-women-in-tech-power-break-sparkoptimus-launches.html"
+    },
+    {
+      "source": "/blog/point-of-view-article-doing-data",
+      "destination": "/blog/blog-54-point-of-view-article-doing-data.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-partners-with-leading-business-universities",
+      "destination": "/blog/blog-55-sparkoptimus-partners-with-leading-business-universities.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-and-the-young-pianist-foundation",
+      "destination": "/blog/blog-56-sparkoptimus-and-the-young-pianist-foundation.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-around-the-world",
+      "destination": "/blog/blog-57-sparkoptimus-around-the-world.html"
+    },
+    {
+      "source": "/blog/we-are-really-proud-to-be-no-1-in-e-business-services-for-the-third-time",
+      "destination": "/blog/blog-58-we-are-really-proud-to-be-no-1-in-e-business-services-for-the-third-ti.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-at-imd-business-school-lausanne",
+      "destination": "/blog/blog-59-sparkoptimus-at-imd-business-school-lausanne.html"
+    },
+    {
+      "source": "/blog/what-impact-does-my-donation-have",
+      "destination": "/blog/blog-60-what-impact-does-my-donation-have.html"
+    },
+    {
+      "source": "/blog/new-digital-ventures-ahead",
+      "destination": "/blog/blog-61-new-digital-ventures-ahead.html"
+    },
+    {
+      "source": "/blog/growth-hacking-ai-how-to-make-it-work",
+      "destination": "/blog/blog-62-growth-hacking-ai-how-to-make-it-work.html"
+    },
+    {
+      "source": "/blog/machine-learning-sink-or-swim",
+      "destination": "/blog/blog-63-machine-learning-sink-or-swim.html"
+    },
+    {
+      "source": "/blog/project-march-sparkoptimus",
+      "destination": "/blog/blog-64-project-march-sparkoptimus.html"
+    },
+    {
+      "source": "/blog/alexandra-jankovich-speaker-at-thenextwomen100-event",
+      "destination": "/blog/blog-65-alexandra-jankovich-speaker-at-thenextwomen100-event.html"
+    },
+    {
+      "source": "/blog/make-disruption-work-book-launch-a-resounding-success",
+      "destination": "/blog/blog-66-make-disruption-work-book-launch-a-resounding-success.html"
+    },
+    {
+      "source": "/blog/sparkoptimus-presents-digital-at-imd",
+      "destination": "/blog/blog-67-sparkoptimus-presents-digital-at-imd.html"
+    },
+    {
+      "source": "/blog/emerce-eretail-europe",
+      "destination": "/blog/blog-68-emerce-eretail-europe.html"
+    },
+    {
+      "source": "/blog/new-pro-bono-initiative-social-kicked-off-in-rotterdam",
+      "destination": "/blog/blog-69-new-pro-bono-initiative-social-kicked-off-in-rotterdam.html"
+    },
+    {
+      "source": "/blog/digital-frontrunners-of-2017",
+      "destination": "/blog/blog-70-digital-frontrunners-of-2017.html"
+    },
+    {
+      "source": "/digital-know-how/digital-sovereignty-how-to-control-the-dependencies-that-matter",
+      "destination": "/insights/insight-1-digital-sovereignty-how-to-control-the-dependencies-that-matter.html"
+    },
+    {
+      "source": "/digital-know-how/sustainable-innovation-new-business-models-for-a-circular-economy",
+      "destination": "/insights/insight-2-sustainable-innovation-new-business-models-for-a-circular-economy.html"
+    },
+    {
+      "source": "/digital-know-how/private-equity-m-a-evaluating-a-targets-growth-potential-in-the-digital-age",
+      "destination": "/insights/insight-3-private-equity-m-a-evaluating-a-target-s-growth-potential-in-the-digit.html"
+    },
+    {
+      "source": "/digital-know-how/the-c-suite-blueprint-for-successful-digital-transformation",
+      "destination": "/insights/insight-4-the-c-suite-blueprint-for-successful-digital-transformation.html"
+    },
+    {
+      "source": "/digital-know-how/top-strategies-for-implementing-generative-ai-in-consumer-good",
+      "destination": "/insights/insight-5-top-strategies-for-implementing-generative-ai-in-consumer-goods.html"
+    },
+    {
+      "source": "/digital-know-how/10-must-have-criteria-for-digital-transformation-success",
+      "destination": "/insights/insight-6-10-must-have-criteria-for-digital-transformation-success.html"
+    },
+    {
+      "source": "/digital-know-how/10-ways-generative-ai-is-delivering-real-value-to-the-industrial-sector",
+      "destination": "/insights/insight-7-10-ways-generative-ai-is-delivering-real-value-to-the-industrial-secto.html"
+    },
+    {
+      "source": "/digital-know-how/10-best-practices-for-seamless-digital-customer-experiences",
+      "destination": "/insights/insight-8-10-best-practices-for-seamless-digital-customer-experiences.html"
+    },
+    {
+      "source": "/digital-know-how/10-practical-generative-ai-use-cases-energy-utilities",
+      "destination": "/insights/insight-9-10-practical-generative-ai-use-cases-for-energy-utilities.html"
+    },
+    {
+      "source": "/digital-know-how/10-proven-generative-ai-use-cases-cpg",
+      "destination": "/insights/insight-10-10-proven-generative-ai-use-cases-to-transform-your-cpg-business.html"
+    },
+    {
+      "source": "/digital-know-how/10-generative-ai-use-cases-financial-services",
+      "destination": "/insights/insight-11-10-generative-ai-use-cases-to-unlock-new-efficiencies-insights-in-fina.html"
+    },
+    {
+      "source": "/digital-know-how/implementing-generative-ai",
+      "destination": "/insights/insight-12-implementing-generative-ai.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-build-the-team-for-your-venture",
+      "destination": "/insights/insight-13-how-to-build-the-team-for-your-venture.html"
+    },
+    {
+      "source": "/digital-know-how/generative-ai-use-cases",
+      "destination": "/insights/insight-14-generative-ai-use-cases.html"
+    },
+    {
+      "source": "/digital-know-how/introduction-to-generative-ai",
+      "destination": "/insights/insight-15-introduction-to-generative-ai.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-govern-corporate-ventures",
+      "destination": "/insights/insight-16-how-to-govern-corporate-ventures.html"
+    },
+    {
+      "source": "/digital-know-how/common-pitfalls-in-corporate-venturing",
+      "destination": "/insights/insight-17-common-pitfalls-in-corporate-venturing.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-scale-a-corporate-venture",
+      "destination": "/insights/insight-18-how-to-scale-a-corporate-venture.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-build-a-venture",
+      "destination": "/insights/insight-19-how-to-build-a-venture.html"
+    },
+    {
+      "source": "/digital-know-how/when-to-build-a-corporate-venture-and-when-not-to",
+      "destination": "/insights/insight-20-when-to-build-a-corporate-venture-and-when-not-to.html"
+    },
+    {
+      "source": "/digital-know-how/bringing-investors-and-digital-disruptors-together",
+      "destination": "/insights/insight-21-bringing-investors-and-digital-disruptors-together.html"
+    },
+    {
+      "source": "/digital-know-how/how-online-first-players-succeeded",
+      "destination": "/insights/insight-22-how-online-first-players-succeeded.html"
+    },
+    {
+      "source": "/digital-know-how/introduction-to-corporate-venturing",
+      "destination": "/insights/insight-23-introduction-to-corporate-venturing.html"
+    },
+    {
+      "source": "/digital-know-how/should-your-global-firm-centralize-digital-operations",
+      "destination": "/insights/insight-24-should-your-global-firm-centralize-digital-operations.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-transform-your-organization-for-digital-success-during-a-crisis",
+      "destination": "/insights/insight-25-how-to-transform-your-organization-for-digital-success-during-a-crisis.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-start-boosting-direct-to-consumer-sales-today",
+      "destination": "/insights/insight-26-how-to-start-boosting-direct-to-consumer-sales-today.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-become-an-ai-driven-digital-business",
+      "destination": "/insights/insight-27-how-to-become-an-ai-driven-digital-business.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-virtualize-b2b-sales-to-ensure-effective-working-from-home",
+      "destination": "/insights/insight-28-how-to-virtualize-b2b-sales-to-ensure-effective-working-from-home.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-start-and-scale-that-future-online-b2b-platform-now",
+      "destination": "/insights/insight-29-how-to-start-and-scale-that-future-online-b2b-platform-now.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-design-the-post-covid-future-of-your-business-on-three-levels",
+      "destination": "/insights/insight-30-how-to-design-the-post-covid-future-of-your-business-on-three-levels.html"
+    },
+    {
+      "source": "/digital-know-how/how-to-govern-digital-initiatives-for-maximum-impact-7-key-principles",
+      "destination": "/insights/insight-31-how-to-govern-digital-initiatives-for-maximum-impact-7-key-principles.html"
+    },
+    {
+      "source": "/digital-know-how/how-our-new-digital-first-routines-add-urgency-to-digitization",
+      "destination": "/insights/insight-32-how-our-new-digital-first-routines-add-urgency-to-digitization.html"
+    },
+    {
+      "source": "/digital-know-how/dont-put-a-digital-expert-in-charge-of-your-digital-transformation",
+      "destination": "/insights/insight-33-don-t-put-a-digital-expert-in-charge-of-your-digital-transformation.html"
+    }
   ]
 }
