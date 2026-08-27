@@ -99,7 +99,9 @@ window.SO_PERMALINK = {
   "wella-digital-ecosystem": "case-wella-digital-ecosystem.html",
   "wella-digital-transformation": "case-wella-digital-transformation.html",
   "zeeman": "case-zeeman.html",
-  "building-tbi-ai-strategy-and-an-execution-ready-portfolio": "case-building-tbi-ai-strategy-and-an-execution-ready-portfolio.html"
+  "building-tbi-ai-strategy-and-an-execution-ready-portfolio": "case-building-tbi-ai-strategy-and-an-execution-ready-portfolio.html",
+  "media-markt": "case-media-markt.html",
+  "villebois-wineries": "case-villebois-wineries.html"
  },
  "insights": {
   "1": "insight-1-digital-sovereignty-how-to-control-the-dependencies-that-matter.html",

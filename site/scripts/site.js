@@ -108,8 +108,7 @@
       ]},
       { title: "", items: [
         { label: "Industrial Goods & Services", href: "/sectors/industrials", ic: "factory" },
-        { label: "Private Equity", href: "/sectors/private", ic: "pe" },
-        { label: "Retail", href: "/sectors/retail", ic: "cart" }
+        { label: "Private Equity", href: "/sectors/private", ic: "pe" }
       ]}
     ]},
     { label: "Impact", key: "impact", href: "/cases", cols: 2, menu: [

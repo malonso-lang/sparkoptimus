@@ -135,10 +135,6 @@
       "destination": "/pages/services/sector-detail-pe.html"
     },
     {
-      "source": "/sectors/retail",
-      "destination": "/pages/services/sector-detail-retail.html"
-    },
-    {
       "source": "/blog/thirsty-for-digital-disruption",
       "destination": "/blog/blog-1-thirsty-for-disruption.html"
     },

@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="site/assets/logo-mark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+<title>Arnaud Dathis — Associate<span class="metadot" aria-hidden="true"></span>SparkOptimus</title>
+<meta name="description" content="Arnaud Dathis is an Associate at SparkOptimus. He holds a Bachelor's from King's College London and a Master's in Economics and Finance from HEC Paris.">
+<link rel="stylesheet" href="site/styles/tokens.css">
+  <link rel="preload" href="site/fonts/BG-Spark-Title.otf" as="font" type="font/opentype" crossorigin>
+  <link rel="preload" href="site/fonts/BG-Spark-Regular.otf" as="font" type="font/opentype" crossorigin>
+<link rel="stylesheet" href="site/styles/site.css">
+<style>
+/* ================================================================
+   TEAM MEMBER DETAIL — individual profile template
+================================================================ */
+
+/* ---- HERO ---- */
+.tm-hero {
+  background: var(--bg-canvas);
+  overflow: hidden;
+  padding-top: clamp(88px, 9vw, 130px);
+}
+
+.tm-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  align-items: stretch;
+  min-height: 640px;
+}
+
+.tm-hero__left {
+  padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.tm-hero__bio {
+  margin-top: 32px;
+  max-width: 540px;
+}
+.tm-hero__bio p {
+  font-size: var(--text-md);
+  line-height: 1.7;
+  color: var(--fg-2);
+  margin: 0 0 14px;
+}
+.tm-hero__bio p:last-child { margin-bottom: 0; }
+
+.tm-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-3);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  margin-bottom: 36px;
+  transition: color var(--duration-fast) var(--ease-out), gap var(--duration-fast);
+  width: fit-content;
+}
+.tm-back svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform var(--duration-fast) var(--ease-out); }
+.tm-back:hover { color: var(--fg-1); gap: 10px; }
+.tm-back:hover svg { transform: translateX(-2px); }
+
+.tm-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 1.6rem + 4.8vw, 5.6rem);
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  color: var(--so-cyan-500);
+  margin: 0 0 16px;
+}
+
+.tm-hero__role {
+  font-size: clamp(1rem, 0.85rem + 0.4vw, 1.15rem);
+  color: var(--fg-1);
+  margin: 0 0 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.tm-hero__sector {
+  margin: 0 0 36px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--fg-2);
+  white-space: nowrap;
+}
+
+.tm-hero__sector-label {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--fg-2);
+  margin-right: 0;
+}
+
+.tm-hero__sector-list {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--fg-2);
+}
+
+.tm-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tm-hero__li-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-2);
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background: transparent;
+  transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+}
+.tm-hero__li-btn svg { width: 16px; height: 16px; }
+.tm-hero__li-btn:hover { background: var(--so-ink-900); border-color: var(--so-ink-900); color: #fff; }
+
+/* Right — portrait */
+.tm-hero__right {
+  position: relative;
+  overflow: hidden;
+}
+
+.tm-hero__portrait {
+  width: 100%;
+  height: 100%;
+  min-height: 640px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Divider below hero */
+.tm-divider {
+  height: 1px;
+  background: var(--border-1);
+}
+
+/* ---- QUOTE / BELIEF ---- */
+.tm-belief {
+  padding: clamp(64px, 7vw, 112px) 0;
+  background: var(--so-cyan-50);
+}
+.tm-belief__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+.tm-belief__quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 0.8rem + 0.9vw, 1.45rem);
+  line-height: 1.56;
+  color: var(--fg-1);
+  margin: 0 0 24px;
+  text-wrap: pretty;
+}
+.tm-belief__quote::before {
+  content: "\201C";
+  display: block;
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: clamp(5rem, 8vw, 9rem);
+  line-height: 0.65;
+  color: var(--so-cyan-300);
+  margin-bottom: 20px;
+}
+.tm-belief__attr {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-3);
+}
+
+
+
+/* ---- PUBLICATIONS ---- */
+.tm-publications {
+  padding: clamp(64px, 7vw, 112px) 0;
+  background: var(--bg-canvas);
+}
+.tm-publications h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.2rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 clamp(32px, 4vw, 48px);
+}
+.tm-books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.tm-book {
+  background: var(--so-gray-0);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base);
+}
+.tm-book:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.tm-book__cover {
+  background: var(--so-ink-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.tm-book__cover img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  box-shadow: 0 8px 24px rgba(14,23,42,0.22);
+}
+.tm-book__body {
+  padding: 28px 28px 28px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.tm-book__badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--so-cyan-700);
+  margin: 0;
+}
+.tm-book__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: var(--fg-1);
+  margin: 0;
+}
+.tm-book__desc {
+  font-size: 14px;
+  line-height: 1.58;
+  color: var(--fg-2);
+  margin: 0;
+}
+.tm-book__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--so-cyan-700);
+  text-decoration: none;
+  transition: gap var(--duration-fast), color var(--duration-fast);
+  margin-top: 4px;
+  width: fit-content;
+}
+.tm-book__link svg { width: 13px; height: 13px; }
+.tm-book__link:hover { gap: 10px; color: var(--so-cyan-800); }
+
+/* ---- INSIGHTS ---- */
+.tm-insights {
+  padding: clamp(64px, 7vw, 112px) 0;
+  background: var(--bg-subtle);
+}
+.tm-insights__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.tm-insights__head h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.2rem);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.tm-insights__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.article {
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  background: var(--so-gray-0); border-radius: var(--radius-xl); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base);
+}
+.article:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); color: inherit; }
+.article__media { aspect-ratio: 16 / 10; position: relative; overflow: hidden; background: var(--so-ink-800); }
+.article__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s var(--ease-out); }
+.article:hover .article__media img { transform: scale(1.04); }
+.article__tag { position: absolute; top: 14px; left: 14px; z-index: 2; background: rgba(6,11,26,0.82); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--radius-pill); }
+.article__body { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.article__title { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.32; color: var(--fg-1); }
+.article__excerpt { font-size: 14px; line-height: 1.6; color: var(--fg-2); margin: 0; }
+.article__meta { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-1); display: flex; justify-content: space-between; align-items: center; }
+.article__author { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: var(--fg-1); }
+.article__author-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; object-position: top center; flex-shrink: 0; }
+.article__date { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1024px) {
+  .tm-books-grid { grid-template-columns: 1fr; }
+  .tm-insights__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .tm-hero__grid { grid-template-columns: 1fr; min-height: auto; gap: 0; }
+  .tm-hero__right { order: -1; border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 28px; }
+  .tm-hero__portrait { min-height: 0; height: clamp(260px, 68vw, 400px); border-radius: var(--radius-2xl); }
+  .tm-hero__left { padding-top: 0; padding-bottom: clamp(40px, 8vw, 64px); }
+  .tm-hero__sector { white-space: normal; }
+  .tm-hero__bio { max-width: 100%; margin-top: 24px; }
+  .tm-insights__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  /* Articles: horizontal scroll snap */
+  .tm-insights__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding-bottom: 8px;
+  }
+  .tm-insights__grid::-webkit-scrollbar { display: none; }
+  .article { min-width: 80vw; scroll-snap-align: start; flex-shrink: 0; }
+
+  /* Actions: full-width stacked */
+  .tm-hero__actions { flex-direction: column; align-items: stretch; }
+  .tm-hero__li-btn, .tm-hero__actions .btn { width: 100%; justify-content: center; text-align: center; }
+
+  /* Books: stack */
+  .tm-book { grid-template-columns: 1fr; }
+  .tm-book__cover { min-height: 160px; }
+
+  /* CTA buttons: stack */
+  .ctaband .reveal > div { flex-direction: column; align-items: center; }
+  .ctaband .reveal > div .btn { width: 100%; max-width: 320px; justify-content: center; }
+}
+.metadot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;vertical-align:middle;margin:0 10px}
+</style>
+  <link rel="canonical" href="https://www.sparkoptimus.com/team/arnaud-dathis">
+    <meta property="og:url" content="https://www.sparkoptimus.com/team/arnaud-dathis">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": "Arnaud Dathis — Associate, SparkOptimus",
+    "description": "Arnaud Dathis is an Associate at SparkOptimus. He holds a Bachelor's from King's College London and a Master's in Economics and Finance from HEC Paris.",
+    "url": "https://www.sparkoptimus.com/team/arnaud-dathis",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.sparkoptimus.com/#website"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.sparkoptimus.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Team",
+      "item": "https://www.sparkoptimus.com/team"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Arnaud Dathis",
+      "item": "https://www.sparkoptimus.com/team/arnaud-dathis"
+    }
+    ]
+  }
+  </script>
+  <meta name="robots" content="index, follow">
+</head>
+<body data-page="about">
+<div id="site-nav-root"></div>
+
+<main>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <header class="tm-hero" data-screen-label="Team member hero">
+    <div class="container container--full">
+      <div class="tm-hero__grid">
+
+        <!-- Left: identity -->
+        <div class="tm-hero__left reveal">
+          <a href="pages/about/team.html" class="tm-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+            Back to our team
+          </a>
+
+          <h1>Arnaud Dathis</h1>
+
+          <p class="tm-hero__role">Associate</p>
+
+          <div class="tm-hero__actions">
+            <a href="https://www.linkedin.com/in/arnaud-dathis-poliquin/" class="tm-hero__li-btn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 17V9.74H6.06V17zM7.2 8.48a1.32 1.32 0 1 0 0-2.64 1.32 1.32 0 0 0 0 2.64zM18 17v-3.98c0-2.13-1.14-3.12-2.66-3.12a2.3 2.3 0 0 0-2.08 1.15h-.03V9.74H11v7.26h2.28v-3.6c0-.95.18-1.86 1.35-1.86s1.17 1.08 1.17 1.92V17z"/></svg>
+              LinkedIn
+            </a>
+            <a href="#get-in-touch" class="btn btn--primary-light">Get in touch</a>
+          </div>
+
+          <div class="tm-hero__bio reveal" data-delay="1">
+            <p>Originally from Paris, Arnaud is French and Canadian. He holds a Bachelor's in Economic and Management from King's College London as well as a Master's in Economics and Finance from HEC Paris.</p>
+            <p>Before joining SparkOptimus, he gained hands-on experience in corporate strategy through various internships and taught data analytics.</p>
+            <p>In his free time, Arnaud thoroughly enjoys cooking, exploring modern art, hitting the slopes for skiing, and building personal side projects.</p>
+          </div>
+        </div>
+
+        <!-- Right: portrait -->
+        <div class="tm-hero__right">
+          <img loading="eager" fetchpriority="high" decoding="async"
+            src="site/assets/remote/team-arnaud-dathis.png"
+            alt="Arnaud Dathis — Associate, SparkOptimus"
+            class="tm-hero__portrait"
+          >
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <div class="tm-divider"></div>
+
+  <!-- ============================================================
+       QUOTE
+  ============================================================ -->
+  <section class="tm-belief" data-screen-label="Quote">
+    <div class="container">
+      <div class="tm-belief__inner reveal">
+        <p class="tm-belief__quote">"At SparkOptimus, I'm energized by an entrepreneurial spirit and surrounded by exceptionally smart colleagues — this motivating atmosphere and our diverse, strategic approach to every project inspire me to continuously grow and deliver impactful results."</p>
+        <p class="tm-belief__attr">Arnaud Dathis — Associate</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GET IN TOUCH — teal CTA band (same as other pages)
+  ============================================================ -->
+  <section class="section surface-teal ctaband" id="get-in-touch" data-screen-label="Get in touch" style="text-align:center;">
+    <div class="ctaband__orb"></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 style="margin:0 auto 16px;max-width:20ch;">Get in touch</h2>
+        <p style="color:rgba(255,255,255,0.82);max-width:46ch;margin:0 auto 28px;">Whether you're navigating a transformation, exploring a new venture, or looking for a strategic second opinion — reach out for a direct conversation.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a class="btn btn--primary" href="pages/about/contact.html">Let's talk</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer-root"></div>
+
+<script src="site/scripts/site.js"></script>
+<script>
+  window.SO.reveal();
+</script>
+  <script defer src="site/scripts/search-index.js"></script>
+</body>
+</html>
