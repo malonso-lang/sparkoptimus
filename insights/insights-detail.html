@@ -433,7 +433,10 @@
 
   var surfaces = ['', 'surface-subtle', 'surface-ink'];
   var out = '';
-  if (body) {
+  if (body && body.html) {
+    out += '<section class="section" data-screen-label="Article"><div class="container container--full"><div class="art reveal">' +
+      body.html + '</div></div></section>';
+  } else if (body) {
     out += '<section class="section" data-screen-label="Intro"><div class="container container--full"><div class="art reveal">' +
       renderBlocks(body.intro || []) + '</div></div></section>';
     (body.sections || []).forEach(function (sec, i) {
