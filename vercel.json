@@ -133,14 +133,6 @@
     {
       "source": "/sectors/private",
       "destination": "/pages/services/sector-detail-pe.html"
-    },
-    {
-      "source": "/blog/:slug",
-      "destination": "/blog/:slug.html"
-    },
-    {
-      "source": "/digital-know-how/:slug",
-      "destination": "/insights/:slug.html"
     }
   ]
 }
