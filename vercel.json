@@ -85,14 +85,6 @@
     {
       "source": "/cases/:slug",
       "destination": "/cases/case-:slug.html"
-    },
-    {
-      "source": "/ceo-stories/:slug",
-      "destination": "/ceo-stories/ceo-story-:slug.html"
-    },
-    {
-      "source": "/team/:slug",
-      "destination": "/pages/about/team-:slug.html"
     }
   ]
 }
