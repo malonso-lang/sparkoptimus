@@ -92,36 +92,36 @@
 
   /* ---- nav model ---- */
   var NAV = [
-    { label: "Our approach", href: "pages/about/our-approach.html", key: "approach" },
-    { label: "Services", href: "pages/services/services.html", key: "services", menu: [
-      { label: "Digital Strategy & Transformation", href: "pages/services/service-detail.html" },
-      { label: "AI & Data Strategy & Transformation", href: "pages/services/service-detail-ai-data.html" },
-      { label: "Sustainability Strategy & Transformation", href: "pages/services/service-detail-sustainability.html" },
-      { label: "Mergers and Acquisitions", href: "pages/services/service-detail-ma.html" },
-      { label: "Ventures and Scale-ups", href: "pages/services/service-detail-ventures.html" }
+    { label: "Our approach", href: "/our-approach", key: "approach" },
+    { label: "Services", href: "/services", key: "services", menu: [
+      { label: "Digital Strategy & Transformation", href: "/services/digital-strategy" },
+      { label: "AI & Data Strategy & Transformation", href: "/services/ai-data-strategy" },
+      { label: "Sustainability Strategy & Transformation", href: "/services/sustainability" },
+      { label: "Mergers and Acquisitions", href: "/services/mergers-acquisitions" },
+      { label: "Ventures and Scale-ups", href: "/services/ventures" }
     ]},
-    { label: "Sectors", href: "pages/services/sectors.html", key: "sectors", groups: [
+    { label: "Sectors", href: "/sectors", key: "sectors", groups: [
       { title: "", items: [
-        { label: "Consumer Goods", href: "pages/services/sector-detail.html", ic: "cart" },
-        { label: "Energy & Utilities", href: "pages/services/sector-detail-energy.html", ic: "bolt" },
-        { label: "Financial Services", href: "pages/services/sector-detail-financial.html", ic: "bank" }
+        { label: "Consumer Goods", href: "/sectors/consumer-goods", ic: "cart" },
+        { label: "Energy & Utilities", href: "/sectors/energy-utilities", ic: "bolt" },
+        { label: "Financial Services", href: "/sectors/financial-services", ic: "bank" }
       ]},
       { title: "", items: [
-        { label: "Industrial Goods & Services", href: "pages/services/sector-detail-industrial.html", ic: "factory" },
-        { label: "Private Equity", href: "pages/services/sector-detail-pe.html", ic: "pe" }
+        { label: "Industrial Goods & Services", href: "/sectors/industrial-goods-services", ic: "factory" },
+        { label: "Private Equity", href: "/sectors/private-equity", ic: "pe" }
       ]}
     ]},
-    { label: "Impact", key: "impact", href: "cases/cases.html", cols: 2, menu: [
-      { label: "Cases", desc: "Work that moves the needle", href: "cases/cases.html" },
-      { label: "CEO stories", desc: "Conversations with leaders", href: "ceo-stories/ceo-stories.html" },
-      { label: "Insights", desc: "Research & points of view", href: "insights/insights.html" },
-      { label: "Blog", desc: "Latest thinking on digital & AI", href: "blog/blog.html" },
-      { label: "Books & benchmarks", desc: "Our published works & benchmarks", href: "pages/books/books.html" }
+    { label: "Impact", key: "impact", href: "/cases", cols: 2, menu: [
+      { label: "Cases", desc: "Work that moves the needle", href: "/cases" },
+      { label: "CEO stories", desc: "Conversations with leaders", href: "/ceo-stories" },
+      { label: "Insights", desc: "Research & points of view", href: "/insights" },
+      { label: "Blog", desc: "Latest thinking on digital & AI", href: "/blog" },
+      { label: "Books & benchmarks", desc: "Our published works & benchmarks", href: "/books" }
     ]},
   ];
 
   function prefixHref(href) {
-    if (!href || href.charAt(0) === '#') return href || '#';
+    if (!href || href.charAt(0) === '#' || href.charAt(0) === '/') return href || '#';
     return ASSET_PREFIX + href;
   }
 
@@ -158,14 +158,14 @@
       '<nav class="site-nav" id="siteNav">' +
         '<div class="container container--full">' +
           '<div class="site-nav__pill">' +
-            '<a class="site-nav__logo" href="' + ASSET_PREFIX + 'index.html" aria-label="SparkOptimus home">' +
+            '<a class="site-nav__logo" href="/" aria-label="SparkOptimus home">' +
               '<span class="site-nav__dot"><img src="' + ASSET_PREFIX + 'site/assets/logo-mark.svg" alt="" width="38" height="38"></span>' +
               '<span class="site-nav__wordmark">SparkOptimus</span>' +
             '</a>' +
             '<div class="site-nav__menu">' + items + '</div>' +
             '<div class="site-nav__right">' +
               '<button class="site-nav__icon-btn" aria-label="Search">' + ico("search") + '</button>' +
-              '<a class="site-nav__cta" href="' + prefixHref('pages/about/contact.html') + '"><span class="site-nav__cta-text">Let\u2019s talk</span></a>' +
+              '<a class="site-nav__cta" href="' + prefixHref('/contact') + '"><span class="site-nav__cta-text">Let\u2019s talk</span></a>' +
               '<button class="site-nav__icon-btn site-nav__burger" id="navBurger" aria-label="Menu">' + ico("menu") + '</button>' +
             '</div>' +
           '</div>' +
@@ -174,7 +174,7 @@
       '<div class="site-drawer-backdrop" id="siteDrawerBackdrop"></div>' +
       '<div class="site-drawer" id="siteDrawer">' +
         '<div class="site-drawer__header">' +
-          '<a class="site-drawer__logo" href="' + ASSET_PREFIX + 'index.html" aria-label="SparkOptimus home">' +
+          '<a class="site-drawer__logo" href="/" aria-label="SparkOptimus home">' +
             '<span class="site-drawer__logo-dot"><img src="' + ASSET_PREFIX + 'site/assets/logo-mark.svg" alt="" width="32" height="32"></span>' +
             '<span class="site-drawer__wordmark">SparkOptimus</span>' +
           '</a>' +
@@ -215,7 +215,7 @@
           }).join('') +
         '</nav>' +
         '<div class="site-drawer__footer">' +
-          '<a class="btn btn--primary" href="' + prefixHref('pages/about/contact.html') + '">Let\u2019s talk ' + ico("arrow") + '</a>' +
+          '<a class="btn btn--primary" href="' + prefixHref('/contact') + '">Let\u2019s talk ' + ico("arrow") + '</a>' +
         '</div>' +
       '</div>';
   }
@@ -226,11 +226,11 @@
       '<div class="container container--full">' +
         '<div class="site-footer__top">' +
           '<div class="site-footer__brand">' +
-            '<a class="site-footer__lockup" href="' + ASSET_PREFIX + 'index.html" style="text-decoration:none;">' +
+            '<a class="site-footer__lockup" href="/" style="text-decoration:none;">' +
               '<span class="site-footer__dot"><img src="' + ASSET_PREFIX + 'site/assets/logo-mark.svg" alt="" width="34" height="34"></span>' +
               '<span class="site-footer__word">SparkOptimus</span></a>' +
             '<p class="site-footer__tagline">We make disruption work for you. Future-proof your organization through digital, generative AI and transformation.</p>' +
-            '<a class="arrowlink arrowlink--on-ink" href="' + ASSET_PREFIX + 'pages/about/contact.html">Start a conversation' + ico("arrow") + '</a>' +
+            '<a class="arrowlink arrowlink--on-ink" href="/contact">Start a conversation' + ico("arrow") + '</a>' +
             '<div class="site-footer__social">' +
               '<a class="site-footer__soc" href="https://www.linkedin.com/company/sparkoptimus" aria-label="Follow us on LinkedIn">' + ico("linkedin") + '</a>' +
               '<a class="site-footer__soc" href="https://www.instagram.com/sparkoptimus" aria-label="Follow us on Instagram">' + ico("instagram") + '</a>' +
@@ -238,19 +238,19 @@
           '</div>' +
           '<div class="site-footer__col">' +
             '<p class="site-footer__head">Company</p>' +
-            '<a href="' + ASSET_PREFIX + 'pages/about/our-approach.html">Our approach</a>' +
-            '<a href="' + ASSET_PREFIX + 'pages/services/services.html">Services</a>' +
-            '<a href="' + ASSET_PREFIX + 'pages/services/sectors.html">Sectors</a>' +
-            '<a href="' + ASSET_PREFIX + 'cases/cases.html">Impact</a>' +
+            '<a href="/our-approach">Our approach</a>' +
+            '<a href="/services">Services</a>' +
+            '<a href="/sectors">Sectors</a>' +
+            '<a href="/cases">Impact</a>' +
           '</div>' +
         '</div>' +
         '<div class="site-footer__bottom">' +
           '<span>\u00A9 2026 SparkOptimus \u2013 Jacob Obrechtplein 1, Amsterdam</span>' +
           '<div class="site-footer__legal">' +
-            '<a href="' + ASSET_PREFIX + 'pages/about/privacy-statement.html">Privacy statement</a>' +
-            '<a href="' + ASSET_PREFIX + 'pages/about/privacy-statement.html">Cookie policy</a>' +
-            '<a href="' + ASSET_PREFIX + 'pages/about/human-labour-rights.html">Human &amp; labor rights</a>' +
-            '<a href="' + ASSET_PREFIX + 'pages/about/environmental-policy.html">Environmental statement</a>' +
+            '<a href="/privacy-statement">Privacy statement</a>' +
+            '<a href="/privacy-statement">Cookie policy</a>' +
+            '<a href="/human-labour-rights">Human &amp; labor rights</a>' +
+            '<a href="/environmental-policy">Environmental statement</a>' +
           '</div>' +
         '</div>' +
       '</div>' +

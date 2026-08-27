@@ -232,7 +232,7 @@ window.SO_PL = function (kind, id) {
   var FOLDER = { insights: "insights/", blog: "blog/", cases: "cases/", ceo: "ceo-stories/" };
   var prefix = FOLDER[kind] || "";
   var m = window.SO_PERMALINK && window.SO_PERMALINK[kind];
-  if (m && m[id]) return prefix + m[id];
+  if (m && m[id]) return prefix + m[id].replace(/\.html$/, "");
   var q = { insights: "insights-detail.html?a=", blog: "blog-detail.html?p=", cases: "case-detail.html?c=", ceo: "ceo-story-detail.html?e=" };
   return prefix + q[kind] + id;
 };
