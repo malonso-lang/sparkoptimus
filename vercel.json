@@ -141,5 +141,122 @@
       "source": "/digital-know-how/:slug",
       "destination": "/insights/:slug.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/case-:slug.html",
+      "destination": "/cases/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ceo-story-:slug.html",
+      "destination": "/ceo-stories/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/sectors.html",
+      "destination": "/sectors",
+      "permanent": true
+    },
+    {
+      "source": "/cases.html",
+      "destination": "/cases",
+      "permanent": true
+    },
+    {
+      "source": "/insights.html",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/ceo-stories.html",
+      "destination": "/ceo-stories",
+      "permanent": true
+    },
+    {
+      "source": "/our-approach.html",
+      "destination": "/our-approach",
+      "permanent": true
+    },
+    {
+      "source": "/careers.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/vacancies.html",
+      "destination": "/vacancies",
+      "permanent": true
+    },
+    {
+      "source": "/team.html",
+      "destination": "/team",
+      "permanent": true
+    },
+    {
+      "source": "/team-tom-voskes.html",
+      "destination": "/team/tom-voskes",
+      "permanent": true
+    },
+    {
+      "source": "/books.html",
+      "destination": "/books",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-statement.html",
+      "destination": "/privacy-statement",
+      "permanent": true
+    },
+    {
+      "source": "/human-labour-rights.html",
+      "destination": "/human-labour-rights",
+      "permanent": true
+    },
+    {
+      "source": "/environmental-policy.html",
+      "destination": "/environmental-policy",
+      "permanent": true
+    },
+    {
+      "source": "/career-events.html",
+      "destination": "/career-events",
+      "permanent": true
+    },
+    {
+      "source": "/board.html",
+      "destination": "/board",
+      "permanent": true
+    },
+    {
+      "source": "/dei-commitment.html",
+      "destination": "/dei-commitment",
+      "permanent": true
+    },
+    {
+      "source": "/employee-testimonials.html",
+      "destination": "/employee-testimonials",
+      "permanent": true
+    },
+    {
+      "source": "/life-at-sparkoptimus.html",
+      "destination": "/life-at-sparkoptimus",
+      "permanent": true
+    }
   ]
 }
