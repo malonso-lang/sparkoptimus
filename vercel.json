@@ -257,6 +257,181 @@
       "source": "/life-at-sparkoptimus.html",
       "destination": "/life-at-sparkoptimus",
       "permanent": true
+    },
+    {
+      "source": "/blog/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/board.html",
+      "destination": "/board",
+      "permanent": true
+    },
+    {
+      "source": "/pages/books/books.html",
+      "destination": "/books",
+      "permanent": true
+    },
+    {
+      "source": "/pages/careers/career-events.html",
+      "destination": "/career-events",
+      "permanent": true
+    },
+    {
+      "source": "/pages/careers/careers.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/cases/cases.html",
+      "destination": "/cases",
+      "permanent": true
+    },
+    {
+      "source": "/ceo-stories/ceo-stories.html",
+      "destination": "/ceo-stories",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/dei-commitment.html",
+      "destination": "/dei-commitment",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/employee-testimonials.html",
+      "destination": "/employee-testimonials",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/environmental-policy.html",
+      "destination": "/environmental-policy",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/human-labour-rights.html",
+      "destination": "/human-labour-rights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/insights.html",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/life-at-sparkoptimus.html",
+      "destination": "/life-at-sparkoptimus",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/our-approach.html",
+      "destination": "/our-approach",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/privacy-statement.html",
+      "destination": "/privacy-statement",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/sectors.html",
+      "destination": "/sectors",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/services.html",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/team.html",
+      "destination": "/team",
+      "permanent": true
+    },
+    {
+      "source": "/pages/careers/vacancies.html",
+      "destination": "/vacancies",
+      "permanent": true
+    },
+    {
+      "source": "/cases/case-:slug.html",
+      "destination": "/cases/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ceo-stories/ceo-story-:slug.html",
+      "destination": "/ceo-stories/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about/team-:slug.html",
+      "destination": "/team/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/service-detail.html",
+      "destination": "/services/digital-strategy-transformation",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/service-detail-ai-data.html",
+      "destination": "/services/ai-and-data",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/service-detail-sustainability.html",
+      "destination": "/services/sustainability",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/service-detail-ma.html",
+      "destination": "/services/mergers-and-acquisitions",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/service-detail-ventures.html",
+      "destination": "/services/ventures-scale-ups",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/sector-detail.html",
+      "destination": "/sectors/consumer-goods",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/sector-detail-energy.html",
+      "destination": "/sectors/energy-utilities",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/sector-detail-financial.html",
+      "destination": "/sectors/financial-services",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/sector-detail-industrial.html",
+      "destination": "/sectors/industrials",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services/sector-detail-pe.html",
+      "destination": "/sectors/private",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug.html",
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/insights/:slug.html",
+      "destination": "/digital-know-how/:slug",
+      "permanent": true
     }
   ]
 }
