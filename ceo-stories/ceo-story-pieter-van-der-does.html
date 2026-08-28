@@ -455,7 +455,6 @@
             <h3>Key topics in this interview</h3>
             <ul id="csTopicsList"></ul>
           </div>
-          <div class="cs-section" id="csSource"></div>
         </div>
 
 
@@ -529,7 +528,6 @@
       });
     }
   }
-  set("csSource", '<p><a class="arrowlink" href="' + e.source + '" target="_blank" rel="noopener">Watch or listen to the full episode <span class="arrowmini">' + window.SO.ico("arrow") + '</span></a></p>');
   var rel = EP.filter(function (x) { return x.slug !== e.slug; }).slice(0, 3);
   document.getElementById("csRelated").innerHTML = rel.map(function (x) {
     var img = x.img ? ' style="background-image:url(&quot;' + x.img + '&quot;);background-size:cover;background-position:center;"' : '';
