@@ -205,7 +205,7 @@
   if (feat) {
     document.getElementById("epFeatTitle").innerHTML = feat.title;
     document.getElementById("epFeatWho").innerHTML = feat.name + ' — ' + feat.role + ', ' + feat.company;
-    document.getElementById("epFeatLink").href = feat.href;
+    document.getElementById("epFeatLink").href = "/ceo-stories/" + feat.slug;
     if (feat.img) {
       var fv = document.getElementById("epFeatVideo");
       fv.style.backgroundImage = 'url("' + feat.img + '")';
@@ -213,12 +213,12 @@
       fv.style.backgroundPosition = 'center';
     }
     var fvl = document.getElementById('epFeatVideo');
-    if (fvl) { fvl.href = feat.href;
+    if (fvl) { fvl.href = "/ceo-stories/" + feat.slug;
     }
   }
 
   document.getElementById("epGrid").innerHTML = EP.slice(1).map(function (e, i) {
-    var href = e.href || "#";
+    var href = e.slug ? "/ceo-stories/" + e.slug : "#";
     var imgStyle = e.img
       ? 'background-image: url(' + e.img + '); background-size: cover; background-position: center;'
       : 'background: linear-gradient(135deg, var(--so-gray-200), var(--so-gray-100));';
