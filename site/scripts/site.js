@@ -233,7 +233,6 @@
             '<a class="arrowlink arrowlink--on-ink" href="/contact">Start a conversation' + ico("arrow") + '</a>' +
             '<div class="site-footer__social">' +
               '<a class="site-footer__soc" href="https://www.linkedin.com/company/sparkoptimus" aria-label="Follow us on LinkedIn">' + ico("linkedin") + '</a>' +
-              '<a class="site-footer__soc" href="https://www.instagram.com/sparkoptimus" aria-label="Follow us on Instagram">' + ico("instagram") + '</a>' +
             '</div>' +
           '</div>' +
           '<div class="site-footer__col">' +
@@ -245,7 +244,7 @@
           '</div>' +
         '</div>' +
         '<div class="site-footer__bottom">' +
-          '<span>\u00A9 2026 SparkOptimus \u2013 Jacob Obrechtplein 1, Amsterdam</span>' +
+          '<span>\u00A9 2026 SparkOptimus</span>' +
           '<div class="site-footer__legal">' +
             '<a href="/privacy-statement">Privacy statement</a>' +
             '<a href="/privacy-statement">Cookie policy</a>' +

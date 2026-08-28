@@ -199,7 +199,7 @@
         <p style="color:rgba(255,255,255,0.8);max-width:46ch;margin:0 auto 28px;">We combine deep sector knowledge with digital execution.</p>
         <div class="ctaband__actions" style="justify-content:center;">
           <a class="btn btn--primary" href="pages/about/contact.html">Get in touch</a>
-          <a class="btn btn--ghost-dark" href="cases/cases.html">View all cases</a>
+          <a class="btn btn--ghost-dark" href="/cases">View all cases</a>
         </div>
       </div>
     </div>
@@ -216,50 +216,50 @@
   var SECTORS = [
     {
       title: "Consumer Goods",
-      href: "sector-detail.html",
+      href: "/sectors/consumer-goods",
       desc: "Unlock growth in consumer goods. SparkOptimus combines deep industry expertise with cutting-edge solutions. We deliver results across market entry, data analysis, and process optimization, empowering your brand for sustainable success.",
       logos: [
-        { src: L + "Heineken_N.V.-Logo.wine.png",   name: "Heineken",     href: "case-hema.html" },
-        { src: L + "Nestlé.svg.png",                 name: "Nestlé",       href: "case-hema.html" },
-        { src: L + "Albert-Heijn-Emblem.png",        name: "Albert Heijn", href: "case-hema.html" },
-        { src: L + "Ikea_logo.svg.png",              name: "IKEA",         href: "case-hema.html" }
+        { src: L + "Heineken_N.V.-Logo.wine.png",   name: "Heineken",     href: "/cases/hema" },
+        { src: L + "Nestlé.svg.png",                 name: "Nestlé",       href: "/cases/hema" },
+        { src: L + "Albert-Heijn-Emblem.png",        name: "Albert Heijn", href: "/cases/hema" },
+        { src: L + "Ikea_logo.svg.png",              name: "IKEA",         href: "/cases/hema" }
       ]
     },
     {
       title: "Energy & Utilities",
-      href: "sector-detail-energy.html",
+      href: "/sectors/energy-utilities",
       desc: "SparkOptimus helps energy & utility companies navigate their sustainability transformation. We deliver solutions for regulatory compliance, digital transformation, and customer-centric innovation, empowering you to thrive in a changing market. Partner with us to achieve sustainable growth and a competitive edge.",
       logos: [
-        { src: L + "Eneco_logo.svg.png",             name: "Eneco",        href: "case-hema.html" }
+        { src: L + "Eneco_logo.svg.png",             name: "Eneco",        href: "/cases/hema" }
       ]
     },
     {
       title: "Financial Services",
-      href: "sector-detail-financial.html",
+      href: "/sectors/financial-services",
       desc: "Solve complex challenges in financial services. SparkOptimus delivers data-driven solutions for process optimization, customer journeys, and sustainable practices. Leverage our expertise in AI, disruptive propositions, and partnerships. We help you grow, navigate ESG, and gain a competitive edge.",
       logos: [
-        { src: L + "ING_Groep_Logo.svg",            name: "ING",          href: "case-hema.html" },
-        { src: L + "DLL_Group_logo.svg.png",         name: "DLL Group",    href: "case-hema.html" },
-        { src: L + "nieuw_logo_voor_leaseplan.png",  name: "LeasePlan",    href: "case-hema.html" }
+        { src: L + "ING_Groep_Logo.svg",            name: "ING",          href: "/cases/hema" },
+        { src: L + "DLL_Group_logo.svg.png",         name: "DLL Group",    href: "/cases/hema" },
+        { src: L + "nieuw_logo_voor_leaseplan.png",  name: "LeasePlan",    href: "/cases/hema" }
       ]
     },
     {
       title: "Industrial Goods & Services",
-      href: "sector-detail-industrial.html",
+      href: "/sectors/industrials",
       desc: "SparkOptimus empowers businesses to navigate industry challenges with innovative solutions. We deliver data-driven solutions for B2B ecommerce, digital aftermarket strategies, and connected ecosystem development. Boost your sales, reach new customers, and improve efficiency with our expertise in AI, partnerships, and digital transformation.",
       logos: [
-        { src: L + "AkzoNobel_Logo.svg.png",                          name: "AkzoNobel", href: "case-hema.html" },
-        { src: L + "Henkel-Logo.svg.png",                             name: "Henkel",    href: "case-hema.html" },
-        { src: L + "64e4e2019beb28d11fe70822_08.-Logo_Van-Oord.png",  name: "Van Oord",  href: "case-hema.html" }
+        { src: L + "AkzoNobel_Logo.svg.png",                          name: "AkzoNobel", href: "/cases/hema" },
+        { src: L + "Henkel-Logo.svg.png",                             name: "Henkel",    href: "/cases/hema" },
+        { src: L + "64e4e2019beb28d11fe70822_08.-Logo_Van-Oord.png",  name: "Van Oord",  href: "/cases/hema" }
       ]
     },
     {
       title: "Private Equity",
-      href: "sector-detail-pe.html",
+      href: "/sectors/private",
       desc: "Our Private Equity services help organizations seize investment opportunities in a rapidly changing world. We guide you through every stage of the deal cycle, empowering informed decisions that maximize returns, while our strategic guidance propels your investment organization forward.",
       logos: [
-        { src: L + "3i-Logo.svg.png",                name: "3i",           href: "case-hema.html" },
-        { src: L + "NPM_Capital_Logo.png",           name: "NPM Capital",  href: "case-hema.html" }
+        { src: L + "3i-Logo.svg.png",                name: "3i",           href: "/cases/hema" },
+        { src: L + "NPM_Capital_Logo.png",           name: "NPM Capital",  href: "/cases/hema" }
       ]
     }
   ];
@@ -284,7 +284,7 @@
         '<p>' + s.desc + '</p>' +
         '<div class="sec-row__actions">' +
           '<a class="btn btn--outline-cyan btn--sm" href="' + s.href + '">View sector</a>' +
-          '<a class="arrowlink" href="cases/cases.html">View all cases <span class="arrowmini">' + arrow + '</span></a>' +
+          '<a class="arrowlink" href="/cases">View all cases <span class="arrowmini">' + arrow + '</span></a>' +
         '</div>' +
       '</div>' +
       '<div class="sec-row__right">' +
