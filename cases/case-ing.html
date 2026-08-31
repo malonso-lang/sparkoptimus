@@ -42,6 +42,10 @@
   .cs-check { width: 26px; height: 26px; border-radius: 50%; background: var(--so-cyan-500); color: var(--so-ink-900); display: grid; place-items: center; flex-shrink: 0; margin-top: 1px; }
   .cs-check svg { width: 14px; height: 14px; }
   .cs-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cs-centered { max-width: 900px; margin: 0 auto; text-align: center; }
+  .cs-centered .cs-chips { justify-content: center; margin-bottom: 22px; }
+  .cs-centered .cs-body { text-wrap: balance; }
+  .cs-centered .cs-list { text-align: left; max-width: 640px; margin: 28px auto 0; }
   .quotes--editorial { max-width: 860px; margin: 0 auto; }
   .quote-card { background: rgba(255,255,255,0.05); border: 1px solid var(--border-on-inverse); border-radius: var(--radius-xl); padding: clamp(16px,2vw,24px) clamp(18px,2.5vw,32px); display: flex; flex-direction: column; width: 100%; box-sizing: border-box; }
   .quote-card__openquote { font-family: var(--font-display); font-size: 44px; line-height: 0.7; color: var(--so-cyan-500); display: block; margin-bottom: 6px; user-select: none; }
@@ -101,41 +105,30 @@
 
   <section class="section" data-screen-label="What they wanted">
     <div class="container container--full">
-      <div class="cs-two-col reveal">
-        <div>
-          <p class="cs-eyebrow">What they wanted</p>
-          <h2 class="cs-h2" id="csWantedTitle"></h2>
-          <div id="csWanted"></div>
-        </div>
-        <div style="padding-top:clamp(0px,2vw,56px);">
-          <div class="cs-chips" id="csChips"></div>
-        </div>
+      <div class="cs-centered reveal">
+        <div class="cs-chips" id="csChips"></div>
+        <h2 class="cs-h2" id="csWantedTitle"></h2>
+        <div id="csWanted"></div>
       </div>
     </div>
   </section>
 
   <section class="section surface-subtle" id="csDidSection" data-screen-label="What we did" style="display:none;">
     <div class="container container--full">
-      <div class="cs-two-col reveal">
-        <div>
-          <p class="cs-eyebrow">What we did</p>
-          <h2 class="cs-h2" id="csDidTitle"></h2>
-          <div id="csDid"></div>
-        </div>
-        <div><ul class="cs-list" id="csDidList"></ul></div>
+      <div class="cs-centered reveal">
+        <h2 class="cs-h2" id="csDidTitle"></h2>
+        <div id="csDid"></div>
+        <ul class="cs-list" id="csDidList"></ul>
       </div>
     </div>
   </section>
 
   <section class="section" id="csAchievedSection" data-screen-label="What we achieved" style="display:none;">
     <div class="container container--full">
-      <div class="cs-two-col reveal">
-        <div><div class="cs-chips" id="csAchievedChips"></div></div>
-        <div>
-          <p class="cs-eyebrow">What we achieved</p>
-          <h2 class="cs-h2" id="csAchievedTitle"></h2>
-          <div id="csAchieved"></div>
-        </div>
+      <div class="cs-centered reveal">
+        <div class="cs-chips" id="csAchievedChips"></div>
+        <h2 class="cs-h2" id="csAchievedTitle"></h2>
+        <div id="csAchieved"></div>
       </div>
     </div>
   </section>
