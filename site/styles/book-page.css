@@ -404,13 +404,14 @@ details[open] > .chapter-acc-head .chapter-acc-chevron { transform: rotate(180de
   color: rgba(255,255,255,0.65);
 }
 .book-hero__stars { display: inline-flex; gap: 2px; }
-.book-hero__disclaimer {
+.book-hero__content .book-hero__disclaimer {
   font-size: 13.5px;
   color: rgba(255,255,255,0.4);
-  margin-top: 26px;
+  margin: 44px 0 0;
+  max-width: 52ch;
 }
-.book-hero__disclaimer a { color: rgba(255,255,255,0.6); text-decoration: underline; }
-.book-hero__disclaimer a:hover { color: var(--so-cyan-400); }
+.book-hero__content .book-hero__disclaimer a { color: rgba(255,255,255,0.6); text-decoration: underline; }
+.book-hero__content .book-hero__disclaimer a:hover { color: var(--so-cyan-400); }
 
 /* ---- TRAILER EMBED ---- */
 .trailer-player iframe { width: 100%; height: 100%; border: 0; display: block; }
