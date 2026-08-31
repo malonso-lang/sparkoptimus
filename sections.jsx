@@ -115,7 +115,7 @@ const CLIENTS = [
 { name: "Port of Rotterdam", src: "Port_of_Rotterdam_logo_(light-blue).svg.png", s: 1.04 },
 { name: "Van Oord", src: "64e4e2019beb28d11fe70822_08.-Logo_Van-Oord.png", s: 1.0 },
 { name: "LeasePlan", src: "nieuw_logo_voor_leaseplan.png", s: 1.10 },
-{ name: "Gemeente Amsterdam", src: "Logo_of_Gemeente_Amsterdam.svg.png", s: 1.08 },
+{ name: "Action", src: "Action_logo.png", s: 1.1 },
 { name: "NPM Capital", src: "NPM_Capital_Logo.png", s: 0.80 },
 { name: "3i", src: "3i-Logo.svg.png", s: 1.12 },
 { name: "DLL", src: "DLL_Group_logo.svg.png", s: 0.92 },
