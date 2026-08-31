@@ -74,10 +74,6 @@
       "destination": "/pages/services/services.html"
     },
     {
-      "source": "/team",
-      "destination": "/pages/about/team.html"
-    },
-    {
       "source": "/vacancies",
       "destination": "/pages/careers/vacancies.html"
     },
@@ -88,10 +84,6 @@
     {
       "source": "/ceo-stories/:slug",
       "destination": "/ceo-stories/ceo-story-:slug.html"
-    },
-    {
-      "source": "/team/:slug",
-      "destination": "/pages/about/team-:slug.html"
     },
     {
       "source": "/services/digital-strategy-transformation",
@@ -205,12 +197,22 @@
     },
     {
       "source": "/team.html",
-      "destination": "/team",
+      "destination": "/contact",
       "permanent": true
     },
     {
       "source": "/team-tom-voskes.html",
-      "destination": "/team/tom-voskes",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/team",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/team/:slug",
+      "destination": "/contact",
       "permanent": true
     },
     {
@@ -350,7 +352,7 @@
     },
     {
       "source": "/pages/about/team.html",
-      "destination": "/team",
+      "destination": "/contact",
       "permanent": true
     },
     {
@@ -370,7 +372,7 @@
     },
     {
       "source": "/pages/about/team-:slug.html",
-      "destination": "/team/:slug",
+      "destination": "/contact",
       "permanent": true
     },
     {
