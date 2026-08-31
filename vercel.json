@@ -136,6 +136,16 @@
   ],
   "redirects": [
     {
+      "source": "/events",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/how-we-do-it",
+      "destination": "/our-approach",
+      "permanent": true
+    },
+    {
       "source": "/case-:slug.html",
       "destination": "/cases/:slug",
       "permanent": true

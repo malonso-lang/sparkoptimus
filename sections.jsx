@@ -231,16 +231,16 @@ const Cases = memo(function Cases() {
 -----------------------------------------------------------------*/
 const TESTIMONIALS = [
 {
-  quote: "Pragmatic, fast and deeply hands-on. SparkOptimus helped us turn an ambitious AI agenda into a roadmap we could actually execute — and stayed with us to make it real.",
-  name: "Marieke Visser", role: "CDO, Global Retail Group", initials: "MV"
+  quote: "SparkOptimus' obsession to focus on how to transform the Experience of our Customer & Partners has been instrumental to define our change agenda, to build new capabilities and to transform our organization.",
+  name: "Frederic Chupin", role: "SrVP, Customer Experience, e-Commerce & Digital Marketing Transformation, Henkel", initials: "FC"
 },
 {
-  quote: "The big difference is that their work is grounded: strong analysis focused on what really matters, a strategy with tangible results, and a genuinely collaborative approach.",
-  name: "Ivan Kotov", role: "Chief Commercial Officer, Orac", initials: "IK"
+  quote: "It was a good balance of working together, collaborating, excellence in execution, and, of course, bringing new ideas and insights. That's what we found most valuable in working together, and it was a big pleasure. We look forward to working together again.",
+  name: "Adriano Jorge", role: "Global Director of Digital and Business Transformation, SHV", initials: "AJ"
 },
 {
-  quote: "Within one week, SparkOptimus outlined valuable applications of AI across the organization — with a pragmatic, results-oriented approach.",
-  name: "Tuncay Özgüner", role: "CEO, Zijerveld", initials: "TÖ"
+  quote: "In executing the retirement platform at Athora Zwitserleven, we saw SparkOptimus walking the extra mile. Tackling something new and transforming the pension world in just ten months brings countless challenges, but every time we faced a roadblock, they solved it—even before we had to ask.",
+  name: "Annemieke Visser-Brons", role: "Chief Commercial Officer, Athora Netherlands", initials: "AV"
 }];
 
 
@@ -447,11 +447,11 @@ const QuoteStatement = memo(function QuoteStatement() {
           textWrap: "balance",
           color: "#fff"
         }}>
-          We turn{" "}
-          <span style={{ color: "var(--so-cyan-400)" }}>digital, data,</span>{" "}
-          and{" "}
-          <span style={{ color: "var(--so-cyan-400)" }}>generative AI</span>{" "}
-          into the engine for organizational transformation
+          We help organizations unlock{" "}
+          <span style={{ color: "var(--so-cyan-400)" }}>the power of disruption</span>{" "}
+          – translating{" "}
+          <span style={{ color: "var(--so-cyan-400)" }}>AI, digital, and data</span>{" "}
+          into opportunities for your business
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 30, justifyContent: "center" }}>
           <a href="our-approach.html" className="btn btn--primary">Our approach</a>
