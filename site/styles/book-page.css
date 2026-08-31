@@ -406,10 +406,10 @@ details[open] > .chapter-acc-head .chapter-acc-chevron { transform: rotate(180de
 .book-hero__stars { display: inline-flex; gap: 2px; }
 .book-hero__disclaimer {
   font-size: 13.5px;
-  color: rgba(255,255,255,0.5);
-  margin-top: 14px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 26px;
 }
-.book-hero__disclaimer a { color: rgba(255,255,255,0.75); text-decoration: underline; }
+.book-hero__disclaimer a { color: rgba(255,255,255,0.6); text-decoration: underline; }
 .book-hero__disclaimer a:hover { color: var(--so-cyan-400); }
 
 /* ---- TRAILER EMBED ---- */
