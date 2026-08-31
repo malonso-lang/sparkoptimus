@@ -58,9 +58,8 @@
 
   /* ── video placeholder ── */
   .ep-feat__video { background: var(--so-ink-900); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; cursor: pointer; min-height: 260px; }
-  .ep-feat__play-btn { width: 66px; height: 66px; border-radius: 50%; background: rgba(255,255,255,0.10); border: 1.5px solid rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; transition: background 240ms var(--ease-out), border-color 240ms var(--ease-out), box-shadow 240ms var(--ease-out); }
-  .ep-feat__video:hover .ep-feat__play-btn { background: rgba(0,217,244,0.18); border-color: var(--so-cyan-400); box-shadow: 0 0 0 10px rgba(0,217,244,0.07); }
-  .ep-feat__video-lbl { color: rgba(255,255,255,0.38); font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; }
+  .ep-feat__video-lbl { color: rgba(255,255,255,0.38); font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; transition: color 240ms var(--ease-out); }
+  .ep-feat__video:hover .ep-feat__video-lbl { color: rgba(255,255,255,0.7); }
   /* ── card logo badge ── */
   .ep-card__logo-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(255,255,255,0.95); border-radius: var(--radius-sm); padding: 4px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.14); }
   .ep-card__logo-badge img { height: 18px; width: auto; max-width: 80px; object-fit: contain; display: block; }
@@ -139,9 +138,6 @@
     <div class="container container--full">
       <div class="ep-feat reveal">
         <a class="ep-feat__video" id="epFeatVideo" href="#" style="text-decoration:none;">
-          <div class="ep-feat__play-btn">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="7,4 20,12 7,20" fill="rgba(255,255,255,0.88)"/></svg>
-          </div>
           <span class="ep-feat__video-lbl">Watch full interview</span>
         </a>
         <div class="ep-feat__meta">
